@@ -119,7 +119,7 @@ class UM_ADDON_generate_random_users {
 								'synced_gravatar_hashed_id' => md5( strtolower( trim( $dummy->email ) ) ),
 								'account_status'			=> 'approved',
 								'_um_profile_dummy'			=> true,
-								'role'						=> isset( $default_role ) ? $default_role: 'member'
+								'role'						=> isset( $default_role ) ? $default_role: 'subscriber'
 							);
 
 							if( isset( $_GET['add_cover_photo'] ) && $_GET['add_cover_photo'] == 1 ){
