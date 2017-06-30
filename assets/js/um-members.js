@@ -52,6 +52,13 @@ jQuery(document).ready(function() {
 				return true;
 			}
 		}).prop('disabled', true);
+
+
+		jQuery(this).parents('form').find('select').filter(function(e){
+			if ( this.value.length ===0 ) {
+				return true;
+			}
+		}).prop('disabled', true);
 		jQuery(this).parents('form').submit();
 		return false;
 	});

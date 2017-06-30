@@ -65,11 +65,13 @@ function um_admin_modal_ajaxcall( act_id, arg1, arg2, arg3 ) {
 			um_responsive();
 			
 			um_admin_live_update_scripts();
-			
+
+			jQuery( "#_custom_dropdown_options_source" ).trigger('blur');
+
 			if ( jQuery('.um-admin-editor:visible').length > 0 ) {
-			
+
 				if ( act_id == 'um_admin_edit_field_popup' ) {
-				
+
 					tinyMCE.execCommand('mceRemoveEditor', true, 'um_editor_edit');
 					jQuery('.um-admin-editor:visible').html( jQuery('.um-hidden-editor-edit').contents() );
 					tinyMCE.execCommand('mceAddEditor', true, 'um_editor_edit');
@@ -83,7 +85,7 @@ function um_admin_modal_ajaxcall( act_id, arg1, arg2, arg3 ) {
 					var editor = tinyMCE.get('um_editor_edit');
 					var content = editor.getContent();
 					editor.setContent( jQuery('.um-admin-modal:visible .dynamic-mce-content').html() );
-					
+
 				} else {
 				
 					tinyMCE.execCommand('mceRemoveEditor', true, 'um_editor_new');

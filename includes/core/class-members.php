@@ -92,27 +92,26 @@ if ( ! class_exists( 'Members' ) ) {
             // filter all search fields
             $attrs = apply_filters( 'um_search_fields', $attrs );
 
-            if( $type == 'select' ){
+            if ( $type == 'select' )
                 $attrs = apply_filters( 'um_search_select_fields', $attrs );
-            }
 
-            switch( $type ) {
+            switch ( $type ) {
 
                 case 'select':
 
                     ?>
 
-                    <select name="<?php echo $filter; ?>" id="<?php echo $filter; ?>" class="um-s1" style="width: 100%" data-placeholder="<?php echo __( stripslashes( $attrs['label'] ), 'ultimatemember'); ?>">
+                    <select name="<?php echo $filter; ?>" id="<?php echo $filter; ?>" class="um-s1" style="width: 100%" data-placeholder="<?php echo __( stripslashes( $attrs['label'] ), 'ultimatemember' ); ?>" <?php if ( ! empty( $attrs['custom_dropdown_options_source'] ) ) { ?> data-um-ajax-source="<?php echo $attrs['custom_dropdown_options_source'] ?>"<?php } ?>>
 
                         <option></option>
 
-                        <?php foreach( $attrs['options'] as $k => $v ) {
+                        <?php foreach ( $attrs['options'] as $k => $v ) {
 
-                            $v = stripslashes($v);
+                            $v = stripslashes( $v );
 
                             $opt = $v;
 
-                            if ( strstr($filter, 'role_') )
+                            if ( strstr( $filter, 'role_' ) )
                                 $opt = $k;
 
                             if ( isset( $attrs['custom'] ) )

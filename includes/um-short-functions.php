@@ -1608,28 +1608,27 @@
 
 				$avatar_uri = apply_filters('um_user_avatar_url_filter', $avatar_uri, um_user('ID') );
 
-				if ( $avatar_uri )
-
-					if( um_get_option('use_gravatars') && ! um_user('synced_profile_photo') && ! $has_profile_photo ){
-						$avatar_hash_id = get_user_meta( um_user('ID'),'synced_gravatar_hashed_id', true);
-						$avatar_uri  = um_get_domain_protocol().'gravatar.com/avatar/'.$avatar_hash_id;
-						$avatar_uri = add_query_arg('s',400, $avatar_uri);
-						$gravatar_type = um_get_option('use_um_gravatar_default_builtin_image');
-						$photo_type = 'um-avatar-gravatar';
-						if( $gravatar_type == 'default' ){
-							if( um_get_option('use_um_gravatar_default_image') ){
-								$avatar_uri = add_query_arg('d', um_get_default_avatar_uri(), $avatar_uri  );
-							}
-						}else{
-								$avatar_uri = add_query_arg('d', $gravatar_type, $avatar_uri  );
-						}
-						
-					}
-
-					return '<img src="' . $avatar_uri . '" class="func-um_user gravatar avatar avatar-'.$attrs.' um-avatar '.$photo_type.'" width="'.$attrs.'" height="'.$attrs.'" alt="'.$image_alt.'" />';
 
 				if ( !$avatar_uri )
 					return '';
+
+				if ( um_get_option('use_gravatars') && ! um_user('synced_profile_photo') && ! $has_profile_photo ) {
+					$avatar_hash_id = get_user_meta( um_user('ID'),'synced_gravatar_hashed_id', true);
+					$avatar_uri  = um_get_domain_protocol().'gravatar.com/avatar/'.$avatar_hash_id;
+					$avatar_uri = add_query_arg('s',400, $avatar_uri);
+					$gravatar_type = um_get_option('use_um_gravatar_default_builtin_image');
+					$photo_type = 'um-avatar-gravatar';
+					if( $gravatar_type == 'default' ){
+						if( um_get_option('use_um_gravatar_default_image') ){
+							$avatar_uri = add_query_arg('d', um_get_default_avatar_uri(), $avatar_uri  );
+						}
+					}else{
+							$avatar_uri = add_query_arg('d', $gravatar_type, $avatar_uri  );
+					}
+
+				}
+
+				return '<img src="' . $avatar_uri . '" class="func-um_user gravatar avatar avatar-'.$attrs.' um-avatar '.$photo_type.'" width="'.$attrs.'" height="'.$attrs.'" alt="'.$image_alt.'" />';
 
 				break;
 
@@ -1665,7 +1664,7 @@
 	 * Get server protocol
 	 * @return  string
 	 */
-	function um_get_domain_protocol(){
+	function um_get_domain_protocol() {
 
 		if ( is_ssl() ) {
 				$protocol = 'https://';

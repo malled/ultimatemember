@@ -1843,7 +1843,7 @@ if ( ! class_exists( 'Fields' ) ) {
                             wp_reset_postdata();
                         }*/
 
-                        $options = UM()->roles()->get_roles();
+                        $options = UM()->roles()->get_roles( false, array( 'administrator' ) );
                     }
 
                     // add an empty option!
@@ -2011,7 +2011,7 @@ if ( ! class_exists( 'Fields' ) ) {
                 /* Radio */
                 case 'radio':
 
-                    $form_key = str_replace('role_radio','role',$key);
+                    $form_key = str_replace( 'role_radio', 'role', $key );
 
                     if ( isset( $options ) ) {
                         $options = apply_filters('um_radio_field_options', $options, $data );
@@ -2021,91 +2021,97 @@ if ( ! class_exists( 'Fields' ) ) {
                     $output .= '<div class="um-field' . $classes . '"' . $conditional . ' data-key="'.$key.'">';
 
                     if ( isset( $data['label'] ) ) {
-                        $output .= $this->field_label($label, $key, $data);
+                        $output .= $this->field_label( $label, $key, $data );
                     }
 
                     $output .= '<div class="um-field-area">';
 
                     // role field
                     if ( $form_key == 'role' ) {
+                        $options = UM()->roles()->get_roles( false, array( 'administrator' ) );
 
+                        /*var_dump( UM()->roles()->get_roles() );
                         global $wpdb;
-                        foreach($options as $rkey => $val ) {
-                            $val = (string) $val;
-                            $val = trim( $val );
-                            $post_id = $wpdb->get_var(
-                                $wpdb->prepare("SELECT ID FROM $wpdb->posts WHERE post_status = 'publish' AND post_type = 'um_role' AND ( post_name = %s OR post_title = %s )", $rkey, $val )
-                            );
-                            $_role = get_post($post_id);
-                            $new_roles[$_role->post_name] = $_role->post_title;
-                            wp_reset_postdata();
-                        }
+                        if ( ! empty( $options ) ) {
+                            foreach ( $options as $rkey => $val ) {
+                                $val = (string) $val;
+                                $val = trim( $val );
+                                $post_id = $wpdb->get_var(
+                                    $wpdb->prepare("SELECT ID FROM $wpdb->posts WHERE post_status = 'publish' AND post_type = 'um_role' AND ( post_name = %s OR post_title = %s )", $rkey, $val )
+                                );
+                                $_role = get_post( $post_id );
+                                $new_roles[$_role->post_name] = $_role->post_title;
+                                wp_reset_postdata();
+                            }
 
-                        $options = $new_roles;
+                            $options = $new_roles;
+                        }*/
                     }
 
                     // add options
                     $i = 0;
                     $field_value = array();
 
-                    foreach($options as $k => $v) {
+                    if ( ! empty( $options ) ) {
+                        foreach ( $options as $k => $v ) {
 
-                        $v = rtrim($v);
+                            $v = rtrim($v);
 
-                        $um_field_checkbox_item_title = $v;
-                        $option_value = $v;
-
-                        if ( !is_numeric( $k ) && in_array($form_key, array('role') ) ) {
                             $um_field_checkbox_item_title = $v;
-                            $option_value = $k;
+                            $option_value = $v;
+
+                            if ( !is_numeric( $k ) && in_array($form_key, array('role') ) ) {
+                                $um_field_checkbox_item_title = $v;
+                                $option_value = $k;
+                            }
+
+                            $i++;
+                            if ($i % 2 == 0 ) {
+                                $col_class = 'right';
+                            } else {
+                                $col_class = '';
+                            }
+
+                            if ( $this->is_radio_checked($key, $option_value, $data) ) {
+                                $active = 'active';
+                                $class = "um-icon-android-radio-button-on";
+                            } else {
+                                $active = '';
+                                $class = "um-icon-android-radio-button-off";
+                            }
+
+                            if( isset( $data['editable'] ) &&  $data['editable'] == 0 ){
+                                $col_class .= " um-field-radio-state-disabled";
+                            }
+
+
+
+                            $output .= '<label class="um-field-radio '.$active.' um-field-half '.$col_class.'">';
+
+                            $option_value = apply_filters('um_field_non_utf8_value',$option_value );
+
+                            $output .= '<input  '.$disabled.' type="radio" name="'.$form_key.'[]" value="'.$option_value.'" ';
+
+                            if ( $this->is_radio_checked($key, $option_value, $data) ) {
+                                $output.= 'checked';
+                                $field_value[ $key ] = $option_value;
+                            }
+
+                            $output .= ' />';
+
+                            $output .= '<span class="um-field-radio-state"><i class="'.$class.'"></i></span>';
+                            $output .= '<span class="um-field-radio-option">'.__( $um_field_checkbox_item_title,UM_TEXTDOMAIN).'</span>';
+                            $output .= '</label>';
+
+                            if ($i % 2 == 0) {
+                                $output .= '<div class="um-clear"></div>';
+                            }
+
                         }
-
-                        $i++;
-                        if ($i % 2 == 0 ) {
-                            $col_class = 'right';
-                        } else {
-                            $col_class = '';
-                        }
-
-                        if ( $this->is_radio_checked($key, $option_value, $data) ) {
-                            $active = 'active';
-                            $class = "um-icon-android-radio-button-on";
-                        } else {
-                            $active = '';
-                            $class = "um-icon-android-radio-button-off";
-                        }
-
-                        if( isset( $data['editable'] ) &&  $data['editable'] == 0 ){
-                            $col_class .= " um-field-radio-state-disabled";
-                        }
-
-
-
-                        $output .= '<label class="um-field-radio '.$active.' um-field-half '.$col_class.'">';
-
-                        $option_value = apply_filters('um_field_non_utf8_value',$option_value );
-
-                        $output .= '<input  '.$disabled.' type="radio" name="'.$form_key.'[]" value="'.$option_value.'" ';
-
-                        if ( $this->is_radio_checked($key, $option_value, $data) ) {
-                            $output.= 'checked';
-                            $field_value[ $key ] = $option_value;
-                        }
-
-                        $output .= ' />';
-
-                        $output .= '<span class="um-field-radio-state"><i class="'.$class.'"></i></span>';
-                        $output .= '<span class="um-field-radio-option">'.__( $um_field_checkbox_item_title,UM_TEXTDOMAIN).'</span>';
-                        $output .= '</label>';
-
-                        if ($i % 2 == 0) {
-                            $output .= '<div class="um-clear"></div>';
-                        }
-
                     }
 
-                    if( ! empty( $disabled ) ){
-                        foreach( $field_value as $item ){
+                    if ( ! empty( $disabled ) ) {
+                        foreach ( $field_value as $item ) {
                             $output .= $this->disabled_hidden_field( $form_key , $item );
                         }
                     }

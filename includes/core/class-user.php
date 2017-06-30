@@ -413,109 +413,106 @@ if ( ! class_exists( 'User' ) ) {
                 $this->id = 0;
             }
 
-            /*if ( $this->get_cached_data( $this->id ) ) {
+            if ( $this->get_cached_data( $this->id ) ) {
                 $this->profile = $this->get_cached_data( $this->id );
-            } else {*/
-
-            if ( $user_id ) {
-
-                $this->id = $user_id;
-                $this->usermeta = get_user_meta( $user_id );
-                $this->data = get_userdata( $this->id );
-
-            } elseif ( is_user_logged_in() && $clean == false ) {
-
-                $this->id = get_current_user_id();
-                $this->usermeta = get_user_meta($this->id);
-                $this->data = get_userdata($this->id);
-
             } else {
 
-                $this->id = 0;
-                $this->usermeta = null;
-                $this->data = null;
+                if ( $user_id ) {
 
-            }
+                    $this->id = $user_id;
+                    $this->usermeta = get_user_meta( $user_id );
+                    $this->data = get_userdata( $this->id );
 
-            // we have a user, populate a profile
-            if ( $this->id && $this->toArray( $this->data ) ) {
+                } elseif ( is_user_logged_in() && $clean == false ) {
 
-                // add user data
-                $this->data = $this->toArray( $this->data );
+                    $this->id = get_current_user_id();
+                    $this->usermeta = get_user_meta($this->id);
+                    $this->data = get_userdata($this->id);
 
-                foreach ( $this->data as $k=>$v ) {
-                    if ( $k == 'roles') {
-                        $this->profile['wp_roles'] = implode(',',$v);
-                    } else if ( is_array( $v ) ) {
-                        foreach($v as $k2 => $v2){
-                            $this->profile[$k2] = $v2;
+                } else {
+
+                    $this->id = 0;
+                    $this->usermeta = null;
+                    $this->data = null;
+
+                }
+
+                // we have a user, populate a profile
+                if ( $this->id && $this->toArray( $this->data ) ) {
+
+                    // add user data
+                    $this->data = $this->toArray( $this->data );
+
+                    foreach ( $this->data as $k=>$v ) {
+                        if ( $k == 'roles') {
+                            $this->profile['wp_roles'] = implode(',',$v);
+                        } else if ( is_array( $v ) ) {
+                            foreach($v as $k2 => $v2){
+                                $this->profile[$k2] = $v2;
+                            }
+                        } else {
+                            $this->profile[$k] = $v;
                         }
-                    } else {
-                        $this->profile[$k] = $v;
                     }
+
+                    // add account status
+                    if ( !isset( $this->usermeta['account_status'][0] ) )  {
+                        $this->usermeta['account_status'][0] = 'approved';
+                    }
+
+                    if ( $this->usermeta['account_status'][0] == 'approved' ) {
+                        $this->usermeta['account_status_name'][0] = __('Approved','ultimatemember');
+                    }
+
+                    if ( $this->usermeta['account_status'][0] == 'awaiting_email_confirmation' ) {
+                        $this->usermeta['account_status_name'][0] = __('Awaiting E-mail Confirmation','ultimatemember');
+                    }
+
+                    if ( $this->usermeta['account_status'][0] == 'awaiting_admin_review' ) {
+                        $this->usermeta['account_status_name'][0] = __('Pending Review','ultimatemember');
+                    }
+
+                    if ( $this->usermeta['account_status'][0] == 'rejected' ) {
+                        $this->usermeta['account_status_name'][0] = __('Membership Rejected','ultimatemember');
+                    }
+
+                    if ( $this->usermeta['account_status'][0] == 'inactive' ) {
+                        $this->usermeta['account_status_name'][0] = __('Membership Inactive','ultimatemember');
+                    }
+
+                    // add user meta
+                    foreach( $this->usermeta as $k=>$v ) {
+                        if ( $k == 'display_name') continue;
+                        $this->profile[$k] = $v[0];
+                    }
+
+                    // add permissions
+                    $user_role = UM()->roles()->um_get_user_role( $this->id );
+                    $this->profile['role'] = ( strpos( $user_role, 'um_' ) === 0 ) ? str_replace( 'um_', '', $user_role ) : $user_role;
+
+                    $role_meta = UM()->roles()->role_data( $user_role );
+                    $role_meta = apply_filters('um_user_permissions_filter', $role_meta, $this->id);
+
+                    /*$role_meta = array_map( function( $key, $item ) {
+                        if ( strpos( $key, '_um_' ) === 0 )
+                            $key = str_replace( '_um_', '', $key );
+
+                        return array( $key => $item );
+                    }, array_keys( $role_meta ), $role_meta );*/
+
+                    $this->profile = array_merge( $this->profile, (array)$role_meta );
+
+                    $this->profile['super_admin'] = ( is_super_admin( $this->id ) ) ? 1 : 0;
+
+                    // clean profile
+                    $this->clean();
+
+                    // Setup cache
+                    $this->setup_cache( $this->id, $this->profile );
+
                 }
-
-                // add account status
-                if ( !isset( $this->usermeta['account_status'][0] ) )  {
-                    $this->usermeta['account_status'][0] = 'approved';
-                }
-
-                if ( $this->usermeta['account_status'][0] == 'approved' ) {
-                    $this->usermeta['account_status_name'][0] = __('Approved','ultimatemember');
-                }
-
-                if ( $this->usermeta['account_status'][0] == 'awaiting_email_confirmation' ) {
-                    $this->usermeta['account_status_name'][0] = __('Awaiting E-mail Confirmation','ultimatemember');
-                }
-
-                if ( $this->usermeta['account_status'][0] == 'awaiting_admin_review' ) {
-                    $this->usermeta['account_status_name'][0] = __('Pending Review','ultimatemember');
-                }
-
-                if ( $this->usermeta['account_status'][0] == 'rejected' ) {
-                    $this->usermeta['account_status_name'][0] = __('Membership Rejected','ultimatemember');
-                }
-
-                if ( $this->usermeta['account_status'][0] == 'inactive' ) {
-                    $this->usermeta['account_status_name'][0] = __('Membership Inactive','ultimatemember');
-                }
-
-                // add user meta
-                foreach( $this->usermeta as $k=>$v ) {
-                    if ( $k == 'display_name') continue;
-                    $this->profile[$k] = $v[0];
-                }
-
-                // add permissions
-                //$user_role = $this->get_role();
-
-
-                $user_role = UM()->roles()->um_get_user_role( $this->id );
-                $this->profile['role'] = ( strpos( $user_role, 'um_' ) === 0 ) ? str_replace( 'um_', '', $user_role ) : $user_role;
-
-                $role_meta = UM()->roles()->role_data( $user_role );
-                $role_meta = apply_filters('um_user_permissions_filter', $role_meta, $this->id);
-
-                /*$role_meta = array_map( function( $key, $item ) {
-                    if ( strpos( $key, '_um_' ) === 0 )
-                        $key = str_replace( '_um_', '', $key );
-
-                    return array( $key => $item );
-                }, array_keys( $role_meta ), $role_meta );*/
-
-                $this->profile = array_merge( $this->profile, (array)$role_meta );
-
-                $this->profile['super_admin'] = ( is_super_admin( $this->id ) ) ? 1 : 0;
-
-                // clean profile
-                $this->clean();
-
-                // Setup cache
-                //$this->setup_cache( $this->id, $this->profile );
 
             }
-
-            //}
 
         }
 

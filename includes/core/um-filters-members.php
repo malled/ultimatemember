@@ -3,10 +3,10 @@
 	/***
 	***	@Members Filter Hooks
 	***/
-	add_filter('um_prepare_user_query_args', 'um_prepare_user_query_args', 10, 2);
-	add_filter('um_prepare_user_query_args', 'um_add_search_to_query', 50, 2);
-	add_filter('um_prepare_user_query_args', 'um_search_usernames_emails', 51, 2);
-	add_filter('um_prepare_user_query_args', 'um_remove_special_users_from_list', 99, 2);
+	add_filter( 'um_prepare_user_query_args', 'um_prepare_user_query_args', 10, 2 );
+	add_filter( 'um_prepare_user_query_args', 'um_add_search_to_query', 50, 2 );
+	add_filter( 'um_prepare_user_query_args', 'um_search_usernames_emails', 51, 2 );
+	add_filter( 'um_prepare_user_query_args', 'um_remove_special_users_from_list', 99, 2 );
 
 	/***
 	***	@WP API user search
@@ -17,19 +17,16 @@
 		$query = UM()->permalinks()->get_query_array();
 		$arr_columns = array();
 
-		foreach( UM()->members()->core_search_fields as $key ) {
-
-			if ( isset( $query[ $key ] ) && ! empty( $query[ $key ]  ) ) {
+		foreach ( UM()->members()->core_search_fields as $key ) {
+			if ( ! empty( $query[ $key ]  ) ) {
 				$arr_columns[] = $key;
 				$query_args['search'] = '*' . $query[ $key ] .'*';
-				
-				
 			}
 		}
 
-		if( ! empty( $arr_columns ) ){
+		if ( ! empty( $arr_columns ) )
 			$query_args['search_columns'] = $arr_columns;
-		}
+
 		return $query_args;
 	}
 
@@ -55,9 +52,9 @@
 			$query_args['meta_query'][] = array(
 				"relation"	=> "OR",
 				array(
-						'key' => 'hide_in_members',
-						'value' => '',
-						'compare' => 'NOT EXISTS'
+                    'key' => 'hide_in_members',
+                    'value' => '',
+                    'compare' => 'NOT EXISTS'
 			    ),
 			    array(
 					'key' => 'hide_in_members',
@@ -70,7 +67,7 @@
 
 		if ( UM()->roles()->um_user_can( 'can_view_all' ) && UM()->roles()->um_user_can( 'can_view_roles' ) ) {
 			
-			$role = um_user('role');
+			$role = um_user( 'role' );
 			
 			$permissions = UM()->roles()->role_data( $role );
 
@@ -101,48 +98,50 @@
 			$query = UM()->permalinks()->get_query_array();
 
 			// if searching
-			if( isset( $query['search'] ) ) {
+			if ( isset( $query['search'] ) ) {
 				$query_args['search'] = '*' . um_filter_search( $query['search'] ) . '*';
 				unset( $query['search'] );
 			}
 
 			if ( $query && is_array( $query ) ) {
-				foreach( $query as $field => $value ) {
+				foreach ( $query as $field => $value ) {
 
-					if(in_array($field, array('members_page'))) continue;
+					if ( in_array( $field, array( 'members_page' ) ) ) continue;
 
 					$serialize_value = serialize( strval( $value ) );
 					
 					if ( $value && $field != 'um_search' && $field != 'page_id' ) {
 
-						if( strstr( $field, 'role_') ){
+						if ( strstr( $field, 'role_' ) )
 							$field = 'role';
-						}
 
-						if ( !in_array( $field, UM()->members()->core_search_fields ) ) {
+						if ( ! in_array( $field, UM()->members()->core_search_fields ) ) {
 
-							$field_query = array(
-									array(
-										'key' => $field,
-										'value' => trim( $value ),
-										'compare' => '=',
-									), 
-									array(
-										'key' => $field,
-										'value' => trim( $value ),
-										'compare' => 'LIKE',
-									), 
-									array(
-										'key' => $field,
-										'value' => trim( $serialize_value ),
-										'compare' => 'LIKE',
-									), 
-									'relation' => 'OR',
+                            $query_args['role__in'] = trim( $value );
+
+
+							/*$field_query = array(
+                                array(
+                                    'key' => $field,
+                                    'value' => trim( $value ),
+                                    'compare' => '=',
+                                ),
+                                array(
+                                    'key' => $field,
+                                    'value' => trim( $value ),
+                                    'compare' => 'LIKE',
+                                ),
+                                array(
+                                    'key' => $field,
+                                    'value' => trim( $serialize_value ),
+                                    'compare' => 'LIKE',
+                                ),
+                                'relation' => 'OR',
 							);
 							
 
-							$field_query = apply_filters("um_query_args_{$field}__filter", $field_query );
-							$query_args['meta_query'][] = $field_query;
+							$field_query = apply_filters( "um_query_args_{$field}__filter", $field_query );
+							$query_args['meta_query'][] = $field_query;*/
 
 						}
 
@@ -154,11 +153,10 @@
 		}
 
         // allow filtering
-		$query_args = apply_filters('um_query_args_filter', $query_args );
+		$query_args = apply_filters( 'um_query_args_filter', $query_args );
 
-		if ( count ($query_args['meta_query']) == 1 ) {
+		if ( count( $query_args['meta_query'] ) == 1 )
 			unset( $query_args['meta_query'] );
-		}
 
 		return $query_args;
 
@@ -167,7 +165,7 @@
 	/***
 	***	@adds main parameters
 	***/
-	function um_prepare_user_query_args($query_args, $args){
+	function um_prepare_user_query_args( $query_args, $args ) {
 		extract( $args );
 
 		$query_args['fields'] = 'ID';
@@ -178,7 +176,7 @@
 
 		// must have a profile photo
 		if ( $has_profile_photo == 1 ) {
-			if( um_get_option('use_gravatars') ){
+			if ( um_get_option( 'use_gravatars' ) ) {
 				$query_args['meta_query'][] = array(
 					'relation' => 'OR',
 					array(
@@ -198,7 +196,7 @@
 					)
 
 				);
-			}else{
+			} else {
 				$query_args['meta_query'][] = array(
 					'relation' => 'OR',
 					array(
@@ -227,14 +225,14 @@
 
 		// show specific usernames
 		if ( isset( $show_these_users ) && $show_these_users && is_array( $show_these_users ) ) {
-			foreach( $show_these_users as $username ) {
+			foreach ( $show_these_users as $username ) {
 				$users_array[] = username_exists( $username );
 			}
 			$query_args['include'] = $users_array;
 		}
 
 		// add roles to appear in directory
-		if ( !empty( $roles ) ) {
+		if ( ! empty( $roles ) ) {
 
             //since WP4.4 use 'role__in' argument
             $query_args['role__in'] = $roles;

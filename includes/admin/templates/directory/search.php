@@ -34,7 +34,7 @@
 		</p><div class="um-admin-clear"></div>
 		
 		<p class="search-options">
-			<label class=""><?php _e('Choose field(s) to enable in search','ultimatemember'); ?></label>
+			<label class=""><?php _e( 'Choose field(s) to enable in search','ultimatemember' ); ?></label>
 				
 				<?php
 				

@@ -33,7 +33,7 @@ if ( ! class_exists( 'Builtin' ) ) {
 
             $fields = $this->all_user_fields;
 
-            if ( isset($fields[$field]['options']) )
+            if ( isset( $fields[$field]['options'] ) || ! empty( $fields[$field]['custom_dropdown_options_source'] ) )
                 return true;
 
             return false;
