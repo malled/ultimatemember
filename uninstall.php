@@ -21,8 +21,8 @@ remove_all_filters( 'um_email_notifications' );
 //for delete only Core Theme Link pages
 remove_all_filters( 'um_core_pages' );
 
-require_once plugin_dir_path( __FILE__ ) . 'um-functions.php';
-require_once plugin_dir_path( __FILE__ ) . 'um-init.php';
+require_once plugin_dir_path( __FILE__ ) . 'includes/class-functions.php';
+require_once plugin_dir_path( __FILE__ ) . 'includes/class-init.php';
 
 $delete_options = UM()->um_get_option( 'uninstall_on_delete' );
 if ( ! empty( $delete_options ) ) {

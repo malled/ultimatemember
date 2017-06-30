@@ -36,21 +36,26 @@ if ( ! class_exists( 'Roles_Capabilities' ) ) {
             $roles = array();
 
             $role_keys = get_option( 'um_roles' );
-            foreach ( $role_keys as $role_key ) {
-                $role_meta = get_option( "um_role_{$role_key}_meta" );
-                if ( $role_meta ) {
-                    $role_meta['name'] = 'UM ' . $role_meta['name'];
-                    $roles['um_' . $role_key] = $role_meta;
-                }
-            }
 
-            foreach ( $roles as $role_id => $details ) {
-                $capabilities = ! empty( $details['wp_capabilities'] ) ? array_keys( $details['wp_capabilities'] ) : array();
-                $details['capabilities'] = array_fill_keys( array_values( $capabilities ), true );
-                unset( $details['wp_capabilities'] );
-                $wp_roles->roles[$role_id]        = $details;
-                $wp_roles->role_objects[$role_id] = new \WP_Role( $role_id, $capabilities );
-                $wp_roles->role_names[$role_id]   = $details['name'];
+            if ( $role_keys ) {
+
+                foreach ( $role_keys as $role_key ) {
+                    $role_meta = get_option( "um_role_{$role_key}_meta" );
+                    if ( $role_meta ) {
+                        $role_meta['name'] = 'UM ' . $role_meta['name'];
+                        $roles['um_' . $role_key] = $role_meta;
+                    }
+                }
+
+                foreach ( $roles as $role_id => $details ) {
+                    $capabilities = ! empty( $details['wp_capabilities'] ) ? array_keys( $details['wp_capabilities'] ) : array();
+                    $details['capabilities'] = array_fill_keys( array_values( $capabilities ), true );
+                    unset( $details['wp_capabilities'] );
+                    $wp_roles->roles[$role_id]        = $details;
+                    $wp_roles->role_objects[$role_id] = new \WP_Role( $role_id, $capabilities );
+                    $wp_roles->role_names[$role_id]   = $details['name'];
+                }
+
             }
 
             // Return the modified $wp_roles array
@@ -128,6 +133,10 @@ if ( ! class_exists( 'Roles_Capabilities' ) ) {
             // User has roles so look for a UM Role one
             if ( ! empty( $user->roles ) ) {
                 $role_keys = get_option( 'um_roles' );
+
+                if ( empty( $role_keys ) )
+                    return $user->roles;
+
                 $role_keys = array_map( function( $item ) {
                     return 'um_' . $item;
                 }, $role_keys );
