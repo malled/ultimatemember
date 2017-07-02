@@ -3,7 +3,7 @@ namespace um;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-if ( ! class_exists( 'Config' ) ) {
+if ( ! class_exists( 'um\Config' ) ) {
     class Config {
 
         var $core_forms;
@@ -399,7 +399,7 @@ if ( ! class_exists( 'Config' ) ) {
 
             foreach ( $core_pages as $page_key ) {
                 $page_option_key = apply_filters( 'um_core_page_id_filter', 'core_' . $page_key );
-                $permalink[$page_key] = um_get_option( $page_option_key );
+                $permalink[$page_key] = UM()->um_get_option( $page_option_key );
             }
 
             return $permalink;

@@ -11,9 +11,8 @@ if ( ! class_exists( 'Setup' ) ) {
 
         function __construct() {
 
-            /*add_action('init',  array(&$this, 'install_basics'), 9);
+            //add_action('init',  array(&$this, 'install_basics'), 9);
 
-            add_action('init',  array(&$this, 'install_default_forms'), 9);*/
 
         }
 
@@ -38,7 +37,8 @@ if ( ! class_exists( 'Setup' ) ) {
          ***	@Default Forms
          ***/
         function install_default_forms() {
-            if ( current_user_can( 'manage_options' ) && um_user( 'ID' ) && ! get_option( 'um_is_installed' ) ) {
+
+            if ( current_user_can( 'manage_options' ) && ! get_option( 'um_is_installed' ) ) {
 
                 update_option( 'um_is_installed', 1 );
 
@@ -69,7 +69,7 @@ if ( ! class_exists( 'Setup' ) ) {
                             'post_type' 	  	=> 'um_form',
                             'post_title'		=> $title,
                             'post_status'		=> 'publish',
-                            'post_author'   	=> um_user('ID'),
+                            'post_author'   	=> get_current_user_id(),
                         );
 
                         $form_id = wp_insert_post( $form );
@@ -110,7 +110,7 @@ if ( ! class_exists( 'Setup' ) ) {
                             'post_type' 	  	=> 'um_directory',
                             'post_title'		=> $title,
                             'post_status'		=> 'publish',
-                            'post_author'   	=> um_user('ID'),
+                            'post_author'   	=> get_current_user_id(),
                         );
 
                         $form_id = wp_insert_post( $form );
@@ -165,7 +165,7 @@ if ( ! class_exists( 'Setup' ) ) {
                             'post_name'			=> $slug,
                             'post_type' 	  	=> 'post',
                             'post_status'		=> 'publish',
-                            'post_author'   	=> um_user('ID'),
+                            'post_author'   	=> get_current_user_id(),
                             'comment_status'    => 'closed'
                         );
 

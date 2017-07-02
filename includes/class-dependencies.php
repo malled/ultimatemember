@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  *
  * Checks if Ultimate Member plugin is enabled
  */
-if ( ! class_exists( 'Dependencies' ) ) {
+if ( ! class_exists( 'um\Dependencies' ) ) {
     class Dependencies {
 
         private static $active_plugins;

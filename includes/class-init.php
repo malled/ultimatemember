@@ -133,6 +133,8 @@ if ( ! class_exists( 'UM' ) ) {
         function __construct() {
             parent::__construct();
 
+            spl_autoload_register( array( $this, 'um__autoloader' ) );
+
             if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 
                 $this->is_filtering = 0;
@@ -162,8 +164,6 @@ if ( ! class_exists( 'UM' ) ) {
                     'ar' => 'العربية',
                 );
 
-                spl_autoload_register( array( $this, 'um__autoloader' ) );
-
                 $this->includes();
 
                 register_activation_hook( um_plugin, array( &$this, 'activation' ) );
@@ -184,6 +184,8 @@ if ( ! class_exists( 'UM' ) ) {
                 add_action( 'init', array( &$this, 'init' ), 0 );
                 // init widgets
                 add_action( 'widgets_init', array( &$this, 'widgets_init' ) );
+
+                add_action( 'admin_init', array( &$this, 'redirect_to_about' ) );
             }
         }
 
@@ -229,8 +231,18 @@ if ( ! class_exists( 'UM' ) ) {
             //run setup
             $this->setup()->run_setup();
 
-            if ( $version != ultimatemember_version )
-                exit( wp_redirect( admin_url('admin.php?page=ultimatemember-about')  ) );
+            if ( $version != ultimatemember_version ) {
+                update_option( 'um_need_show_about', true );
+            }
+        }
+
+
+        function redirect_to_about() {
+            if ( get_option( 'um_need_show_about' ) ) {
+                delete_option( 'um_need_show_about' );
+                wp_redirect( admin_url( 'admin.php?page=ultimatemember-about' ) );
+                exit;
+            }
         }
 
 

@@ -53,6 +53,7 @@ if ( ! empty( $delete_options ) ) {
     foreach ( $um_posts as $um_post )
         wp_delete_post( $um_post->ID, 1 );
 
+    delete_option( 'um_options' );
     delete_option( 'um_version' );
     delete_option( 'um_is_installed' );
     delete_option( 'um_core_forms' );
@@ -65,6 +66,8 @@ if ( ! empty( $delete_options ) ) {
     delete_option( 'um_cached_role_admin' );
     delete_option( 'um_cached_role_member' );
     delete_option( 'um_cache_fonticons' );
+    delete_option( 'widget_um_search_widget' );
+    delete_option( '__ultimatemember_sitekey' );
 
     foreach ( wp_load_alloptions() as $k => $v ) {
         if ( substr( $k, 0, 18 ) == 'um_cache_userdata_' )

@@ -135,7 +135,7 @@ if ( ! class_exists( 'Roles_Capabilities' ) ) {
                 $role_keys = get_option( 'um_roles' );
 
                 if ( empty( $role_keys ) )
-                    return $user->roles;
+                    return array_shift( $user->roles );
 
                 $role_keys = array_map( function( $item ) {
                     return 'um_' . $item;
