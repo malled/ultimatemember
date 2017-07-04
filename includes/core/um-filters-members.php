@@ -117,31 +117,31 @@
 
 						if ( ! in_array( $field, UM()->members()->core_search_fields ) ) {
 
-                            $query_args['role__in'] = trim( $value );
+                            if ( 'role' == $field ) {
+                                $query_args['role__in'] = trim( $value );
+                            } else {
+                                $field_query = array(
+                                    array(
+                                        'key' => $field,
+                                        'value' => trim( $value ),
+                                        'compare' => '=',
+                                    ),
+                                    array(
+                                        'key' => $field,
+                                        'value' => trim( $value ),
+                                        'compare' => 'LIKE',
+                                    ),
+                                    array(
+                                        'key' => $field,
+                                        'value' => trim( $serialize_value ),
+                                        'compare' => 'LIKE',
+                                    ),
+                                    'relation' => 'OR',
+                                );
 
-
-							/*$field_query = array(
-                                array(
-                                    'key' => $field,
-                                    'value' => trim( $value ),
-                                    'compare' => '=',
-                                ),
-                                array(
-                                    'key' => $field,
-                                    'value' => trim( $value ),
-                                    'compare' => 'LIKE',
-                                ),
-                                array(
-                                    'key' => $field,
-                                    'value' => trim( $serialize_value ),
-                                    'compare' => 'LIKE',
-                                ),
-                                'relation' => 'OR',
-							);
-							
-
-							$field_query = apply_filters( "um_query_args_{$field}__filter", $field_query );
-							$query_args['meta_query'][] = $field_query;*/
+                                $field_query = apply_filters( "um_query_args_{$field}__filter", $field_query );
+                                $query_args['meta_query'][] = $field_query;
+                            }
 
 						}
 

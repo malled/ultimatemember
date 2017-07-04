@@ -446,6 +446,17 @@ if ( ! class_exists( 'UM' ) ) {
         }
 
 
+        /**
+         * @param $data array
+         * @return um\admin\core\Admin_Forms()
+         */
+        function admin_forms( $data ) {
+            if ( empty( $this->classes['admin_forms'] ) ) {
+                $this->classes['admin_forms'] = new um\admin\core\Admin_Forms( $data );
+            }
+            return $this->classes['admin_forms'];
+        }
+
 
 
         /**

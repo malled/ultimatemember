@@ -8,6 +8,13 @@ if ( ! class_exists( 'UM_Functions' ) ) {
 
         var $options;
 
+
+        /**
+         * @var array variable for Flags
+         */
+        var $screenload_flags;
+
+
         function __construct() {
 
             $this->init_variables();
@@ -122,6 +129,100 @@ if ( ! class_exists( 'UM_Functions' ) ) {
                 return false;
 
             return $settings_defaults[$option_id];
+        }
+
+
+        /**
+         * Help Tip displaying
+         *
+         * Function for render/displaying UltimateMember help tip
+         *
+         * @since  2.0.0
+         *
+         * @param string $tip Help tip text
+         * @param bool $allow_html Allow sanitized HTML if true or escape
+         * @param bool $echo Return HTML or echo
+         * @return string
+         */
+        function tooltip( $tip, $allow_html = false, $echo = true ) {
+            wp_enqueue_script( 'jquery-ui-tooltip' );
+
+            if ( $allow_html ) {
+
+                $tip = htmlspecialchars( wp_kses( html_entity_decode( $tip ), array(
+                    'br'     => array(),
+                    'em'     => array(),
+                    'strong' => array(),
+                    'small'  => array(),
+                    'span'   => array(),
+                    'ul'     => array(),
+                    'li'     => array(),
+                    'ol'     => array(),
+                    'p'      => array(),
+                ) ) );
+
+            } else {
+                $tip = esc_attr( $tip );
+            }
+
+            ob_start(); ?>
+
+            <span class="um_tooltip dashicons dashicons-editor-help" title="<?php echo $tip ?>"></span>
+
+            <?php if ( ! isset( $this->screenload_flags['render_tooltip'] ) ) {
+
+                $this->screenload_flags['render_tooltip'] = true; ?>
+
+                <script type="text/javascript">
+                    jQuery( document ).ready( function() {
+                        jQuery( '.um_tooltip' ).tooltip({
+                            tooltipClass: "um_tooltip",
+                            content: function () {
+                                return jQuery( this ).attr( 'title' );
+                            }
+                        });
+                    });
+                </script>
+
+                <style>
+                    .ui-tooltip.um_tooltip {
+                        padding: 8px;
+                        color: #eeeeee;
+                        background-color: #333;
+                        position: absolute;
+                        z-index: 1000000;
+                        max-width: 300px;
+                        font-size: 12px;
+                        border-radius: 5px;
+                    }
+                    .um_tooltip.dashicons-editor-help::before {
+                        float: left;
+                        font-size: 20px;
+                        line-height: 20px;
+                        color: #333 !important;
+                    }
+                    .um_tooltip {
+                        cursor: pointer;
+                        vertical-align: middle;
+                    }
+                    .um_tooltip:hover {
+                        opacity: 1;
+                    }
+
+                    .um_tooltip:hover:before {
+                        opacity: 0.8;
+                    }
+                </style>
+
+            <?php }
+
+            if ( $echo ) {
+                ob_get_flush();
+                return '';
+            } else {
+                return ob_get_clean();
+            }
+
         }
 
     }

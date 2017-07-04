@@ -121,7 +121,7 @@ if ( ! class_exists( 'Builtin' ) ) {
         /***
          ***	@Core Fields
          ***/
-        function set_core_fields(){
+        function set_core_fields() {
 
             $this->core_fields = array(
 
