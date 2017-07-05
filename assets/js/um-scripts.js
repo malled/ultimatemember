@@ -144,13 +144,12 @@ jQuery(document).ready(function() {
 		parent.find('.um-single-image-preview img').attr('src','');
 		parent.find('.um-single-image-preview').hide();
 		parent.find('.um-btn-auto-width').html('Upload');
-		parent.find('input[type=hidden]').val('empty_file');
+		parent.find('input[type=hidden]').val('');
 
 		jQuery.ajax({
-			url: um_scripts.ajaxurl,
+			url: um_scripts.remove_file,
 			type: 'post',
 			data: {
-				action: 'ultimatemember_remove_file',
 				src: src
 			}
 		});
@@ -164,13 +163,12 @@ jQuery(document).ready(function() {
 		var src = jQuery(this).parents('.um-field').find('.um-single-fileinfo a').attr('href');
 		parent.find('.um-single-file-preview').hide();
 		parent.find('.um-btn-auto-width').html('Upload');
-		parent.find('input[type=hidden]').val('empty_file');
+		parent.find('input[type=hidden]').val('');
 
 		jQuery.ajax({
-			url: um_scripts.ajaxurl,
+			url: um_scripts.remove_file,
 			type: 'post',
 			data: {
-				action: 'ultimatemember_remove_file',
 				src: src
 			}
 		});
@@ -245,10 +243,9 @@ jQuery(document).ready(function() {
 		var hook = jQuery(this).data('hook');
 		var container = jQuery(this).parents('.um').find('.um-ajax-items');
 		jQuery.ajax({
-			url: um_scripts.ajaxurl,
+			url: um_scripts.ajax_paginate,
 			type: 'post',
 			data: {
-				action: 'ultimatemember_ajax_paginate',
 				hook: hook,
 				args: args
 			},
@@ -274,10 +271,9 @@ jQuery(document).ready(function() {
 		}
 
 		jQuery.ajax({
-			url: um_scripts.ajaxurl,
+			url: um_scripts.muted_action,
 			type: 'post',
 			data: {
-				action: 'ultimatemember_muted_action',
 				hook: hook,
 				user_id: user_id,
 				arguments: arguments
@@ -292,14 +288,6 @@ jQuery(document).ready(function() {
 	jQuery(document).on('click', '#um-search-button', function() {
 
 			jQuery(this).parents('form').submit();
-	});
-
-	jQuery('.um-form input[class=um-button][type=submit]').removeAttr('disabled');
-
-	jQuery(document).one('click', '.um:not(.um-account) .um-form input[class=um-button][type=submit]', function() {
-			jQuery(this).attr('disabled','disabled');
-			jQuery(this).parents('form').submit();
-			
 	});
 
 	
@@ -326,10 +314,9 @@ jQuery(document).ready(function() {
 			if( parent.val() != '' && typeof um_select_options_cache[ arr_key ] != 'object' ){
 							
 				jQuery.ajax({
-					url: um_ajax_url,
+					url: um_scripts.ajax_select_options,
 					type: 'post',
 					data: {
-						action: 'ultimatemember_ajax_select_options',
 						parent_option: parent.val(),
 						child_callback: um_ajax_source,
 						child_name:  me.attr('name'),
