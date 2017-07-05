@@ -121,6 +121,29 @@ if ( ! class_exists( 'Admin_Enqueue' ) ) {
 
 
         /***
+         ***	@Load Form
+         ***/
+        function load_forms() {
+
+            wp_register_style( 'um_admin_forms', $this->css_url . 'um-admin-forms.css' );
+            wp_enqueue_style( 'um_admin_forms' );
+
+            wp_register_script( 'um_admin_forms', $this->js_url . 'um-admin-forms.js', '', '', true );
+            wp_enqueue_script( 'um_admin_forms' );
+
+            $localize_data = array(
+                'texts' => array(
+                    'remove' => __( 'Remove', 'ultimatemember' ),
+                    'select' => __( 'Select', 'ultimatemember' )
+                )
+            );
+
+            wp_localize_script( 'um_admin_forms', 'php_data', $localize_data );
+
+        }
+
+
+        /***
          ***	@Load dashboard
          ***/
         function load_dashboard() {
@@ -348,6 +371,7 @@ if ( ! class_exists( 'Admin_Enqueue' ) ) {
 
                 $this->load_global_css();
                 $this->load_form();
+                $this->load_forms();
                 $this->load_modal();
                 $this->load_dashboard();
                 $this->load_settings();
@@ -357,7 +381,7 @@ if ( ! class_exists( 'Admin_Enqueue' ) ) {
                 $this->load_core_wp();
                 $this->load_ajax_js();
                 $this->load_custom_scripts();
-                $this->load_metabox();
+                //$this->load_metabox();
 
                 if ( is_rtl() ) {
                     wp_register_style( 'um_admin_rtl', $this->css_url . 'um-admin-rtl.css' );

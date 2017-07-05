@@ -451,10 +451,10 @@ if ( ! class_exists( 'UM' ) ) {
          * @return um\admin\core\Admin_Forms()
          */
         function admin_forms( $data ) {
-            if ( empty( $this->classes['admin_forms'] ) ) {
-                $this->classes['admin_forms'] = new um\admin\core\Admin_Forms( $data );
+            if ( empty( $this->classes['admin_forms_' . $data['class']] ) ) {
+                $this->classes['admin_forms_' . $data['class']] = new um\admin\core\Admin_Forms( $data );
             }
-            return $this->classes['admin_forms'];
+            return $this->classes['admin_forms_' . $data['class']];
         }
 
 

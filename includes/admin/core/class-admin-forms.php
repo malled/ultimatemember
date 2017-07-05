@@ -36,6 +36,8 @@ if ( ! class_exists( 'Admin_Forms' ) ) {
             $class = 'form-table um-form-table ' . ( ! empty( $this->form_data['class'] ) ? $this->form_data['class'] : '' );
             $class_attr = ' class="' . $class . '" ';
 
+            $prefix_attr = ! empty( $this->form_data['prefix_id'] ) ? ' data-prefix="' . $this->form_data['prefix_id'] . '" ' : '';
+
             ob_start();
 
             foreach ( $this->form_data['fields'] as $field_data ) {
@@ -43,7 +45,7 @@ if ( ! class_exists( 'Admin_Forms' ) ) {
                     echo $this->render_form_row( $field_data );
             } ?>
 
-            <table <?php echo $class_attr ?>>
+            <table <?php echo $class_attr . $prefix_attr ?>>
                 <tbody>
                     <?php foreach ( $this->form_data['fields'] as $field_data ) {
                         if ( isset( $field_data['type'] ) && 'hidden' != $field_data['type'] )
@@ -70,19 +72,34 @@ if ( ! class_exists( 'Admin_Forms' ) ) {
 
             $html = '';
             if ( $data['type'] != 'hidden' ) {
-                $html .= '<tr class="um-form-line" ' . $conditional . '>
-                <th>' . $this->render_field_label( $data ) . '</th>
-                <td>';
+                if ( strpos( $this->form_data['class'], 'um-top-label' ) !== false ) {
+                    $html .= '<tr class="um-forms-line" ' . $conditional . '>
+                    <td>' . $this->render_field_label( $data );
                     if ( method_exists( $this, 'render_' . $data['type'] ) ) {
 
                         $html .= call_user_func( array( &$this, 'render_' . $data['type'] ), $data );
 
                     }
 
-                if ( ! empty( $data['description'] ) )
-                    $html .= '<div class="description">' . $data['description'] . '</div>';
+                    if ( ! empty( $data['description'] ) )
+                        $html .= '<div class="description">' . $data['description'] . '</div>';
 
-                $html .= '</td></tr>';
+                    $html .= '</td></tr>';
+                } else {
+                    $html .= '<tr class="um-forms-line" ' . $conditional . '>
+                    <th>' . $this->render_field_label( $data ) . '</th>
+                    <td>';
+                        if ( method_exists( $this, 'render_' . $data['type'] ) ) {
+
+                            $html .= call_user_func( array( &$this, 'render_' . $data['type'] ), $data );
+
+                        }
+
+                        if ( ! empty( $data['description'] ) )
+                            $html .= '<div class="description">' . $data['description'] . '</div>';
+
+                        $html .= '</td></tr>';
+                }
             } else {
                 if ( method_exists( $this, 'render_' . $data['type'] ) ) {
 
@@ -100,7 +117,7 @@ if ( ! class_exists( 'Admin_Forms' ) ) {
             if ( empty( $data['label'] ) )
                 return false;
 
-            $id = ( ! empty( $this->form_data['prefix_id'] ) ? $this->form_data['prefix_id'] : '' ) . $data['id'];
+            $id = ( ! empty( $this->form_data['prefix_id'] ) ? $this->form_data['prefix_id'] : '' ) . '_' . $data['id'];
             $for_attr = ' for="' . $id . '" ';
 
             $label = $data['label'];
@@ -115,12 +132,12 @@ if ( ! class_exists( 'Admin_Forms' ) ) {
             if ( empty( $field_data['name'] ) || empty( $field_data['id'] ) )
                 return false;
 
-            $id = ( ! empty( $this->form_data['prefix_id'] ) ? $this->form_data['prefix_id'] : '' ) . $field_data['id'];
+            $id = ( ! empty( $this->form_data['prefix_id'] ) ? $this->form_data['prefix_id'] : '' ) . '_' . $field_data['id'];
             $id_attr = ' id="' . $id . '" ';
 
             $class = ! empty( $field_data['class'] ) ? $field_data['class'] : '';
-            $class .= ! empty( $field_data['size'] ) ? $field_data['size'] : 'um-long-field';
-            $class_attr = ' class="' . $class . '" ';
+            $class .= ! empty( $field_data['size'] ) ? 'um-' . $field_data['size'] . '-field' : 'um-long-field';
+            $class_attr = ' class="um-forms-field ' . $class . '" ';
 
             $data = array(
                 'field_id' => $field_data['id']
@@ -132,6 +149,7 @@ if ( ! class_exists( 'Admin_Forms' ) ) {
             }
 
             $name = $field_data['name'];
+            $name = ! empty( $this->form_data['prefix_id'] ) ? $this->form_data['prefix_id'] . '[' . $name . ']' : $name;
             $name_attr = ' name="' . $name . '" ';
 
             $value = ! empty( $field_data['value'] ) ? $field_data['value'] : '';
@@ -148,11 +166,11 @@ if ( ! class_exists( 'Admin_Forms' ) ) {
             if ( empty( $field_data['name'] ) || empty( $field_data['id'] ) )
                 return false;
 
-            $id = ( ! empty( $this->form_data['prefix_id'] ) ? $this->form_data['prefix_id'] : '' ) . $field_data['id'];
+            $id = ( ! empty( $this->form_data['prefix_id'] ) ? $this->form_data['prefix_id'] : '' ) . '_' . $field_data['id'];
             $id_attr = ' id="' . $id . '" ';
 
             $class = ! empty( $field_data['class'] ) ? $field_data['class'] : '';
-            $class_attr = ' class="' . $class . '" ';
+            $class_attr = ' class="um-forms-field ' . $class . '" ';
 
             $data = array(
                 'field_id' => $field_data['id']
@@ -164,6 +182,7 @@ if ( ! class_exists( 'Admin_Forms' ) ) {
             }
 
             $name = $field_data['name'];
+            $name = ! empty( $this->form_data['prefix_id'] ) ? $this->form_data['prefix_id'] . '[' . $name . ']' : $name;
             $name_attr = ' name="' . $name . '" ';
 
             $value = ! empty( $field_data['value'] ) ? $field_data['value'] : '';
@@ -180,13 +199,13 @@ if ( ! class_exists( 'Admin_Forms' ) ) {
             if ( empty( $field_data['name'] ) || empty( $field_data['id'] ) )
                 return false;
 
-            $id = ( ! empty( $this->form_data['prefix_id'] ) ? $this->form_data['prefix_id'] : '' ) . $field_data['id'];
+            $id = ( ! empty( $this->form_data['prefix_id'] ) ? $this->form_data['prefix_id'] : '' ) . '_' . $field_data['id'];
             $id_attr = ' id="' . $id . '" ';
             $id_attr_hidden = ' id="' . $id . '_hidden" ';
 
             $class = ! empty( $field_data['class'] ) ? $field_data['class'] : '';
             $class .= ! empty( $field_data['size'] ) ? $field_data['size'] : 'um-long-field';
-            $class_attr = ' class="' . $class . '" ';
+            $class_attr = ' class="um-forms-field ' . $class . '" ';
 
             $data = array(
                 'field_id' => $field_data['id']
@@ -198,6 +217,7 @@ if ( ! class_exists( 'Admin_Forms' ) ) {
             }
 
             $name = $field_data['name'];
+            $name = ! empty( $this->form_data['prefix_id'] ) ? $this->form_data['prefix_id'] . '[' . $name . ']' : $name;
             $name_attr = ' name="' . $name . '" ';
 
             $value = ! empty( $field_data['value'] ) ? $field_data['value'] : 0;
@@ -215,13 +235,14 @@ if ( ! class_exists( 'Admin_Forms' ) ) {
             if ( empty( $field_data['name'] ) || empty( $field_data['id'] ) )
                 return false;
 
-            $id = ( ! empty( $this->form_data['prefix_id'] ) ? $this->form_data['prefix_id'] : '' ) . $field_data['id'];
+            $multiple = ! empty( $field_data['multi'] ) ? 'multiple' : '';
+
+            $id = ( ! empty( $this->form_data['prefix_id'] ) ? $this->form_data['prefix_id'] : '' ) . '_' . $field_data['id'];
             $id_attr = ' id="' . $id . '" ';
-            $id_attr_hidden = ' id="' . $id . '_hidden" ';
 
             $class = ! empty( $field_data['class'] ) ? $field_data['class'] : '';
             $class .= ! empty( $field_data['size'] ) ? $field_data['size'] : 'um-long-field';
-            $class_attr = ' class="' . $class . '" ';
+            $class_attr = ' class="um-forms-field ' . $class . '" ';
 
             $data = array(
                 'field_id' => $field_data['id']
@@ -233,29 +254,109 @@ if ( ! class_exists( 'Admin_Forms' ) ) {
             }
 
             $name = $field_data['name'];
+            $name = ! empty( $this->form_data['prefix_id'] ) ? $this->form_data['prefix_id'] . '[' . $name . ']' : $name;
+            $name = $name . ( ! empty( $field_data['multi'] ) ? '[]' : '' );
             $name_attr = ' name="' . $name . '" ';
 
-            $value = ! empty( $field_data['value'] ) ? $field_data['value'] : 0;
+            $value = ! empty( $field_data['value'] ) ? $field_data['value'] : ( ! empty( $field_data['default'] ) ? $field_data['default'] : '' );
 
-            $html = "<input type=\"hidden\" $id_attr_hidden $name_attr value=\"0\" />
-            <input type=\"checkbox\" $id_attr $class_attr $name_attr $data_attr " . checked( $value, true, false ) . " value=\"1\" />";
+            $options = '';
+            foreach ( $field_data['options'] as $key=>$option ) {
+                if ( ! empty( $field_data['multi'] ) ) {
+                    $options .= '<option value="' . $key . '" ' . selected( in_array( $key, $value ), true, false ) . '>' . $option . '</option>';
+                } else {
+                    $options .= '<option value="' . $key . '" ' . selected( $key == $value, true, false ) . '>' . $option . '</option>';
+                }
+            }
 
+            $html = "<select $multiple $id_attr $name_attr $class_attr $data_attr>$options</select>";
 
             return $html;
         }
 
 
-        /*function show_hidden( $field_data ) {
+        function render_multi_selects( $field_data ) {
 
-            $id = $field_data['id'];
-            $name = $field_data['name'];
-            $class = $field_data['class'];
+            if ( empty( $field_data['name'] ) || empty( $field_data['id'] ) )
+                return false;
+
+            $id = ( ! empty( $this->form_data['prefix_id'] ) ? $this->form_data['prefix_id'] : '' ) . '_' . $field_data['id'];
+
+            $class = ! empty( $field_data['class'] ) ? $field_data['class'] : '';
             $class .= ! empty( $field_data['size'] ) ? $field_data['size'] : 'um-long-field';
+            $class_attr = ' class="um-forms-field ' . $class . '" ';
 
-            $html = '<input type="hidden" id="um_metadata_' . $id . '" name="' . $name . '" value="' . $value . '" class="' . $class . '" data-field_id="' . $id . '" />';
+            $data = array(
+                'field_id' => $field_data['id']
+            );
+
+            $data_attr = '';
+            foreach ( $data as $key => $value ) {
+                $data_attr .= " data-{$key}=\"{$value}\" ";
+            }
+
+            $name = $field_data['name'];
+            $name = ! empty( $this->form_data['prefix_id'] ) ? $this->form_data['prefix_id'] . '[' . $name . ']' : $name;
+            $name = "{$name}[]";
+            $name_attr = ' name="' . $name . '" ';
+
+            $values = ! empty( $field_data['value'] ) ? $field_data['value'] : ( ! empty( $field_data['default'] ) ? $field_data['default'] : '' );
+
+            $html = "<ul class=\"um-multi-selects-list\" $data_attr>";
+
+            if ( ! empty( $values ) ) {
+                foreach ( $values as $k=>$value ) {
+
+                    $id_attr = ' id="' . $id . '-' . $k . '" ';
+
+                    $options = '';
+                    foreach ( $field_data['options'] as $key=>$option ) {
+                        $options .= '<option value="' . $key . '" ' . selected( $key == $value, true, false ) . '>' . $option . '</option>';
+                    }
+
+                    $html .= "<li class=\"um-multi-selects-option-line\">
+                        <select $id_attr $name_attr $class_attr $data_attr>$options</select>
+                        <a href=\"javascript:void(0);\" class=\"um-select-delete\">" . __( 'Remove', 'ultimatemember' ) . "</a></li>";
+                }
+            }
+
+            $html .= "</ul><a href=\"javascript:void(0);\" class=\"button button-primary um-multi-selects-add-option\" data-name=\"$name\">{$field_data['add_text']}</a>";
 
             return $html;
-        }*/
+        }
+
+
+        function render_textarea( $field_data ) {
+
+            if ( empty( $field_data['name'] ) || empty( $field_data['id'] ) )
+                return false;
+
+            $id = ( ! empty( $this->form_data['prefix_id'] ) ? $this->form_data['prefix_id'] : '' ) . '_' . $field_data['id'];
+            $id_attr = ' id="' . $id . '" ';
+
+            $class = ! empty( $field_data['class'] ) ? $field_data['class'] : '';
+            $class .= ! empty( $field_data['size'] ) ? $field_data['size'] : 'um-long-field';
+            $class_attr = ' class="um-forms-field ' . $class . '" ';
+
+            $data = array(
+                'field_id' => $field_data['id']
+            );
+
+            $data_attr = '';
+            foreach ( $data as $key => $value ) {
+                $data_attr .= " data-{$key}=\"{$value}\" ";
+            }
+
+            $name = $field_data['name'];
+            $name = ! empty( $this->form_data['prefix_id'] ) ? $this->form_data['prefix_id'] . '[' . $name . ']' : $name;
+            $name_attr = ' name="' . $name . '" ';
+
+            $value = ! empty( $field_data['value'] ) ? $field_data['value'] : '';
+
+            $html = "<textarea $id_attr $class_attr $name_attr $data_attr>$value</textarea>";
+
+            return $html;
+        }
 
 
     }

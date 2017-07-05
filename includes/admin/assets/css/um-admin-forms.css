@@ -1,0 +1,33 @@
+.um-form-table.um-third-column .um-forms-line th {
+    width: 33%;
+}
+
+.um-form-table.um-half-column .um-forms-line th {
+    width: 50%;
+}
+
+.um-form-table.um-two-thirds-column .um-forms-line th {
+    width: 83%;
+}
+
+.um-form-table.um-top-label .um-forms-line td {
+    padding: 0;
+}
+
+input[type=text].um-forms-field.um-long-field,
+select.um-forms-field.um-long-field,
+textarea.um-forms-field.um-long-field {
+    width:100% !important;
+}
+
+input[type=text].um-forms-field.um-medium-field,
+select.um-forms-field.um-medium-field,
+textarea.um-forms-field.um-medium-field {
+    width:50% !important;
+}
+
+input[type=text].um-forms-field.um-small-field,
+select.um-forms-field.um-small-field,
+textarea.um-forms-field.um-small-field {
+    width:25% !important;
+}
