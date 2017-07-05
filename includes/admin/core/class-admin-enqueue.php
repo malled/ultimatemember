@@ -371,6 +371,7 @@ if ( ! class_exists( 'Admin_Enqueue' ) ) {
 
                 $this->load_global_css();
                 $this->load_form();
+                $this->load_forms();
                 $this->load_modal();
                 $this->load_dashboard();
                 $this->load_settings();
@@ -380,8 +381,7 @@ if ( ! class_exists( 'Admin_Enqueue' ) ) {
                 $this->load_core_wp();
                 $this->load_ajax_js();
                 $this->load_custom_scripts();
-                $this->load_metabox();
-                //$this->load_forms();
+                //$this->load_metabox();
 
                 if ( is_rtl() ) {
                     wp_register_style( 'um_admin_rtl', $this->css_url . 'um-admin-rtl.css' );
