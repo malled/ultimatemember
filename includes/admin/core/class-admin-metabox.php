@@ -28,7 +28,6 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
 
             //roles metaboxes
             add_action( 'um_roles_add_meta_boxes', array( &$this, 'add_metabox_role' ) );
-            add_action( 'render_metabox_section_role[wp_capabilities]', array( &$this, 'role_capability_metabox' ), 10, 3 );
         }
 
         /***
@@ -255,100 +254,114 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
 
         function um_category_access_fields_create() {
             $data = array();
-            $fields = array(
-                array(
-                    'id'       		=> '_um_custom_access_settings',
-                    'type'     		=> 'checkbox',
-                    'label'    		=> __( 'Restrict access to this content?', 'ultimatemember' ),
-                    'description' 	=> __( 'Activate content restriction for this post', 'ultimatemember' ),
-                    'value' 		=> ! empty( $data['_um_custom_access_settings'] ) ? $data['_um_custom_access_settings'] : 0,
-                ),
-                array(
-                    'id'       		=> '_um_accessible',
-                    'type'     		=> 'selectbox',
-                    'label'    		=> __( 'Who can access this content?', 'ultimatemember' ),
-                    'description' 	=> __( 'Activate content restriction for this post', 'ultimatemember' ),
-                    'value' 		=> ! empty( $data['_um_accessible'] ) ? $data['_um_accessible'] : 0,
-                    'options'		=> array(
-                        '0'         => __( 'Everyone', 'ultimatemember' ),
-                        '1'         => __( 'Logged out users', 'ultimatemember' ),
-                        '2'         => __( 'Logged in users', 'ultimatemember' ),
-                    ),
-                    'conditional'	=> array( '_um_custom_access_settings', '=', '1' )
-                ),
-                array(
-                    'id'       		=> '_um_access_roles',
-                    'type'     		=> 'multi-checkbox',
-                    'label'    		=> __( 'Select which roles can access this content', 'ultimatemember' ),
-                    'description' 	=> __( 'Activate content restriction for this post', 'ultimatemember' ),
-                    'value' 		=> ! empty( $data['_um_access_roles'] ) ? $data['_um_access_roles'] : array(),
-                    'options'		=> UM()->roles()->get_roles( false, array( 'administrator' ) ),
-                    'columns'       => 3,
-                    'conditional'	=> array( '_um_accessible', '=', '2' )
-                ),
-                array(
-                    'id'       		=> '_um_noaccess_action',
-                    'type'     		=> 'selectbox',
-                    'label'    		=> __( 'What happens when users without access tries to view the content?', 'ultimatemember' ),
-                    'description' 	=> __( 'Action when users without access tries to view the content', 'ultimatemember' ),
-                    'value' 		=> ! empty( $data['_um_noaccess_action'] ) ? $data['_um_noaccess_action'] : 0,
-                    'options'		=> array(
-                        '0'         => __( 'Show access restricted message', 'ultimatemember' ),
-                        '1'         => __( 'Redirect user', 'ultimatemember' ),
-                    ),
-                    'conditional'	=> array( '_um_accessible', '!=', '0' )
-                ),
-                array(
-                    'id'       		=> '_um_restrict_by_custom_message',
-                    'type'     		=> 'selectbox',
-                    'label'    		=> __( 'Would you like to use the global default message or apply a custom message to this content?', 'ultimatemember' ),
-                    'description' 	=> __( 'Action when users without access tries to view the content', 'ultimatemember' ),
-                    'value' 		=> ! empty( $data['_um_restrict_by_custom_message'] ) ? $data['_um_restrict_by_custom_message'] : '0',
-                    'options'		=> array(
-                        '0'         => __( 'Global default message (default)', 'ultimatemember' ),
-                        '1'         => __( 'Custom message', 'ultimatemember' ),
-                    ),
-                    'conditional'	=> array( '_um_noaccess_action', '=', '0' )
-                ),
-                array(
-                    'id'       		=> '_um_restrict_custom_message',
-                    'type'     		=> 'wp_editor',
-                    'label'    		=> __( 'Custom Restrict Content message', 'ultimatemember' ),
-                    'description' 	=> __( 'Changed global restrict message', 'ultimatemember' ),
-                    'value' 		=> ! empty( $data['_um_restrict_custom_message'] ) ? $data['_um_restrict_custom_message'] : '',
-                    'conditional'	=> array( '_um_restrict_by_custom_message', '=', '1' )
-                ),
-                array(
-                    'id'       		=> '_um_access_redirect',
-                    'type'     		=> 'selectbox',
-                    'label'    		=> __( 'Where should users be redirected to?', 'ultimatemember' ),
-                    'description' 	=> __( 'Select redirect to page when user hasn\'t access to content', 'ultimatemember' ),
-                    'value' 		=> ! empty( $data['_um_access_redirect'] ) ? $data['_um_access_redirect'] : '0',
-                    'conditional'	=> array( '_um_noaccess_action', '=', '1' ),
-                    'options'		=> array(
-                        '0'         => __( 'Login page', 'ultimatemember' ),
-                        '1'         => __( 'Custom URL', 'ultimatemember' ),
-                    ),
-                ),
-                array(
-                    'id'       		=> '_um_access_redirect_url',
-                    'type'     		=> 'text',
-                    'label'    		=> __( 'Redirect URL', 'ultimatemember' ),
-                    'description' 	=> __( 'Changed global restrict message', 'ultimatemember' ),
-                    'value' 		=> ! empty( $data['_um_access_redirect_url'] ) ? $data['_um_access_redirect_url'] : '',
-                    'conditional'	=> array( '_um_access_redirect', '=', '1' )
-                ),
-                array(
-                    'id'       		=> '_um_access_hide_from_queries',
-                    'type'     		=> 'checkbox',
-                    'label'    		=> __( 'Hide from queries', 'ultimatemember' ),
-                    'description' 	=> __( 'Hide this content from archives, RSS feeds etc for users who do not have permission to view this content', 'ultimatemember' ),
-                    'value' 		=> ! empty( $data['_um_access_hide_from_queries'] ) ? $data['_um_access_hide_from_queries'] : '',
-                    'conditional'	=> array( '_um_accessible', '!=', '0' )
-                ),
-            );
 
-            echo UM()->metabox()->render_custom_taxonomy_section( $fields, array( 'name' => 'um_content_restriction' ), 'add' );
+            UM()->admin_forms( array(
+                'class'		        => 'um-restrict-content um-third-column',
+                'prefix_id'	        => 'um_content_restriction',
+                'without_wrapper'	=> true,
+                'div_line'	        => true,
+                'fields' => array(
+                    array(
+                        'id'		    => '_um_custom_access_settings',
+                        'type'		    => 'checkbox',
+                        'name'		    => '_um_custom_access_settings',
+                        'label'    		=> __( 'Restrict access to this content?', 'ultimatemember' ),
+                        'description' 	=> __( 'Activate content restriction for this post', 'ultimatemember' ),
+                        'value' 		=> ! empty( $data['_um_custom_access_settings'] ) ? $data['_um_custom_access_settings'] : 0,
+                    ),
+                    array(
+                        'id'		=> '_um_accessible',
+                        'type'		=> 'select',
+                        'name'		=> '_um_accessible',
+                        'label'    		=> __( 'Who can access this content?', 'ultimatemember' ),
+                        'description' 	=> __( 'Activate content restriction for this post', 'ultimatemember' ),
+                        'value' 		=> ! empty( $data['_um_accessible'] ) ? $data['_um_accessible'] : 0,
+                        'options'		=> array(
+                            '0'         => __( 'Everyone', 'ultimatemember' ),
+                            '1'         => __( 'Logged out users', 'ultimatemember' ),
+                            '2'         => __( 'Logged in users', 'ultimatemember' ),
+                        ),
+                        'conditional'	=> array( '_um_custom_access_settings', '=', '1' )
+                    ),
+                    array(
+                        'id'       		=> '_um_access_roles',
+                        'type'     		=> 'multi_checkbox',
+                        'name'		    => '_um_access_roles',
+                        'label'    		=> __( 'Select which roles can access this content', 'ultimatemember' ),
+                        'description' 	=> __( 'Activate content restriction for this post', 'ultimatemember' ),
+                        'options'		=> UM()->roles()->get_roles( false, array( 'administrator' ) ),
+                        'columns'       => 3,
+                        'conditional'	=> array( '_um_accessible', '=', '2' )
+                    ),
+                    array(
+                        'id'       		=> '_um_noaccess_action',
+                        'type'     		=> 'select',
+                        'name'		    => '_um_noaccess_action',
+                        'label'    		=> __( 'What happens when users without access tries to view the content?', 'ultimatemember' ),
+                        'description' 	=> __( 'Action when users without access tries to view the content', 'ultimatemember' ),
+                        'value' 		=> ! empty( $data['_um_noaccess_action'] ) ? $data['_um_noaccess_action'] : 0,
+                        'options'		=> array(
+                            '0'         => __( 'Show access restricted message', 'ultimatemember' ),
+                            '1'         => __( 'Redirect user', 'ultimatemember' ),
+                        ),
+                        'conditional'	=> array( '_um_accessible', '!=', '0' )
+                    ),
+                    array(
+                        'id'       		=> '_um_restrict_by_custom_message',
+                        'type'     		=> 'select',
+                        'name'		    => '_um_restrict_by_custom_message',
+                        'label'    		=> __( 'Would you like to use the global default message or apply a custom message to this content?', 'ultimatemember' ),
+                        'description' 	=> __( 'Action when users without access tries to view the content', 'ultimatemember' ),
+                        'value' 		=> ! empty( $data['_um_restrict_by_custom_message'] ) ? $data['_um_restrict_by_custom_message'] : '0',
+                        'options'		=> array(
+                            '0'         => __( 'Global default message (default)', 'ultimatemember' ),
+                            '1'         => __( 'Custom message', 'ultimatemember' ),
+                        ),
+                        'conditional'	=> array( '_um_noaccess_action', '=', '0' )
+                    ),
+                    array(
+                        'id'       		=> '_um_restrict_custom_message',
+                        'type'     		=> 'wp_editor',
+                        'name'		    => '_um_restrict_custom_message',
+                        'label'    		=> __( 'Custom Restrict Content message', 'ultimatemember' ),
+                        'description' 	=> __( 'Changed global restrict message', 'ultimatemember' ),
+                        'value' 		=> ! empty( $data['_um_restrict_custom_message'] ) ? $data['_um_restrict_custom_message'] : '',
+                        'conditional'	=> array( '_um_restrict_by_custom_message', '=', '1' )
+                    ),
+                    array(
+                        'id'       		=> '_um_access_redirect',
+                        'type'     		=> 'select',
+                        'name'		    => '_um_access_redirect',
+                        'label'    		=> __( 'Where should users be redirected to?', 'ultimatemember' ),
+                        'description' 	=> __( 'Select redirect to page when user hasn\'t access to content', 'ultimatemember' ),
+                        'value' 		=> ! empty( $data['_um_access_redirect'] ) ? $data['_um_access_redirect'] : '0',
+                        'conditional'	=> array( '_um_noaccess_action', '=', '1' ),
+                        'options'		=> array(
+                            '0'         => __( 'Login page', 'ultimatemember' ),
+                            '1'         => __( 'Custom URL', 'ultimatemember' ),
+                        ),
+                    ),
+                    array(
+                        'id'       		=> '_um_access_redirect_url',
+                        'type'     		=> 'text',
+                        'name'		    => '_um_access_redirect_url',
+                        'label'    		=> __( 'Redirect URL', 'ultimatemember' ),
+                        'description' 	=> __( 'Changed global restrict message', 'ultimatemember' ),
+                        'value' 		=> ! empty( $data['_um_access_redirect_url'] ) ? $data['_um_access_redirect_url'] : '',
+                        'conditional'	=> array( '_um_access_redirect', '=', '1' )
+                    ),
+                    array(
+                        'id'       		=> '_um_access_hide_from_queries',
+                        'type'     		=> 'checkbox',
+                        'name'		    => '_um_access_hide_from_queries',
+                        'label'    		=> __( 'Hide from queries', 'ultimatemember' ),
+                        'description' 	=> __( 'Hide this content from archives, RSS feeds etc for users who do not have permission to view this content', 'ultimatemember' ),
+                        'value' 		=> ! empty( $data['_um_access_hide_from_queries'] ) ? $data['_um_access_hide_from_queries'] : '',
+                        'conditional'	=> array( '_um_accessible', '!=', '0' )
+                    )
+                )
+            ) )->render_form();
+
             wp_nonce_field( basename( __FILE__ ), 'um_admin_save_taxonomy_restrict_content_nonce' );
         }
 
@@ -358,100 +371,131 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
 
             $data = get_term_meta( $termID, 'um_content_restriction', true );
 
-            $fields = array(
-                array(
-                    'id'       		=> '_um_custom_access_settings',
-                    'type'     		=> 'checkbox',
-                    'label'    		=> __( 'Restrict access to this content?', 'ultimatemember' ),
-                    'description' 	=> __( 'Activate content restriction for this post', 'ultimatemember' ),
-                    'value' 		=> ! empty( $data['_um_custom_access_settings'] ) ? $data['_um_custom_access_settings'] : 0,
-                ),
-                array(
-                    'id'       		=> '_um_accessible',
-                    'type'     		=> 'selectbox',
-                    'label'    		=> __( 'Who can access this content?', 'ultimatemember' ),
-                    'description' 	=> __( 'Activate content restriction for this post', 'ultimatemember' ),
-                    'value' 		=> ! empty( $data['_um_accessible'] ) ? $data['_um_accessible'] : 0,
-                    'options'		=> array(
-                        '0'         => __( 'Everyone', 'ultimatemember' ),
-                        '1'         => __( 'Logged out users', 'ultimatemember' ),
-                        '2'         => __( 'Logged in users', 'ultimatemember' ),
-                    ),
-                    'conditional'	=> array( '_um_custom_access_settings', '=', '1' )
-                ),
-                array(
-                    'id'       		=> '_um_access_roles',
-                    'type'     		=> 'multi-checkbox',
-                    'label'    		=> __( 'Select which roles can access this content', 'ultimatemember' ),
-                    'description' 	=> __( 'Activate content restriction for this post', 'ultimatemember' ),
-                    'value' 		=> ! empty( $data['_um_access_roles'] ) ? $data['_um_access_roles'] : array(),
-                    'options'		=> UM()->roles()->get_roles( false, array( 'administrator' ) ),
-                    'columns'       => 3,
-                    'conditional'	=> array( '_um_accessible', '=', '2' )
-                ),
-                array(
-                    'id'       		=> '_um_noaccess_action',
-                    'type'     		=> 'selectbox',
-                    'label'    		=> __( 'What happens when users without access tries to view the content?', 'ultimatemember' ),
-                    'description' 	=> __( 'Action when users without access tries to view the content', 'ultimatemember' ),
-                    'value' 		=> ! empty( $data['_um_noaccess_action'] ) ? $data['_um_noaccess_action'] : 0,
-                    'options'		=> array(
-                        '0'         => __( 'Show access restricted message', 'ultimatemember' ),
-                        '1'         => __( 'Redirect user', 'ultimatemember' ),
-                    ),
-                    'conditional'	=> array( '_um_accessible', '!=', '0' )
-                ),
-                array(
-                    'id'       		=> '_um_restrict_by_custom_message',
-                    'type'     		=> 'selectbox',
-                    'label'    		=> __( 'Would you like to use the global default message or apply a custom message to this content?', 'ultimatemember' ),
-                    'description' 	=> __( 'Action when users without access tries to view the content', 'ultimatemember' ),
-                    'value' 		=> ! empty( $data['_um_restrict_by_custom_message'] ) ? $data['_um_restrict_by_custom_message'] : '0',
-                    'options'		=> array(
-                        '0'         => __( 'Global default message (default)', 'ultimatemember' ),
-                        '1'         => __( 'Custom message', 'ultimatemember' ),
-                    ),
-                    'conditional'	=> array( '_um_noaccess_action', '=', '0' )
-                ),
-                array(
-                    'id'       		=> '_um_restrict_custom_message',
-                    'type'     		=> 'wp_editor',
-                    'label'    		=> __( 'Custom Restrict Content message', 'ultimatemember' ),
-                    'description' 	=> __( 'Changed global restrict message', 'ultimatemember' ),
-                    'value' 		=> ! empty( $data['_um_restrict_custom_message'] ) ? $data['_um_restrict_custom_message'] : '',
-                    'conditional'	=> array( '_um_restrict_by_custom_message', '=', '1' )
-                ),
-                array(
-                    'id'       		=> '_um_access_redirect',
-                    'type'     		=> 'selectbox',
-                    'label'    		=> __( 'Where should users be redirected to?', 'ultimatemember' ),
-                    'description' 	=> __( 'Select redirect to page when user hasn\'t access to content', 'ultimatemember' ),
-                    'value' 		=> ! empty( $data['_um_access_redirect'] ) ? $data['_um_access_redirect'] : '0',
-                    'conditional'	=> array( '_um_noaccess_action', '=', '1' ),
-                    'options'		=> array(
-                        '0'         => __( 'Login page', 'ultimatemember' ),
-                        '1'         => __( 'Custom URL', 'ultimatemember' ),
-                    ),
-                ),
-                array(
-                    'id'       		=> '_um_access_redirect_url',
-                    'type'     		=> 'text',
-                    'label'    		=> __( 'Redirect URL', 'ultimatemember' ),
-                    'description' 	=> __( 'Changed global restrict message', 'ultimatemember' ),
-                    'value' 		=> ! empty( $data['_um_access_redirect_url'] ) ? $data['_um_access_redirect_url'] : '',
-                    'conditional'	=> array( '_um_access_redirect', '=', '1' )
-                ),
-                array(
-                    'id'       		=> '_um_access_hide_from_queries',
-                    'type'     		=> 'checkbox',
-                    'label'    		=> __( 'Hide from queries', 'ultimatemember' ),
-                    'description' 	=> __( 'Hide this content from archives, RSS feeds etc for users who do not have permission to view this content', 'ultimatemember' ),
-                    'value' 		=> ! empty( $data['_um_access_hide_from_queries'] ) ? $data['_um_access_hide_from_queries'] : '',
-                    'conditional'	=> array( '_um_accessible', '!=', '0' )
-                ),
-            );
+            $_um_access_roles_value = array();
+            if ( ! empty( $data['_um_access_roles'] ) ) {
+                foreach ( $data['_um_access_roles'] as $key => $value ) {
+                    if ( $value )
+                        $_um_access_roles_value[] = $key;
+                }
+            }
 
-            echo UM()->metabox()->render_custom_taxonomy_section( $fields, array( 'name' => 'um_content_restriction' ), 'edit' );
+
+            UM()->admin_forms( array(
+                'class'		        => 'um-restrict-content um-third-column',
+                'prefix_id'	        => 'um_content_restriction',
+                'without_wrapper'	=> true,
+                'fields' => array(
+                    array(
+                        'id'		    => '_um_custom_access_settings',
+                        'type'		    => 'checkbox',
+                        'class'		    => 'form-field',
+                        'name'		    => '_um_custom_access_settings',
+                        'label'    		=> __( 'Restrict access to this content?', 'ultimatemember' ),
+                        'description' 	=> __( 'Activate content restriction for this post', 'ultimatemember' ),
+                        'value' 		=> ! empty( $data['_um_custom_access_settings'] ) ? $data['_um_custom_access_settings'] : 0,
+                    ),
+                    array(
+                        'id'		=> '_um_accessible',
+                        'type'		=> 'select',
+                        'class'		=> 'form-field',
+                        'name'		=> '_um_accessible',
+                        'label'    		=> __( 'Who can access this content?', 'ultimatemember' ),
+                        'description' 	=> __( 'Activate content restriction for this post', 'ultimatemember' ),
+                        'value' 		=> ! empty( $data['_um_accessible'] ) ? $data['_um_accessible'] : 0,
+                        'options'		=> array(
+                            '0'         => __( 'Everyone', 'ultimatemember' ),
+                            '1'         => __( 'Logged out users', 'ultimatemember' ),
+                            '2'         => __( 'Logged in users', 'ultimatemember' ),
+                        ),
+                        'conditional'	=> array( '_um_custom_access_settings', '=', '1' )
+                    ),
+                    array(
+                        'id'       		=> '_um_access_roles',
+                        'type'     		=> 'multi_checkbox',
+                        'class'		    => 'form-field',
+                        'name'		    => '_um_access_roles',
+                        'label'    		=> __( 'Select which roles can access this content', 'ultimatemember' ),
+                        'description' 	=> __( 'Activate content restriction for this post', 'ultimatemember' ),
+                        'value' 		=> $_um_access_roles_value,
+                        'options'		=> UM()->roles()->get_roles( false, array( 'administrator' ) ),
+                        'columns'       => 3,
+                        'conditional'	=> array( '_um_accessible', '=', '2' )
+                    ),
+                    array(
+                        'id'       		=> '_um_noaccess_action',
+                        'type'     		=> 'select',
+                        'class'		    => 'form-field',
+                        'name'		    => '_um_noaccess_action',
+                        'label'    		=> __( 'What happens when users without access tries to view the content?', 'ultimatemember' ),
+                        'description' 	=> __( 'Action when users without access tries to view the content', 'ultimatemember' ),
+                        'value' 		=> ! empty( $data['_um_noaccess_action'] ) ? $data['_um_noaccess_action'] : 0,
+                        'options'		=> array(
+                            '0'         => __( 'Show access restricted message', 'ultimatemember' ),
+                            '1'         => __( 'Redirect user', 'ultimatemember' ),
+                        ),
+                        'conditional'	=> array( '_um_accessible', '!=', '0' )
+                    ),
+                    array(
+                        'id'       		=> '_um_restrict_by_custom_message',
+                        'type'     		=> 'select',
+                        'class'		    => 'form-field',
+                        'name'		    => '_um_restrict_by_custom_message',
+                        'label'    		=> __( 'Would you like to use the global default message or apply a custom message to this content?', 'ultimatemember' ),
+                        'description' 	=> __( 'Action when users without access tries to view the content', 'ultimatemember' ),
+                        'value' 		=> ! empty( $data['_um_restrict_by_custom_message'] ) ? $data['_um_restrict_by_custom_message'] : '0',
+                        'options'		=> array(
+                            '0'         => __( 'Global default message (default)', 'ultimatemember' ),
+                            '1'         => __( 'Custom message', 'ultimatemember' ),
+                        ),
+                        'conditional'	=> array( '_um_noaccess_action', '=', '0' )
+                    ),
+                    array(
+                        'id'       		=> '_um_restrict_custom_message',
+                        'type'     		=> 'wp_editor',
+                        'class'		    => 'form-field',
+                        'name'		    => '_um_restrict_custom_message',
+                        'label'    		=> __( 'Custom Restrict Content message', 'ultimatemember' ),
+                        'description' 	=> __( 'Changed global restrict message', 'ultimatemember' ),
+                        'value' 		=> ! empty( $data['_um_restrict_custom_message'] ) ? $data['_um_restrict_custom_message'] : '',
+                        'conditional'	=> array( '_um_restrict_by_custom_message', '=', '1' )
+                    ),
+                    array(
+                        'id'       		=> '_um_access_redirect',
+                        'type'     		=> 'select',
+                        'class'		    => 'form-field',
+                        'name'		    => '_um_access_redirect',
+                        'label'    		=> __( 'Where should users be redirected to?', 'ultimatemember' ),
+                        'description' 	=> __( 'Select redirect to page when user hasn\'t access to content', 'ultimatemember' ),
+                        'value' 		=> ! empty( $data['_um_access_redirect'] ) ? $data['_um_access_redirect'] : '0',
+                        'conditional'	=> array( '_um_noaccess_action', '=', '1' ),
+                        'options'		=> array(
+                            '0'         => __( 'Login page', 'ultimatemember' ),
+                            '1'         => __( 'Custom URL', 'ultimatemember' ),
+                        ),
+                    ),
+                    array(
+                        'id'       		=> '_um_access_redirect_url',
+                        'type'     		=> 'text',
+                        'class'		    => 'form-field',
+                        'name'		    => '_um_access_redirect_url',
+                        'label'    		=> __( 'Redirect URL', 'ultimatemember' ),
+                        'description' 	=> __( 'Changed global restrict message', 'ultimatemember' ),
+                        'value' 		=> ! empty( $data['_um_access_redirect_url'] ) ? $data['_um_access_redirect_url'] : '',
+                        'conditional'	=> array( '_um_access_redirect', '=', '1' )
+                    ),
+                    array(
+                        'id'       		=> '_um_access_hide_from_queries',
+                        'type'     		=> 'checkbox',
+                        'class'		    => 'form-field',
+                        'name'		    => '_um_access_hide_from_queries',
+                        'label'    		=> __( 'Hide from queries', 'ultimatemember' ),
+                        'description' 	=> __( 'Hide this content from archives, RSS feeds etc for users who do not have permission to view this content', 'ultimatemember' ),
+                        'value' 		=> ! empty( $data['_um_access_hide_from_queries'] ) ? $data['_um_access_hide_from_queries'] : '',
+                        'conditional'	=> array( '_um_accessible', '!=', '0' )
+                    )
+                )
+            ) )->render_form();
+
             wp_nonce_field( basename( __FILE__ ), 'um_admin_save_taxonomy_restrict_content_nonce' );
         }
 
@@ -588,7 +632,7 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
 
             add_meta_box('um-admin-form-appearance', __('Styling: General'), array(&$this, 'load_metabox_directory'), 'um_directory', 'side', 'default');
 
-            add_meta_box('um-admin-form-profile_card', __('Styling: Profile Card'), array(&$this, 'load_metabox_directory'), 'um_directory', 'side', 'default');
+            //add_meta_box('um-admin-form-profile_card', __('Styling: Profile Card'), array(&$this, 'load_metabox_directory'), 'um_directory', 'side', 'default');
 
         }
 
@@ -699,324 +743,6 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
         }
 
 
-        /**
-         * Render taxonomy section
-         *
-         * @param $section_fields
-         * @param $section_data
-         * @param $form
-         * @param $custom
-         * @return string
-         */
-        function render_custom_taxonomy_section( $section_fields, $section_data, $form, $custom = false ) {
-            ob_start();
-
-            if ( ! $custom ) {
-
-                foreach ( $section_fields as $field_data ) {
-                    echo $this->render_taxonomy_data_field( $field_data, $section_data, $form );
-                }
-
-            } else {
-                do_action( "render_custom_taxonomy_section_" . $section_data['name'], $section_fields, $section_data, $form );
-            }
-
-            $section = ob_get_clean();
-
-            return $section;
-        }
-
-
-        /**
-         * Render metabox section
-         *
-         * @param $section_fields
-         * @param $section_data
-         * @param $columns
-         * @param $custom
-         * @return string
-         */
-        function render_metabox_section( $section_fields, $section_data, $columns = 1, $custom = false ) {
-            ob_start();
-
-            if ( ! $custom ) {
-
-                $i = 0;
-                while ( $i < $columns ) {
-                    $per_page = ceil( count( $section_fields ) / $columns );
-                    $section_fields_per_page = array_slice( $section_fields, $i*$per_page, $per_page ); ?>
-                    <table class="form-table um-metabox-section" style="width: <?php echo floor( 100 / $columns ) ?>% !important;float:left;clear: none;margin:0;">
-                        <tbody>
-                        <?php foreach ( $section_fields_per_page as $field_data ) {
-                            echo $this->render_metabox_field( $field_data, $section_data );
-                        } ?>
-                        </tbody>
-                    </table>
-                <?php $i++;
-                } ?>
-
-                <div class="clear"></div>
-
-            <?php } else {
-                do_action( "render_metabox_section_" . $section_data['name'], $section_fields, $section_data, $columns );
-            }
-
-            $section = ob_get_clean();
-
-            return $section;
-        }
-
-
-        function role_capability_metabox( $section_fields, $section_data, $columns ) {
-            $i = 0;
-            
-            while ( $i < $columns ) {
-                $per_page = ceil( count( $section_fields ) / $columns );
-                $section_fields_per_page = array_slice( $section_fields, $i*$per_page, $per_page ); ?>
-                <table class="form-table um-metabox-section" style="width: <?php echo floor( 100 / $columns ) ?>% !important;float:left;clear: none;margin:0;">
-                    <tbody>
-                    <?php foreach ( $section_fields_per_page as $field_data ) { ?>
-                        <tr class="um-metadata-line">
-                            <td style="word-wrap:break-word;word-break:break-all;">
-                                <label style="float:left;width:100%;margin:0;padding:0;" for="um_metadata_<?php echo $field_data['id'] ?>">
-                                    <input style="float:left;margin-top:0;" type="checkbox" <?php checked( $field_data['value'] ) ?> id="um_metadata_<?php echo $field_data['id'] ?>" name="<?php echo $section_data['name'] ?>[<?php echo $field_data['id'] ?>]" value="1" class="um-metadata-field" data-field_id="<?php echo $field_data['id'] ?>" />
-                                    <span style="float:left;width:calc( 100% - 20px );"><?php echo $field_data['label'] ?></span>
-                                </label>
-                            </td>
-                        </tr>
-                    <?php } ?>
-                    </tbody>
-                </table>
-                <?php $i++;
-            } ?>
-
-            <div class="clear"></div>
-            <?php
-        }
-
-
-        /**
-         * Render HTML for metabox field
-         *
-         * @param $data
-         * @return string
-         */
-        function render_metabox_field( $data, $section_data ) {
-            if ( empty( $data['type'] ) )
-                return '';
-
-            $conditional = ! empty( $data['conditional'] ) ? 'data-conditional="' . esc_attr( json_encode( $data['conditional'] ) ) . '"' : '';
-
-            $html = '';
-            if ( $data['type'] != 'hidden' )
-                $html .= '<tr class="um-metadata-line" ' . $conditional . '><th style="word-wrap:break-word;word-break:break-all;"><label for="um_metadata_' . $data['id'] . '">' . $data['label'] . '</label></th><td>';
-
-            $value = $data['value'];
-            $name = empty( $section_data['name'] ) ? $data['id'] : $section_data['name'] . '[' . $data['id'] . ']';
-            switch ( $data['type'] ) {
-                case 'text':
-                    $field_length = ! empty( $data['size'] ) ? $data['size'] : 'um-long-field';
-
-                    $html .= '<input type="text" id="um_metadata_' . $data['id'] . '" name="' . $name . '" value="' . $value . '" class="um-metadata-field ' . $field_length . '" data-field_id="' . $data['id'] . '" />';
-                    break;
-                case 'textarea':
-                    $field_length = ! empty( $data['size'] ) ? $data['size'] : 'um-long-field';
-
-                    $html .= '<textarea id="um_metadata_' . $data['id'] . '" name="' . $name . '" rows="6" class="um-metadata-field ' . $field_length . '" data-field_id="' . $data['id'] . '">' . $value . '</textarea>';
-                    break;
-                case 'wp_editor':
-                    ob_start();
-                    wp_editor( $value,
-                        'um_metadata_' . $data['id'],
-                        array(
-                            'textarea_name' => $name,
-                            'textarea_rows' => 20,
-                            'editor_height' => 425,
-                            'wpautop'       => false,
-                            'media_buttons' => false,
-                            'editor_class'  => 'um-metadata-field'
-                        )
-                    );
-
-                    $html .= ob_get_clean();
-                    break;
-                case 'checkbox':
-                    $html .= '<input type="hidden" id="um_metadata_' . $data['id'] . '_hidden" name="' . $name . '" value="0" />' .
-                        '<input type="checkbox" ' . checked( $value, true, false ) . ' id="um_metadata_' . $data['id'] . '" name="' . $name . '" value="1" class="um-metadata-field" data-field_id="' . $data['id'] . '" />';
-                    break;
-                case 'multi-checkbox':
-                    $columns = ! empty( $data['columns'] ) ? $data['columns'] : 1;
-
-                    $per_column = ceil( count( $data['options'] ) / $columns );
-
-                    $html .= '<div class="multi-checkbox-line">';
-
-                    $current_option = 1;
-                    $iter = 1;
-                    foreach ( $data['options'] as $key=>$option ) {
-                        if ( $current_option == 1 )
-                            $html .= '<div class="multi-checkbox-column" style="width:' . floor( 100/$columns ) . '%;">';
-
-                        $html .= '<input type="hidden" id="um_metadata_' . $data['id'] . '_' . $key . '_hidden" name="' . $name . '[' . $key . ']" value="0" />
-                        <label><input type="checkbox" ' . checked( ! empty( $value[$key] ), true, false ) . ' id="um_metadata_' . $data['id'] . '" name="' . $name . '[' . $key . ']" value="1" class="um-metadata-field" data-field_id="' . $data['id'] . '" />' . $option . '</label>';
-
-                        if ( $current_option == $per_column || $iter == count( $data['options'] ) ) {
-                            $current_option = 1;
-                            $html .= '</div>';
-                        } else {
-                            $current_option++;
-                        }
-
-                        $iter++;
-                    }
-
-                    $html .= '</div>';
-
-                    break;
-                case 'selectbox':
-                    $html .= '<select ' . ( ! empty( $data['multi'] ) ? 'multiple' : '' ) . ' id="um_metadata_' . $data['id'] . '" name="' . $name . ( ! empty( $data['multi'] ) ? '[]' : '' ) . '" class="um-metadata-field" data-field_id="' . $data['id'] . '">';
-                    foreach ( $data['options'] as $key=>$option ) {
-                        if ( ! empty( $data['multi'] ) ) {
-                            $html .= '<option value="' . $key . '" ' . selected( ! empty( $value ) && in_array( $key, $value ), true, false ) . '>' . $option . '</option>';
-                        } else {
-                            $html .= '<option value="' . $key . '" ' . selected( $key == $value, true, false ) . '>' . $option . '</option>';
-                        }
-                    }
-                    $html .= '</select>';
-
-                    break;
-            }
-
-            if ( ! empty( $data['description'] ) )
-                $html .= '<div class="description">' . $data['description'] . '</div>';
-
-            $html .= '</td></tr>';
-
-            return $html;
-        }
-
-
-        /**
-         * Render HTML for metabox field
-         *
-         * @param $data
-         * @return string
-         */
-        function render_taxonomy_data_field( $data, $section_data, $form ) {
-            if ( empty( $data['type'] ) )
-                return '';
-
-            $description_show = false;
-            $conditional = ! empty( $data['conditional'] ) ? 'data-conditional="' . esc_attr( json_encode( $data['conditional'] ) ) . '"' : '';
-
-            $html = '';
-            if ( $data['type'] != 'hidden' ) {
-                if ( 'add' == $form ) {
-                    $html .= '<div class="form-field um-metadata-line" ' . $conditional . '><label for="um_metadata_' . $data['id'] . '">' . $data['label'] . '</label>';
-                } elseif ( 'edit' == $form ) {
-                    $html .= '<tr class="form-field um-metadata-line" ' . $conditional . '><th scope="row" style="word-wrap:break-word;word-break:break-all;"><label for="um_metadata_' . $data['id'] . '">' . $data['label'] . '</label></th><td>';
-                }
-            }
-
-            $value = $data['value'];
-            switch ( $data['type'] ) {
-                case 'text':
-                    $field_length = ! empty( $data['size'] ) ? $data['size'] : 'um-long-field';
-
-                    $html .= '<input type="text" id="um_metadata_' . $data['id'] . '" name="' . $section_data['name'] . '[' . $data['id'] . ']" value="' . $value . '" class="um-metadata-field ' . $field_length . '" data-field_id="' . $data['id'] . '" />';
-                    break;
-                case 'textarea':
-                    $field_length = ! empty( $data['size'] ) ? $data['size'] : 'um-long-field';
-
-                    $html .= '<textarea id="um_metadata_' . $data['id'] . '" name="' . $section_data['name'] . '[' . $data['id'] . ']" rows="6" class="um-metadata-field ' . $field_length . '" data-field_id="' . $data['id'] . '">' . $value . '</textarea>';
-                    break;
-                case 'wp_editor':
-                    ob_start();
-                    wp_editor( $value,
-                        'um_metadata_' . $data['id'],
-                        array(
-                            'textarea_name' => $section_data['name'] . '[' . $data['id'] . ']',
-                            'textarea_rows' => 20,
-                            'editor_height' => 425,
-                            'wpautop'       => false,
-                            'media_buttons' => false,
-                            'editor_class'  => 'um-metadata-field'
-                        )
-                    );
-
-                    $html .= ob_get_clean();
-                    break;
-                case 'checkbox':
-                    $description_show = true;
-                    $html .= '<input type="hidden" id="um_metadata_' . $data['id'] . '_hidden" name="' . $section_data['name'] . '[' . $data['id'] . ']" value="0" />';
-
-                    if ( ! empty( $data['description'] ) )
-                        $html .= '<label>';
-
-                    $html .= '<input type="checkbox" ' . checked( $value, true, false ) . ' id="um_metadata_' . $data['id'] . '" name="' . $section_data['name'] . '[' . $data['id'] . ']" value="1" class="um-metadata-field" data-field_id="' . $data['id'] . '" />';
-
-                    if ( ! empty( $data['description'] ) )
-                        $html .= '<span class="description">' . $data['description'] . '</span></label>';
-
-                    break;
-                case 'multi-checkbox':
-                    $columns = ! empty( $data['columns'] ) ? $data['columns'] : 1;
-
-                    $per_column = ceil( count( $data['options'] ) / $columns );
-
-                    $html .= '<div class="multi-checkbox-line">';
-
-                    $current_option = 1;
-                    $iter = 1;
-                    foreach ( $data['options'] as $key=>$option ) {
-                        if ( $current_option == 1 )
-                            $html .= '<div class="multi-checkbox-column" style="width:' . floor( 100/$columns ) . '%;">';
-
-                        $html .= '<input type="hidden" id="um_metadata_' . $data['id'] . '_' . $key . '_hidden" name="' . $section_data['name'] . '[' . $data['id'] . '][' . $key . ']" value="0" />
-                        <label><input type="checkbox" ' . checked( ! empty( $value[$key] ), true, false ) . ' id="um_metadata_' . $data['id'] . '" name="' . $section_data['name'] . '[' . $data['id'] . '][' . $key . ']" value="1" class="um-metadata-field" data-field_id="' . $data['id'] . '" />' . $option . '</label>';
-
-                        if ( $current_option == $per_column || $iter == count( $data['options'] ) ) {
-                            $current_option = 1;
-                            $html .= '</div>';
-                        } else {
-                            $current_option++;
-                        }
-
-                        $iter++;
-                    }
-
-                    $html .= '</div>';
-
-                    break;
-                case 'selectbox':
-                    $html .= '<select ' . ( ! empty( $data['multi'] ) ? 'multiple' : '' ) . ' id="um_metadata_' . $data['id'] . '" name="' . $section_data['name'] . '[' . $data['id'] . ']' . ( ! empty( $data['multi'] ) ? '[]' : '' ) . '" class="um-metadata-field" data-field_id="' . $data['id'] . '">';
-                    foreach ( $data['options'] as $key=>$option ) {
-                        if ( ! empty( $data['multi'] ) ) {
-                            $html .= '<option value="' . $key . '" ' . selected( ! empty( $value ) && in_array( $key, $value ), true, false ) . '>' . $option . '</option>';
-                        } else {
-                            $html .= '<option value="' . $key . '" ' . selected( $key == $value, true, false ) . '>' . $option . '</option>';
-                        }
-                    }
-                    $html .= '</select>';
-
-                    break;
-            }
-
-            if ( ! empty( $data['description'] ) && ! $description_show )
-                $html .= '<p class="description">' . $data['description'] . '</p>';
-
-            if ( $data['type'] != 'hidden' ) {
-                if ( 'add' == $form ) {
-                    $html .= '</div>';
-                } elseif ( 'edit' == $form ) {
-                    $html .= '</td></tr>';
-                }
-            }
-
-            return $html;
-        }
-
-
         /***
          ***	@add form metabox
          ***/
@@ -1062,7 +788,10 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
             if ( !current_user_can( $post_type->cap->edit_post, $post_id ) ) return $post_id;
 
             $where = array( 'ID' => $post_id );
-            if (empty($_POST['post_title'])) $_POST['post_title'] = 'Directory #'.$post_id;
+
+            if ( empty( $_POST['post_title'] ) )
+                $_POST['post_title'] = 'Directory #'.$post_id;
+
             $wpdb->update( $wpdb->posts, array( 'post_title' => $_POST['post_title'] ), $where );
 
             // save
@@ -1072,12 +801,14 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
             delete_post_meta( $post_id, '_um_search_fields' );
             delete_post_meta( $post_id, '_um_roles_can_search' );
             delete_post_meta( $post_id, '_um_show_these_users' );
-            foreach( $_POST as $k => $v ) {
-                if ( $k == '_um_show_these_users' && trim( $_POST[ $k ] ) ) {
-                    $v = preg_split('/[\r\n]+/', $v, -1, PREG_SPLIT_NO_EMPTY);
+
+            //save metadata
+            foreach ( $_POST['um_metadata'] as $k => $v ) {
+                if ( $k == '_um_show_these_users' && trim( $_POST['um_metadata'][ $k ] ) ) {
+                    $v = preg_split( '/[\r\n]+/', $v, -1, PREG_SPLIT_NO_EMPTY );
                 }
-                if (strstr($k, '_um_')){
-                    update_post_meta( $post_id, $k, $v);
+                if ( strstr( $k, '_um_' ) ) {
+                    update_post_meta( $post_id, $k, $v );
                 }
             }
 

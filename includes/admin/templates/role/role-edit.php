@@ -37,10 +37,10 @@ if ( ! empty( $_POST['role'] ) ) {
 
         if ( 'add' == $_GET['tab'] ) {
             $id = sanitize_title( $data['name'] );
-            $redirect = add_query_arg( array( 'page'=>'um_roles', 'msg'=>'a' ), admin_url( 'admin.php' ) );
+            $redirect = add_query_arg( array( 'page'=>'um_roles', 'tab'=>'edit', 'id'=>$id, 'msg'=>'a' ), admin_url( 'admin.php' ) );
         } elseif ( 'edit' == $_GET['tab'] && ! empty( $_GET['id'] ) ) {
             $id = $_GET['id'];
-            $redirect = add_query_arg( array( 'page' => 'um_roles', 'msg'=>'u' ), admin_url( 'admin.php' ) );
+            $redirect = add_query_arg( array( 'page' => 'um_roles', 'tab'=>'edit', 'id'=>$id, 'msg'=>'u' ), admin_url( 'admin.php' ) );
         }
 
     }
@@ -86,7 +86,18 @@ $screen_id = $current_screen->id; ?>
         <?php } ?>
     </h2>
 
-    <?php if ( ! empty( $error ) ) { ?>
+    <?php if ( ! empty( $_GET['msg'] ) ) {
+        switch( $_GET['msg'] ) {
+            case 'a':
+                echo '<div id="message" class="updated fade"><p>' . __( 'User Role <strong>Added</strong> Successfully.', 'ultimatemember' ) . '</p></div>';
+                break;
+            case 'u':
+                echo '<div id="message" class="updated fade"><p>' . __( 'User Role <strong>Updated</strong> Successfully.', 'ultimatemember' ) . '</p></div>';
+                break;
+        }
+    }
+
+    if ( ! empty( $error ) ) { ?>
         <div id="message" class="error fade">
             <p><?php echo $error ?></p>
         </div>

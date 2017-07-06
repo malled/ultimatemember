@@ -181,17 +181,6 @@ if ( ! class_exists( 'Admin_Enqueue' ) ) {
 
 
         /***
-         ***	@Load settings
-         ***/
-        function load_metabox() {
-
-            wp_register_script( 'um_admin_metabox', $this->js_url . 'um-admin-metabox.js', '', '', true );
-            wp_enqueue_script( 'um_admin_metabox' );
-
-        }
-
-
-        /***
          ***	@Load modal
          ***/
         function load_modal() {
@@ -381,7 +370,6 @@ if ( ! class_exists( 'Admin_Enqueue' ) ) {
                 $this->load_core_wp();
                 $this->load_ajax_js();
                 $this->load_custom_scripts();
-                //$this->load_metabox();
 
                 if ( is_rtl() ) {
                     wp_register_style( 'um_admin_rtl', $this->css_url . 'um-admin-rtl.css' );

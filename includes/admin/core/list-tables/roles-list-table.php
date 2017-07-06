@@ -350,12 +350,6 @@ $ListTable->um_set_pagination_args( array( 'total_items' => count( $roles ), 'pe
 
     <?php if ( ! empty( $_GET['msg'] ) ) {
         switch( $_GET['msg'] ) {
-            case 'a':
-                echo '<div id="message" class="updated fade"><p>' . __( 'User Role <strong>Added</strong> Successfully.', 'ultimatemember' ) . '</p></div>';
-                break;
-            case 'u':
-                echo '<div id="message" class="updated fade"><p>' . __( 'User Role <strong>Updated</strong> Successfully.', 'ultimatemember' ) . '</p></div>';
-                break;
             case 'd':
                 echo '<div id="message" class="updated fade"><p>' . __( 'User Role <strong>Deleted</strong> Successfully.', 'ultimatemember' ) . '</p></div>';
                 break;

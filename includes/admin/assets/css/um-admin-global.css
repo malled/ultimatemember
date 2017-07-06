@@ -143,31 +143,3 @@ a.um-delete{ color: #a00; }
 #um-roles .row-actions .reset a:hover {
 	color:red;
 }
-
-.um-metadata-line .multi-checkbox-line {
-	float:left;
-	width:100%;
-	clear: both;
-	margin: 0 0 10px 0;
-	padding: 0;
-}
-
-.um-metadata-line .multi-checkbox-column {
-	float:left;
-	margin: 0;
-	padding:0;
-}
-
-.um-metadata-line .multi-checkbox-column label {
-	float:left;
-	width:100%;
-}
-
-@media screen and (max-width: 782px) {
-	.um-metadata-line .multi-checkbox-column {
-		width:100% !important;
-	}
-	.um-metadata-line .multi-checkbox-column label {
-		line-height: 30px !important;
-	}
-}

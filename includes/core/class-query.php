@@ -266,8 +266,8 @@ if ( ! class_exists( 'Query' ) ) {
             $post_id = get_the_ID();
             $try = get_post_meta( $post_id, $key, true);
 
-            if (isset($try) && !empty($try))
-                if (is_array($try) && in_array($array_key, $try) ){
+            if ( ! empty( $try ) )
+                if ( is_array( $try ) && in_array( $array_key, $try ) ) {
                     return $array_key;
                 } else if ( is_array( $try ) ) {
                     return '';

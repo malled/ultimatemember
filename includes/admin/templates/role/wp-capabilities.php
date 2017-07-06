@@ -15,13 +15,22 @@
 
     $fields = array();
     foreach ( array_keys( $all_caps ) as $cap ) {
-        $fields[] = array(
-            'id'       		=> $cap,
-            'type'     		=> 'checkbox',
-            'label'    		=> $cap,
-            'value' 		=> ( ! empty( $role_capabilities ) && in_array( $cap, $role_capabilities ) ) ? '1' : '0',
-        );
+        $fields[$cap] = $cap;
     }
 
-    echo UM()->metabox()->render_metabox_section( $fields, array( 'name' => 'role[wp_capabilities]' ), 3, true ); ?>
+    UM()->admin_forms( array(
+        'class'		=> 'um-role-wp-capabilities',
+        'prefix_id'	=> 'role',
+        'fields'    => array(
+            array(
+                'id'       		=> 'wp_capabilities',
+                'type'     		=> 'multi_checkbox',
+                'name'          => 'wp_capabilities',
+                'options'       => $fields,
+                'value'         => ! empty( $role_capabilities ) ? $role_capabilities : array(),
+                'columns'	    => 3,
+                'without_label'	=> true,
+            )
+        )
+    ) )->render_form(); ?>
 </div>

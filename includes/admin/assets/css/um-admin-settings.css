@@ -2,33 +2,10 @@
     font-style: italic;
 }
 
-/*Multi text filed */
-.um-settings-section .um-option-delete {
-    color: #a00;
-}
-
-.um-settings-section .um-option-delete:hover {
-    color: red;
-}
-
-.um-settings-section .um-multi-text-add-option {
-    margin-bottom: 14px;
-}
 
 
-/* Media uploader */
-.um-settings-section .icon_preview {
-    display: none;
-    max-width: 200px;
-    max-height: 200px;
-    padding: 5px;
-    cursor: pointer;
-    border: 1px solid #e3e3e3;
-    background: #f7f7f7;
-    border-radius: 3px;
-    height: auto;
-    width: auto !important;
-}
+
+
 
 .um-notification-status {
     margin-right: 18px;
