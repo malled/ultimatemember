@@ -176,16 +176,20 @@ if ( ! class_exists( 'Admin_Settings' ) ) {
             }
 
             $restricted_access_post_metabox_value = array();
-            foreach ( UM()->um_get_option( 'restricted_access_post_metabox' ) as $key => $value ) {
-                if ( $value )
-                    $restricted_access_post_metabox_value[] = $key;
+            if ( $restricted_access_post_metabox = UM()->um_get_option( 'restricted_access_post_metabox' ) ) {
+                foreach ( $restricted_access_post_metabox as $key => $value ) {
+                    if ( $value )
+                        $restricted_access_post_metabox_value[] = $key;
+                }
             }
 
 
             $restricted_access_taxonomy_metabox_value = array();
-            foreach ( UM()->um_get_option( 'restricted_access_taxonomy_metabox' ) as $key => $value ) {
-                if ( $value )
-                    $restricted_access_taxonomy_metabox_value[] = $key;
+            if ( $restricted_access_taxonomy_metabox = UM()->um_get_option( 'restricted_access_taxonomy_metabox' ) ) {
+                foreach ( $restricted_access_taxonomy_metabox as $key => $value ) {
+                    if ( $value )
+                        $restricted_access_taxonomy_metabox_value[] = $key;
+                }
             }
 
             $this->settings_structure = apply_filters( 'um_settings_structure', array(
@@ -1376,11 +1380,10 @@ if ( ! class_exists( 'Admin_Settings' ) ) {
         function check_wrong_licenses() {
             $invalid_license = false;
 
-            $section_fields = $this->settings_structure['licenses']['fields'];
-            foreach ( $section_fields as $field_data ) {
-                if ( isset( $field_data['is_option'] ) && $field_data['is_option'] === false )
-                    continue;
+            if ( empty( $this->settings_structure['licenses']['fields'] ) )
+                return;
 
+            foreach ( $this->settings_structure['licenses']['fields'] as $field_data ) {
                 $license = get_option( "{$field_data['id']}_edd_answer" );
 
                 if ( ( is_object( $license ) && 'valid' == $license->license ) || 'valid' == $license )

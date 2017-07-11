@@ -3,10 +3,10 @@
 	/***
 	***	@profile name update
 	***/
-	add_action('um_update_profile_full_name', 'um_update_profile_full_name' );
+	add_action( 'um_update_profile_full_name', 'um_update_profile_full_name' );
 	function um_update_profile_full_name( $changes ) {
 		// Sync display name changes
-		$option = um_get_option('display_name');
+		$option = um_get_option( 'display_name' );
 		
 		$user_id = UM()->user()->id;
 

@@ -290,15 +290,18 @@ $users_count = count_users();
 
 $roles = array();
 $role_keys = get_option( 'um_roles' );
-foreach ( $role_keys as $role_key ) {
-    $role_meta = get_option( "um_role_{$role_key}_meta" );
-    if ( $role_meta ) {
 
-        $roles['um_' . $role_key] = array(
-            'key'   => $role_key,
-            'users' => ! empty( $users_count['avail_roles']['um_' . $role_key] ) ? $users_count['avail_roles']['um_' . $role_key] : 0
-        );
-        $roles['um_' . $role_key] = array_merge( $roles['um_' . $role_key], $role_meta );
+if ( $role_keys ) {
+    foreach ( $role_keys as $role_key ) {
+        $role_meta = get_option( "um_role_{$role_key}_meta" );
+        if ( $role_meta ) {
+
+            $roles['um_' . $role_key] = array(
+                'key'   => $role_key,
+                'users' => ! empty( $users_count['avail_roles']['um_' . $role_key] ) ? $users_count['avail_roles']['um_' . $role_key] : 0
+            );
+            $roles['um_' . $role_key] = array_merge( $roles['um_' . $role_key], $role_meta );
+        }
     }
 }
 

@@ -54,30 +54,6 @@
 
 	}
 
-	/***
-	***	@listen to a new user creation in backend
-	***/
-	add_action( 'user_register', 'um_new_user_via_wpadmin', 10, 1 );
-	function um_new_user_via_wpadmin( $user_id ) {
-
-		if ( is_admin() ) {
-
-			if( isset( $_POST['um_role'] ) ) {
-				$args['role'] = $_POST['um_role'];
-			} else {
-				$args['role'] = um_get_option('default_role');
-			}
-
-			do_action('um_after_new_user_register', $user_id, $args);
-
-			do_action('um_update_profile_full_name', $_POST);
-
-			// generate profile slug 
-			UM()->user()->get_profile_url( $user_id, true );
-
-		}
-
-	}
 
 	/***
 	***	@adds main links to a logout widget

@@ -66,24 +66,21 @@
 	/**
 	 * Custom User homepage redirection
 	 */
-	add_action("um_access_user_custom_homepage","um_access_user_custom_homepage");
-	function um_access_user_custom_homepage(){
+	add_action( "um_access_user_custom_homepage", "um_access_user_custom_homepage" );
+	function um_access_user_custom_homepage() {
 		if( ! is_user_logged_in() ) return;
-		/*if( ! is_front_page() )  return;*/
-		
-		$role_meta = UM()->roles()->role_data( um_user('role') );
-		
-		if( isset( $role_meta['default_homepage'] ) && $role_meta['default_homepage'] == 0 ){
-			$redirect_to = null;
+		if ( ! is_home() ) return;
 
-			if( ! empty( $role_meta['redirect_homepage'] ) ){
-				$redirect_to = $role_meta['redirect_homepage'];
-			}else{
-				$redirect_to = um_get_core_page('user');
-			}
+		$role_meta = UM()->roles()->role_data( um_user( 'role' ) );
+		
+		if ( empty( $role_meta['default_homepage'] ) ) {
 
-			$redirect_to = UM()->access()->set_referer( $redirect_to, "custom_homepage" );
-			wp_redirect( $redirect_to ); exit;
+            $redirect_to = ! empty( $role_meta['redirect_homepage'] ) ? $role_meta['redirect_homepage'] : um_get_core_page( 'user' );
+
+            $redirect_to = UM()->access()->set_referer( $redirect_to, "custom_homepage" );
+
+            wp_redirect( $redirect_to );
+            exit;
 
 		}
 	}

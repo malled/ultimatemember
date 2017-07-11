@@ -3,7 +3,7 @@
 	/***
 	***	@redirect wp-admin for non guests
 	***/
-	add_action('init','um_block_wpadmin_for_guests');
+	add_action( 'init', 'um_block_wpadmin_for_guests' );
 	function um_block_wpadmin_for_guests() {
 		global $pagenow;
 		
@@ -83,7 +83,7 @@
 			// Prevention for logged in user
 			if ( isset( $pagenow ) && $pagenow == 'wp-login.php' && is_user_logged_in() && isset(  $_REQUEST['action'] ) && $_REQUEST['action'] != 'postpass' ) {
 				
-				if ( !um_user('can_access_wpadmin') ) {
+				if ( ! um_user( 'can_access_wpadmin' ) ) {
 					exit( wp_redirect( home_url() ) );
 				} else {
 					exit( wp_redirect( admin_url() ) );
@@ -99,12 +99,12 @@
 	/***
 	***	@checks if user can access the backend
 	***/
-	function um_block_wpadmin_by_user_role(){
-		if( is_admin() && !defined('DOING_AJAX') && um_user('ID') && !um_user('can_access_wpadmin') && !is_super_admin( um_user('ID') ) ){
+	function um_block_wpadmin_by_user_role() {
+		if ( is_admin() && ! defined('DOING_AJAX') && um_user( 'ID' ) && ! um_user( 'can_access_wpadmin' ) && ! is_super_admin( um_user('ID') ) ) {
 			um_redirect_home();
 		}
 	}
-	add_action('init','um_block_wpadmin_by_user_role', 99);
+	add_action( 'init', 'um_block_wpadmin_by_user_role', 99 );
 	
 	/***
 	***	@hide admin bar appropriately

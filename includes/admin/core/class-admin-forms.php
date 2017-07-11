@@ -211,7 +211,7 @@ if ( ! class_exists( 'Admin_Forms' ) ) {
             $for_attr = ' for="' . $id . '" ';
 
             $label = $data['label'];
-            $tooltip = $data['tooltip'] ? UM()->tooltip( $data['tooltip'], false, false ) : '';
+            $tooltip = ! empty( $data['tooltip'] ) ? UM()->tooltip( $data['tooltip'], false, false ) : '';
 
             return "<label $for_attr>$label $tooltip</label>";
         }
@@ -600,12 +600,7 @@ if ( ! class_exists( 'Admin_Forms' ) ) {
             $default = isset( $field_data['default'] ) ? $field_data['default'] : '';
             $values = isset( $field_data['value'] ) ? $field_data['value'] : $default;
 
-            $options = '';
-            foreach ( $field_data['options'] as $key=>$option ) {
-                $options .= '<option value="' . $key . '">' . $option . '</option>';
-            }
-
-            $html = "<input type=\"text\" class=\"um-hidden-multi-text\" $data_attr>$options</input>";
+            $html = "<input type=\"text\" class=\"um-hidden-multi-text\" $data_attr />";
             $html .= "<ul class=\"um-multi-text-list\" $data_attr>";
 
             if ( ! empty( $values ) ) {

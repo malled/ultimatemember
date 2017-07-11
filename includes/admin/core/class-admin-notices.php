@@ -40,22 +40,11 @@ if ( ! class_exists( 'Admin_Notices' ) ) {
         /***
          ***	@show main notices
          ***/
-        function main_notices(){
-            $hide_register_notice = get_option('um_can_register_notice');
+        function main_notices() {
 
-            if ( ! defined('DOING_AJAX') ) {
+            if ( ! defined( 'DOING_AJAX' ) ) {
 
-                if ( !get_option('users_can_register') && !$hide_register_notice ) {
-
-                    echo '<div class="updated" style="border-color: #3ba1da;"><p>';
-
-                    echo sprintf(__( 'Registration is disabled. Please go to the <a href="%s">general settings</a> page in the WordPress admin and select anyone can register. <a href="%s">Hide this notice</a>', 'ultimatemember' ), admin_url('options-general.php'), add_query_arg('um_adm_action', 'um_can_register_notice') );
-
-                    echo '</p></div>';
-
-                }
-
-                $hide_exif_notice = get_option('um_hide_exif_notice');
+                $hide_exif_notice = get_option( 'um_hide_exif_notice' );
 
                 if ( !extension_loaded('exif') && !$hide_exif_notice ) {
 

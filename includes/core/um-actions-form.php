@@ -1,18 +1,6 @@
 <?php
 
 	/***
-	***	@Error handling: Registering
-	***/
-	add_action('um_submit_form_errors_hook__registration', 'um_submit_form_errors_hook__registration', 10);
-	function um_submit_form_errors_hook__registration($args){
-		$can_register = get_option('users_can_register');
-		if ( !$can_register ) {
-			exit( wp_redirect( esc_url( add_query_arg('err', 'registration_disabled') ) ) );
-		}
-
-	}
-
-	/***
 	***	@Error handling: blocked emails
 	***/
 	add_action('um_submit_form_errors_hook__blockedemails', 'um_submit_form_errors_hook__blockedemails', 10);

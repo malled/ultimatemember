@@ -315,8 +315,9 @@ if ( ! class_exists( 'um\Config' ) ) {
 
             //settings defaults
             $this->settings_defaults = array(
+                'restricted_access_post_metabox'        => array( 'post' => 1, 'page' => 1 ),
                 'uninstall_on_delete'                   => 0,
-                'default_role'                          => 'member',
+                'default_role'                          => 'subscriber',
                 'permalink_base'                        => 'user_login',
                 'display_name'                          => 'full_name',
                 'display_name_field'                    => '',

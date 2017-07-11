@@ -181,7 +181,7 @@ if ( ! class_exists( 'UM' ) ) {
 
                 require_once 'um-short-functions.php';
 
-                add_action( 'init', array( &$this, 'init' ), 0 );
+                add_action( 'plugins_loaded', array( &$this, 'init' ), 0 );
                 // init widgets
                 add_action( 'widgets_init', array( &$this, 'widgets_init' ) );
 

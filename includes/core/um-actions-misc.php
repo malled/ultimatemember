@@ -49,17 +49,13 @@
 	/***
 	***	@add a notice to form
 	***/
-	add_action('um_before_form', 'um_add_update_notice', 500 );
-	function um_add_update_notice($args){
+	add_action( 'um_before_form', 'um_add_update_notice', 500 );
+	function um_add_update_notice( $args ) {
 		extract($args);
 		
 		$output 	= '';
 		$err 		= '';
 		$success 	= '';
-
-		if ( ! get_option('users_can_register') && $mode == 'register' ) {
-			$err = __('Registration is currently disabled','ultimatemember');
-		}
 		
 		if ( isset( $_REQUEST['updated'] ) && !empty( $_REQUEST['updated'] ) && ! UM()->form()->errors ) {
 			switch( $_REQUEST['updated'] ) {

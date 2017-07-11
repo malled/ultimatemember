@@ -141,16 +141,16 @@ if ( ! class_exists( 'Form' ) ) {
         /**
          * Validate form
          */
-        function form_init(){
+        function form_init() {
             if ( isset( $_SERVER['REQUEST_METHOD'] ) ) {
                 $http_post = ('POST' == $_SERVER['REQUEST_METHOD']);
             } else {
                 $http_post = 'POST';
             }
 
-            if ( $http_post && !is_admin() && isset( $_POST['form_id'] ) && is_numeric($_POST['form_id']) ) {
+            if ( $http_post && ! is_admin() && isset( $_POST['form_id'] ) && is_numeric( $_POST['form_id'] ) ) {
 
-                do_action("um_before_submit_form_post", $_POST );
+                do_action( "um_before_submit_form_post", $_POST );
 
                 $this->form_id = $_POST['form_id'];
                 $this->form_status = get_post_status( $this->form_id );
@@ -191,17 +191,17 @@ if ( ! class_exists( 'Form' ) ) {
 
 
 
-                    }else if( isset( $this->post_form['mode'] ) && $this->post_form['mode'] == 'register' ) {
+                    } elseif ( isset( $this->post_form['mode'] ) && $this->post_form['mode'] == 'register' ) {
                         $role = $this->assigned_role( $this->form_id );
                         $this->post_form['role'] = $role;
                         $this->post_form['submitted']['role'] = $role;
                     }
 
                     if ( isset( $_POST[ UM()->honeypot ] ) && $_POST[ UM()->honeypot ] != '' ){
-                        wp_die('Hello, spam bot!','ultimatemember');
+                        wp_die( 'Hello, spam bot!', 'ultimatemember' );
                     }
 
-                    if ( !in_array( $this->form_data['mode'], array('login') ) ) {
+                    if ( ! in_array( $this->form_data['mode'], array( 'login' ) ) ) {
 
                         $form_timestamp  = trim($_POST['timestamp']);
                         $live_timestamp  = current_time( 'timestamp' );
@@ -214,13 +214,13 @@ if ( ! class_exists( 'Form' ) ) {
 
                     }
 
-                    $this->post_form = apply_filters('um_submit_form_data', $this->post_form, $this->post_form['mode'] );
+                    $this->post_form = apply_filters( 'um_submit_form_data', $this->post_form, $this->post_form['mode'] );
 
                     /* Continue based on form mode - pre-validation */
 
-                    do_action('um_submit_form_errors_hook', $this->post_form );
+                    do_action( 'um_submit_form_errors_hook', $this->post_form );
 
-                    do_action("um_submit_form_{$this->post_form['mode']}", $this->post_form );
+                    do_action( "um_submit_form_{$this->post_form['mode']}", $this->post_form );
 
                 }
 

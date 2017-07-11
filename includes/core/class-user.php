@@ -42,7 +42,6 @@ if ( ! class_exists( 'User' ) ) {
 
             // When the cache should be cleared
             add_action('um_delete_user_hook', array(&$this, 'remove_cached_queue') );
-            add_action('um_new_user_registration_plain', array(&$this, 'remove_cached_queue') );
             add_action('um_after_user_status_is_changed_hook', array(&$this, 'remove_cached_queue') );
 
             // When user cache should be cleared
@@ -55,21 +54,15 @@ if ( ! class_exists( 'User' ) ) {
 
             add_action( 'show_user_profile',        array( $this, 'community_role_edit' ) );
             add_action( 'edit_user_profile',        array( $this, 'community_role_edit' ) );
-            //add_action( 'personal_options_update',  array( $this, 'community_role_save' ) );
-            //add_action( 'edit_user_profile_update', array( $this, 'community_role_save' ) );
-
 
             add_action( 'user_new_form', array( $this, 'secondary_role_display' ) );
             add_action( 'edit_user_profile', array( $this, 'secondary_role_display' ) );
             add_action( 'show_user_profile', array( $this, 'secondary_role_display' ) );
 
-
-            add_action( 'profile_update', array( &$this,'profile_update' ), 10, 2 ); // user_id and old_user_data
-
-            add_action( 'user_register', array( &$this, 'user_register' ), 10, 1 );
+            add_action( 'profile_update', array( &$this, 'profile_update' ), 10, 2 ); // user_id and old_user_data
             add_action( 'edit_user_profile_update', array( &$this, 'profile_update' ), 10, 1 );
 
-
+            add_action( 'user_register', array( &$this, 'user_register_via_admin' ), 10, 1 );
 
         }
 
@@ -207,21 +200,22 @@ if ( ! class_exists( 'User' ) ) {
 
 
         /**
-         * New user registered set UM Role if it's selected
+         * Backend user creation
          *
          * @param $user_id
          */
-        function user_register( $user_id ) {
+        function user_register_via_admin( $user_id ) {
+
             if ( empty( $user_id ) )
                 return;
 
-            if ( empty( $_POST['um-role'] ) )
-                return;
 
-            // UM role we want the user to have
-            $new_role = sanitize_text_field( $_POST['um-role'] );
-            // Set the new UM role
-            UM()->roles()->set_um_user_role( $user_id, $new_role );
+            if ( is_admin() ) {
+
+                do_action( 'um_after_new_user_register', $user_id, $_POST );
+
+            }
+
         }
 
 
@@ -231,20 +225,12 @@ if ( ! class_exists( 'User' ) ) {
             if ( empty( $user_id ) )
                 return;
 
-            // Bail if no role
-            if ( ! isset( $_POST['um-role'] ) )
-                return;
+            if ( ! empty( $_POST['um-role'] ) ) {
+                if ( ! user_can( $user_id, $_POST['um-role'] ) )
+                    UM()->roles()->set_um_user_role( $user_id, $_POST['um-role'] );
+            }
 
-            // Fromus role we want the user to have
-            $new_role    = sanitize_text_field( $_POST['um-role'] );
-            $forums_role = UM()->roles()->um_get_user_role( $user_id );
-
-            // Bail if no role change
-            if ( $new_role === $forums_role )
-                return;
-
-            // Set the new UM role
-            UM()->roles()->set_um_user_role( $user_id, $new_role );
+            $this->remove_cache( $user_id );
         }
 
 
@@ -256,15 +242,21 @@ if ( ! class_exists( 'User' ) ) {
          */
         public static function secondary_role_display( $userdata ) {
             $roles = array();
-            $role_keys = get_option( 'um_roles' );
-            foreach ( $role_keys as $role_key ) {
-                $role_meta = get_option( "um_role_{$role_key}_meta" );
 
-                if ( $role_meta ) {
-                    $role_meta['name'] = 'UM ' . $role_meta['name'];
-                    $roles['um_' . $role_key] = $role_meta;
+            $role_keys = get_option( 'um_roles' );
+            if ( $role_keys ) {
+                foreach ( $role_keys as $role_key ) {
+                    $role_meta = get_option( "um_role_{$role_key}_meta" );
+
+                    if ( $role_meta ) {
+                        $role_meta['name'] = 'UM ' . $role_meta['name'];
+                        $roles['um_' . $role_key] = $role_meta;
+                    }
                 }
             }
+
+            if ( empty( $roles ) )
+                return;
 
 
             $style = '';
@@ -311,14 +303,6 @@ if ( ! class_exists( 'User' ) ) {
             do_action( 'um_user_profile_section' );
         }
 
-        /**
-         * Save user on WP form
-         */
-        public function community_role_save( $user_id ) {
-            if ( current_user_can( 'edit_user', $user_id ) && isset( $_POST['um_role'] ) ) {
-                delete_option( "um_cache_userdata_{$user_id}" );
-            }
-        }
 
         /***
          ***	@Remove cached queue from Users backend
@@ -609,9 +593,10 @@ if ( ! class_exists( 'User' ) ) {
         /**
          * Set last login for new registered users
          */
-        function set_last_login(){
+        function set_last_login() {
             update_user_meta(  $this->id, '_um_last_login', current_time( 'timestamp' ) );
         }
+
 
         function set_role( $role ){
 

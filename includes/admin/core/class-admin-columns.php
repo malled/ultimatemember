@@ -89,8 +89,8 @@ if ( ! class_exists( 'Admin_Columns' ) ) {
                     break;
 
                 case 'mode':
-                    $mode = UM()->query()->get_attr('mode', $id);
-                    echo '<span class="um-admin-tag um-admin-type-'.$mode.'">'. UM()->form()->display_form_type($mode, $id) . '</span>';
+                    $mode = UM()->query()->get_attr( 'mode', $id );
+                    echo UM()->form()->display_form_type( $mode, $id );
                     break;
 
             }

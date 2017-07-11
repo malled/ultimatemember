@@ -41,8 +41,8 @@
 	/***
 	***	@update user's profile
 	***/
-	add_action('um_user_edit_profile', 'um_user_edit_profile', 10);
-	function um_user_edit_profile( $args ){
+	add_action( 'um_user_edit_profile', 'um_user_edit_profile', 10 );
+	function um_user_edit_profile( $args ) {
 
 		$to_update = null;
 		$files = null;
@@ -59,18 +59,19 @@
 
 		$userinfo = UM()->user()->profile;
 
-		$fields = unserialize( $args['custom_fields'] );
+        do_action( 'um_user_before_updating_profile', $userinfo );
 
-		do_action('um_user_before_updating_profile', $userinfo );
+        if ( ! empty( $args['custom_fields'] ) )
+		    $fields = unserialize( $args['custom_fields'] );
 
 		// loop through fields
-		if ( isset( $fields ) && is_array( $fields ) ) {
-			foreach( $fields as $key => $array ) {
+		if ( ! empty( $fields ) ) {
+			foreach ( $fields as $key => $array ) {
 
 				if( ! UM()->roles()->um_user_can( 'can_edit_everyone' ) && isset( $fields[$key]['editable'] ) && ! $fields[$key]['editable'] )
 					continue;
 
-				if ( $fields[$key]['type'] == 'multiselect' ||  $fields[$key]['type'] == 'checkbox' && !isset($args['submitted'][$key]) ) {
+				if ( $fields[$key]['type'] == 'multiselect' || $fields[$key]['type'] == 'checkbox' && ! isset( $args['submitted'][$key] ) ) {
 					delete_user_meta( um_user('ID'), $key );
 				}
 
@@ -82,9 +83,9 @@
 
 					} else {
 
-						if ( isset( $userinfo[$key]) && $args['submitted'][$key] != $userinfo[$key] ) {
+						if ( isset( $userinfo[$key] ) && $args['submitted'][$key] != $userinfo[$key] ) {
 							$to_update[ $key ] = $args['submitted'][ $key ];
-						} else if ( $args['submitted'][$key] ) {
+						} elseif ( $args['submitted'][$key] ) {
 							$to_update[ $key ] = $args['submitted'][ $key ];
 						}
 
@@ -98,33 +99,32 @@
 			$to_update['description'] = $args['submitted']['description'];
 		}
 
-		if ( isset( $args['submitted']['role'] ) && !empty( $args['submitted']['role'] ) ) {
+		if ( ! empty( $args['submitted']['role'] ) ) {
 			$to_update['role'] = $args['submitted']['role'];
 		}
 
-		do_action('um_user_pre_updating_profile', $to_update );
+		do_action( 'um_user_pre_updating_profile', $to_update );
 
-		$to_update = apply_filters('um_user_pre_updating_profile_array', $to_update);
+		$to_update = apply_filters( 'um_user_pre_updating_profile_array', $to_update );
 
 		if ( is_array( $to_update ) ) {
 			UM()->user()->update_profile( $to_update );
-			do_action('um_after_user_updated', um_user('ID') );
+			do_action( 'um_after_user_updated', um_user('ID') );
 		
 		}
 
-		$files = apply_filters('um_user_pre_updating_files_array', $files);
+		$files = apply_filters( 'um_user_pre_updating_files_array', $files );
 		
 		if ( is_array( $files ) ) {
 			UM()->user()->update_files( $files );
-			do_action('um_after_user_upload', um_user('ID'), $files );
+			do_action( 'um_after_user_upload', um_user('ID'), $files );
 		}
 
-		do_action('um_user_after_updating_profile', $to_update );
+		do_action( 'um_user_after_updating_profile', $to_update );
 
-		do_action('um_update_profile_full_name', $to_update );
+		do_action( 'um_update_profile_full_name', $to_update );
 
-
-		if ( !isset( $args['is_signup'] ) ) {
+		if ( ! isset( $args['is_signup'] ) ) {
 			$url = UM()->user()->get_profile_url( um_user('ID'), true );
 			exit( wp_redirect( um_edit_my_profile_cancel_uri( $url ) ) );
 		}
