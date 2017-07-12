@@ -475,7 +475,7 @@ if ( ! class_exists( 'User' ) ) {
                     $this->profile['role'] = ( strpos( $user_role, 'um_' ) === 0 ) ? str_replace( 'um_', '', $user_role ) : $user_role;
 
                     $role_meta = UM()->roles()->role_data( $user_role );
-                    $role_meta = apply_filters('um_user_permissions_filter', $role_meta, $this->id);
+                    $role_meta = apply_filters( 'um_user_permissions_filter', $role_meta, $this->id );
 
                     /*$role_meta = array_map( function( $key, $item ) {
                         if ( strpos( $key, '_um_' ) === 0 )

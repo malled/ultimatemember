@@ -428,7 +428,7 @@
 	/***
 	***	@adds profile permissions to view/edit
 	***/
-	add_action('um_pre_profile_shortcode', 'um_pre_profile_shortcode');
+	add_action( 'um_pre_profile_shortcode', 'um_pre_profile_shortcode' );
 	function um_pre_profile_shortcode($args){
 		extract( $args );
 
@@ -471,7 +471,7 @@
 
 		if ( !is_user_logged_in() ) return; // not allowed for guests
 
-		if ( isset( UM()->user()->cannot_edit ) && UM()->user()->cannot_edit == 1 ) return; // do not proceed if user cannot edit
+        if ( isset( UM()->user()->cannot_edit ) && UM()->user()->cannot_edit == 1 ) return; // do not proceed if user cannot edit
 
 		if ( UM()->fields()->editing == true ) {
 

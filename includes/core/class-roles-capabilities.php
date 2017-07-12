@@ -142,8 +142,11 @@ if ( ! class_exists( 'Roles_Capabilities' ) ) {
                 }, $role_keys );
 
                 $roles = array_intersect( array_values( $user->roles ), $role_keys );
-                if ( ! empty( $roles ) )
+                if ( ! empty( $roles ) ) {
                     $role = array_shift( $roles );
+                } else {
+                    return array_shift( $user->roles );
+                }
             }
 
             return $role;

@@ -484,6 +484,19 @@ if ( ! class_exists( 'Fields' ) ) {
                 if ( !isset( UM()->form()->post_form ) ) {
 
                     $field_value 	= um_user( $key );
+
+                    if ( $key == 'role' ) {
+
+                        $role_keys = get_option( 'um_roles' );
+
+                        if ( ! empty( $role_keys ) ) {
+                            if ( in_array( $field_value, $role_keys ) ) {
+                                $field_value = 'um_' . $field_value;
+                            }
+                        }
+
+                    }
+
                     $field_value 	= apply_filters('um_is_selected_filter_value', $field_value, $key );
                     $data	= apply_filters('um_is_selected_filter_data', $data, $key, $field_value );
 
@@ -555,6 +568,14 @@ if ( ! class_exists( 'Fields' ) ) {
 
                         if ( $key == 'role' ) {
                             $um_user_value = strtolower( $um_user_value );
+
+                            $role_keys = get_option( 'um_roles' );
+
+                            if ( ! empty( $role_keys ) ) {
+                                if ( in_array( $um_user_value, $role_keys ) ) {
+                                    $um_user_value = 'um_' . $um_user_value;
+                                }
+                            }
                         }
 
                         if ( $um_user_value == $value ) {
@@ -2537,6 +2558,14 @@ if ( ! class_exists( 'Fields' ) ) {
                     $res = apply_filters("um_view_field", $res, $data, $type );
                     $res = apply_filters("um_view_field_value_{$type}", $res, $data );
 
+
+                    if ( $key == 'role_radio' || $key == 'role_select' ) {
+                        $role_meta = UM()->roles()->role_data( um_user( 'role' ) );
+                        if ( ! empty( $role_meta['is_custom'] ) ) {
+                            $res = 'UM ' . $res;
+                        }
+                    }
+
                     $output .= '<div class="um-field-area">';
                     $output .= '<div class="um-field-value">' . $res . '</div>';
                     $output .= '</div>';
@@ -2644,10 +2673,10 @@ if ( ! class_exists( 'Fields' ) ) {
                 }
             }
 
-            if ( !empty( $this->get_fields ) ) {
+            if ( ! empty( $this->get_fields ) ) {
 
                 // find rows
-                foreach( $this->get_fields as $key => $array ) {
+                foreach ( $this->get_fields as $key => $array ) {
                     if ( $array['type'] == 'row' ) {
                         $this->rows[$key] = $array;
                         unset( $this->get_fields[ $key ] ); // not needed anymore
@@ -2655,7 +2684,7 @@ if ( ! class_exists( 'Fields' ) ) {
                 }
 
                 // rows fallback
-                if ( !isset( $this->rows ) ){
+                if ( !isset( $this->rows ) ) {
                     $this->rows = array( '_um_row_1' => array(
                         'type' => 'row',
                         'id' => '_um_row_1',
@@ -2669,6 +2698,7 @@ if ( ! class_exists( 'Fields' ) ) {
                 foreach ( $this->rows as $row_id => $row_array ) {
 
                     $row_fields = $this->get_fields_by_row( $row_id );
+
                     if ( $row_fields ) {
 
                         $output .= $this->new_row_output( $row_id, $row_array );

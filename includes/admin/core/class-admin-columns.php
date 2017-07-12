@@ -24,9 +24,9 @@ if ( ! class_exists( 'Admin_Columns' ) ) {
         /***
          ***	@custom row actions
          ***/
-        function post_row_actions($actions, $post){
+        function post_row_actions( $actions, $post ) {
             //check for your post type
-            if ($post->post_type =="um_form"){
+            if ( $post->post_type == "um_form" ) {
                 $actions['um_duplicate'] = '<a href="' . $this->duplicate_uri( $post->ID ) . '">' . __('Duplicate','ultimatemember') . '</a>';
             }
             return $actions;
@@ -47,11 +47,14 @@ if ( ! class_exists( 'Admin_Columns' ) ) {
         function manage_edit_um_form_columns( $columns ) {
 
             $new_columns['cb'] = '<input type="checkbox" />';
-            $new_columns['id'] = __('ID') . UM()->metabox()->_tooltip( 'Unique ID for each form' );
-            $new_columns['title'] = __('Title');
-            $new_columns['mode'] = __('Type') . UM()->metabox()->_tooltip( 'This is the type of the form' );
-            $new_columns['shortcode'] = __('Shortcode') . UM()->metabox()->_tooltip( 'Use this shortcode to display the form' );
-            $new_columns['date'] = __('Date');
+            //$new_columns['id'] = __('ID') . UM()->metabox()->_tooltip( 'Unique ID for each form' );
+            $new_columns['title'] = __( 'Title', 'ulitmatemember' );
+            $new_columns['id'] = __('ID', 'ulitmatemember' );
+            //$new_columns['mode'] = __('Type') . UM()->metabox()->_tooltip( 'This is the type of the form' );
+            $new_columns['mode'] = __( 'Type', 'ulitmatemember' );
+            //$new_columns['shortcode'] = __('Shortcode') . UM()->metabox()->_tooltip( 'Use this shortcode to display the form' );
+            $new_columns['shortcode'] = __( 'Shortcode', 'ulitmatemember' );
+            $new_columns['date'] = __( 'Date', 'ulitmatemember' );
 
             return $new_columns;
 
@@ -75,10 +78,9 @@ if ( ! class_exists( 'Admin_Columns' ) ) {
         /***
          ***	@Display cusom columns for Form
          ***/
-        function manage_um_form_posts_custom_column($column_name, $id) {
-            global $wpdb;
+        function manage_um_form_posts_custom_column( $column_name, $id ) {
 
-            switch ($column_name) {
+            switch ( $column_name ) {
 
                 case 'id':
                     echo '<span class="um-admin-number">'.$id.'</span>';

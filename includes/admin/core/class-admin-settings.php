@@ -74,6 +74,7 @@ if ( ! class_exists( 'Admin_Settings' ) ) {
                         'compiler' 		=> true,
                         'value' 		=> UM()->um_get_option( $page_id ),
                         'default' 		=> UM()->um_get_default( $page_id ),
+                        'size'          => 'small'
                     );
                 } else {
                     $general_pages_fields[] = array(
@@ -85,6 +86,7 @@ if ( ! class_exists( 'Admin_Settings' ) ) {
                         'compiler' 		=> true,
                         'value' 		=> UM()->um_get_option( $page_id ),
                         'default' 		=> UM()->um_get_default( $page_id ),
+                        'size'          => 'small'
                     );
                 }
             }
