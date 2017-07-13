@@ -11,7 +11,7 @@
                 'type'		    => 'select',
                 'name'		    => '_um_after_logout',
                 'label'    		=> __( 'Action to be taken after logout', 'ultimatemember' ),
-                'description' 	=> __( 'Select what happens when a user with this role logouts of your site', 'ultimatemember' ),
+                'tooltip' 	=> __( 'Select what happens when a user with this role logouts of your site', 'ultimatemember' ),
                 'value' 		=> ! empty( $role['_um_after_logout'] ) ? $role['_um_after_logout'] : array(),
                 'options'		=> array(
                     'redirect_home' => __( 'Go to Homepage', 'ultimatemember' ),
@@ -23,7 +23,7 @@
                 'type'		=> 'text',
                 'name'		=> '_um_logout_redirect_url',
                 'label'    		=> __( 'Set Custom Redirect URL', 'ultimatemember' ),
-                'description' 	=> __( 'Set a url to redirect this user role to after they logout from site', 'ultimatemember' ),
+                'tooltip' 	=> __( 'Set a url to redirect this user role to after they logout from site', 'ultimatemember' ),
                 'value' 		=> ! empty( $role['_um_logout_redirect_url'] ) ? $role['_um_logout_redirect_url'] : '',
                 'conditional'	=> array( '_um_after_logout', '=', 'redirect_url' )
             )

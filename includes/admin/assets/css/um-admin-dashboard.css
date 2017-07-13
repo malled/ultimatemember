@@ -13,11 +13,10 @@
 	font-size: 14px;
 	position: relative;
 	font-weight: 400;
-	background: #3ba1da;
+	background: #0085ba;
 	color: #fff !important;
 	padding: 2px 4px !important;
 	border-radius: 3px;
-	position: relative;
 	top: 5px;
 	left: 3px;
 	border: none !important;
@@ -125,4 +124,4 @@
 	color: #777 !important;
 	font-size: 22px !important;
 }
-.um-admin-dash-share a:hover {color: #3ba1da !important}
+.um-admin-dash-share a:hover {color: #0085ba !important}

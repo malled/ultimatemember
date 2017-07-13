@@ -21,9 +21,9 @@
 		<div class="um-admin-btn-toggle">
 		
 			<?php if ( $in_edit ) { $metabox->in_edit = true;  $metabox->edit_array = $edit_array; ?>
-			<a href="#"><i class="um-icon-plus"></i><?php _e('Manage conditional fields support'); ?></a> <?php $metabox->tooltip('Here you can setup conditional logic to show/hide this field based on specific fields value or conditions'); ?>
+			<a href="#"><i class="um-icon-plus"></i><?php _e('Manage conditional fields support'); ?></a> <?php UM()->tooltip( __( 'Here you can setup conditional logic to show/hide this field based on specific fields value or conditions', 'ultimatemember' ) ); ?>
 			<?php } else { ?>
-			<a href="#"><i class="um-icon-plus"></i><?php _e('Add conditional fields support'); ?></a> <?php $metabox->tooltip('Here you can setup conditional logic to show/hide this field based on specific fields value or conditions'); ?>
+			<a href="#"><i class="um-icon-plus"></i><?php _e('Add conditional fields support'); ?></a> <?php UM()->tooltip( __( 'Here you can setup conditional logic to show/hide this field based on specific fields value or conditions', 'ultimatemember' ) ); ?>
 			<?php } ?>
 			
 			<div class="um-admin-btn-content">

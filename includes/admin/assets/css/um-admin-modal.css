@@ -68,7 +68,7 @@
 
 .um-admin-modal-head {
 	padding: 4px 20px;
-	background: #3ba1da;
+	background: #0085ba;
 	position: relative;
 	border-radius: 3px 3px 0 0;
 }
@@ -156,7 +156,7 @@
 }
 
 .um-admin-btn-toggle a.active, .um-admin-btn-toggle a.active:hover {
-	color: #3ba1da;
+	color: #0085ba;
 }
 
 .um-admin-btn-toggle i {
@@ -272,7 +272,7 @@ p._icon_search input[type=text]{padding-right: 40px!important}
 }
 .um-admin-icons span:hover,
 .um-admin-icons span.highlighted
-{color: #3ba1da;border-color: #3ba1da}
+{color: #0085ba;border-color: #0085ba}
 
 .um-admin-icons i{vertical-align: middle !important;font-size: 24px;width: 24px;text-align: center;padding: 15px 20px;display: inline-block;}
 
@@ -282,7 +282,7 @@ span.um-admin-icon-value {
 }
 span.um-admin-icon-value i {
 	font-size: 28px;
-	color: #3ba1da;
+	color: #0085ba;
 	position: relative;
 	top: 5px;
 }

@@ -11,7 +11,7 @@
                 'type'		    => 'checkbox',
                 'name'		    => '_um_default_homepage',
                 'label'    		=> __( 'Can view default homepage?', 'ultimatemember' ),
-                'description' 	=> __( 'Allow this user role to view your site\'s homepage', 'ultimatemember' ),
+                'tooltip' 	=> __( 'Allow this user role to view your site\'s homepage', 'ultimatemember' ),
                 'value'		    => ! empty( $role['_um_default_homepage'] ) ? $role['_um_default_homepage'] : 0,
             ),
             array(
@@ -19,7 +19,7 @@
                 'type'		=> 'text',
                 'name'		=> '_um_redirect_homepage',
                 'label'    		=> __( 'Custom Homepage Redirect', 'ultimatemember' ),
-                'description' 	=> __( 'Set a url to redirect this user role to if they try to view your site\'s homepage', 'ultimatemember' ),
+                'tooltip' 	=> __( 'Set a url to redirect this user role to if they try to view your site\'s homepage', 'ultimatemember' ),
                 'value'		=> ! empty( $role['_um_redirect_homepage'] ) ? $role['_um_redirect_homepage'] : '',
                 'conditional'	=> array( '_um_default_homepage', '=', '0' )
             )

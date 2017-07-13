@@ -10,7 +10,7 @@
                 'type'		    => 'select',
                 'name'		    => '_um_status',
                 'label'    		=> __( 'Registration Status', 'ultimatemember' ),
-                'description' 	=> __( 'Select the status you would like this user role to have after they register on your site', 'ultimatemember' ),
+                'tooltip' 	=> __( 'Select the status you would like this user role to have after they register on your site', 'ultimatemember' ),
                 'value' 		=> ! empty( $role['_um_status'] ) ? $role['_um_status'] : array(),
                 'options'		=> array(
                     'approved'	=> __( 'Auto Approve', 'ultimatemember' ),
@@ -23,7 +23,7 @@
                 'type'		    => 'select',
                 'name'		    => '_um_auto_approve_act',
                 'label'    		=> __( 'Action to be taken after registration', 'ultimatemember' ),
-                'description' 	=> __( 'Select what action is taken after a person registers on your site. Depending on the status you can redirect them to their profile, a custom url or show a custom message', 'ultimatemember' ),
+                'tooltip' 	=> __( 'Select what action is taken after a person registers on your site. Depending on the status you can redirect them to their profile, a custom url or show a custom message', 'ultimatemember' ),
                 'value' 		=> ! empty( $role['_um_auto_approve_act'] ) ? $role['_um_auto_approve_act'] : array(),
                 'options'		=> array(
                     'redirect_profile' 	=> __( 'Redirect to profile', 'ultimatemember' ),
@@ -44,7 +44,7 @@
                 'type'		=> 'checkbox',
                 'name'		=> '_um_login_email_activate',
                 'label'    		=> __( 'Login user after validating the activation link?', 'ultimatemember' ),
-                'description' 	=> __( 'Login the user after validating the activation link', 'ultimatemember' ),
+                'tooltip' 	=> __( 'Login the user after validating the activation link', 'ultimatemember' ),
                 'value' 		=> ! empty( $role['_um_login_email_activate'] ) ? $role['_um_login_email_activate'] : 0,
                 'conditional'	=> array( '_um_status', '=', 'checkmail' )
             ),
@@ -53,7 +53,7 @@
                 'type'		    => 'select',
                 'name'		    => '_um_checkmail_action',
                 'label'    		=> __( 'Action to be taken after registration', 'ultimatemember' ),
-                'description' 	=> __( 'Select what action is taken after a person registers on your site. Depending on the status you can redirect them to their profile, a custom url or show a custom message', 'ultimatemember' ),
+                'tooltip' 	=> __( 'Select what action is taken after a person registers on your site. Depending on the status you can redirect them to their profile, a custom url or show a custom message', 'ultimatemember' ),
                 'value' 		=> ! empty( $role['_um_checkmail_action'] ) ? $role['_um_checkmail_action'] : array(),
                 'options'		=> array(
                     'show_message' 	=> __( 'Show custom message', 'ultimatemember' ),
@@ -82,7 +82,7 @@
                 'type'		=> 'text',
                 'name'		=> '_um_url_email_activate',
                 'label'    		=> __( 'URL redirect after e-mail activation', 'ultimatemember' ),
-                'description' 	=> __( 'If you want users to go to a specific page other than login page after e-mail activation, enter the URL here.', 'ultimatemember' ),
+                'tooltip' 	=> __( 'If you want users to go to a specific page other than login page after e-mail activation, enter the URL here.', 'ultimatemember' ),
                 'value' 		=> ! empty( $role['_um_url_email_activate'] ) ? $role['_um_url_email_activate'] : '',
                 'conditional'	=> array( '_um_status', '=', 'checkmail' ),
             ),
@@ -91,7 +91,7 @@
                 'type'		    => 'select',
                 'name'		    => '_um_pending_action',
                 'label'    		=> __( 'Action to be taken after registration', 'ultimatemember' ),
-                'description' 	=> __( 'Select what action is taken after a person registers on your site. Depending on the status you can redirect them to their profile, a custom url or show a custom message', 'ultimatemember' ),
+                'tooltip' 	=> __( 'Select what action is taken after a person registers on your site. Depending on the status you can redirect them to their profile, a custom url or show a custom message', 'ultimatemember' ),
                 'value' 		=> ! empty( $role['_um_pending_action'] ) ? $role['_um_pending_action'] : array(),
                 'options'		=> array(
                     'show_message' 	=> __( 'Show custom message', 'ultimatemember' ),

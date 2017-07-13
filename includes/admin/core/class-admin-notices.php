@@ -48,7 +48,7 @@ if ( ! class_exists( 'Admin_Notices' ) ) {
 
                 if ( !extension_loaded('exif') && !$hide_exif_notice ) {
 
-                    echo '<div class="updated" style="border-color: #3ba1da;"><p>';
+                    echo '<div class="updated" style="border-color: #0085ba;"><p>';
 
                     echo sprintf(__( 'Exif is not enabled on your server. Mobile photo uploads will not be rotated correctly until you enable the exif extension. <a href="%s">Hide this notice</a>', 'ultimatemember' ), add_query_arg('um_adm_action', 'um_hide_exif_notice') );
 
@@ -73,20 +73,20 @@ if ( ! class_exists( 'Admin_Notices' ) ) {
                     }
 
                     if ( $err ) {
-                        echo '<div class="updated" style="border-color: #3ba1da;"><p>' . __('One or more of your Ultimate Member pages are not correctly setup. Please visit <strong>Ultimate Member > Settings</strong> to re-assign your missing pages.','ultimatemember') . '</p></div>';
+                        echo '<div class="updated" style="border-color: #0085ba;"><p>' . __('One or more of your Ultimate Member pages are not correctly setup. Please visit <strong>Ultimate Member > Settings</strong> to re-assign your missing pages.','ultimatemember') . '</p></div>';
                     }
 
                     if ( isset( $pages['user'] ) ) {
                         $test = get_post( $pages['user'] );
                         if ( isset( $test->post_parent ) && $test->post_parent > 0 ) {
-                            echo '<div class="updated" style="border-color: #3ba1da;"><p>' . __('Ultimate Member Setup Error: User page can not be a child page.','ultimatemember') . '</p></div>';
+                            echo '<div class="updated" style="border-color: #0085ba;"><p>' . __('Ultimate Member Setup Error: User page can not be a child page.','ultimatemember') . '</p></div>';
                         }
                     }
 
                     if ( isset( $pages['account'] ) ) {
                         $test = get_post( $pages['account'] );
                         if ( isset( $test->post_parent ) && $test->post_parent > 0 ) {
-                            echo '<div class="updated" style="border-color: #3ba1da;"><p>' . __('Ultimate Member Setup Error: Account page can not be a child page.','ultimatemember') . '</p></div>';
+                            echo '<div class="updated" style="border-color: #0085ba;"><p>' . __('Ultimate Member Setup Error: Account page can not be a child page.','ultimatemember') . '</p></div>';
                         }
                     }
 
@@ -113,7 +113,7 @@ if ( ! class_exists( 'Admin_Notices' ) ) {
 
                 $hide_locale_notice = get_option('um_hide_locale_notice');
                 if ( !$hide_locale_notice ) {
-                    echo '<div class="updated" style="border-color: #3ba1da;"><p>';
+                    echo '<div class="updated" style="border-color: #0085ba;"><p>';
 
                     echo sprintf(__('Your site language is <strong>%1$s</strong>. Good news! Ultimate Member is already available in <strong>%2$s language</strong>. <a href="%3$s">Download the translation</a> files and start using the plugin in your language now. <a href="%4$s">Hide this notice</a>','ultimatemember'), $locale, UM()->available_languages[$locale], $download_uri, add_query_arg('um_adm_action', 'um_hide_locale_notice')  );
 
@@ -126,7 +126,7 @@ if ( ! class_exists( 'Admin_Notices' ) ) {
                 $hide_locale_notice = get_option('um_hide_locale_notice');
                 if ( !$hide_locale_notice ) {
 
-                    echo '<div class="updated" style="border-color: #3ba1da;"><p>';
+                    echo '<div class="updated" style="border-color: #0085ba;"><p>';
 
                     echo sprintf(__('Ultimate Member has not yet been translated to your langeuage: <strong>%1$s</strong>. If you have translated the plugin you need put these files <code>ultimatemember-%1$s.po and ultimatemember-%1$s.mo</code> in <strong>/wp-content/languages/plugins/</strong> for the plugin to be translated in your language. <a href="%2$s">Hide this notice</a>','ultimatemember'), $locale, add_query_arg('um_adm_action', 'um_hide_locale_notice') );
 
@@ -209,7 +209,7 @@ if ( ! class_exists( 'Admin_Notices' ) ) {
                     if ( isset($message['err_content'])) {
                         echo '<div class="error"><p>' . $message['err_content'] . '</p></div>';
                     } else {
-                        echo '<div class="updated" style="border-color: #3ba1da;"><p>' . $message['content'] . '</p></div>';
+                        echo '<div class="updated" style="border-color: #0085ba;"><p>' . $message['content'] . '</p></div>';
                     }
                 }
             }

@@ -29,7 +29,7 @@
 	text-decoration: none;
 }
 
-.um-admin-drag-add-field:hover {color: #3ba1da}
+.um-admin-drag-add-field:hover {color: #0085ba}
 
 .um-admin-drag-add-field  i {
 	font-size: 23px !important;
@@ -69,7 +69,8 @@
 
 .um-admin-drag-ctrls a.active,
 .um-admin-drag-ctrls a.active:hover {
-	background-color: #3ba1da;
+	/*background-color: #3ba1da;*/
+	background-color: #0085ba;
 	color: #fff;
 }
 
@@ -160,7 +161,7 @@
 	font-size: 23px !important;
 	margin: 0 !important;
 }
-.um-admin-drag-addrow:hover {color: #3ba1da}
+.um-admin-drag-addrow:hover {color: #0085ba}
 
 /*
 	- Fields
@@ -251,7 +252,8 @@
 	text-align: center;
 	display: block !important;
 	float: left;
-	background: #44b0ec;
+	/*background: #44b0ec;*/
+	background: #0085ba;
 	padding: 0 4px;
 	transition: all .2s linear;
 	border-left: 1px solid #379dd5;
@@ -265,7 +267,7 @@
 .um-admin-drag-row-icons span:hover,
 .um-admin-drag-rowsub-icons a:hover,
 .um-admin-drag-rowsub-icons span:hover,
-.um-admin-drag-fld-icons a:hover {background: #3396cd;}
+.um-admin-drag-fld-icons a:hover {background: #008ec2;/*background: #3396cd;*/}
 
 .um-admin-drag-row-icons i,
 .um-admin-drag-rowsub-icons i,

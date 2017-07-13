@@ -439,7 +439,7 @@ if ( ! class_exists( 'Admin_Forms' ) ) {
                 if ( ! empty( $field_data['multi'] ) ) {
                     $options .= '<option value="' . $key . '" ' . selected( in_array( $key, $value ), true, false ) . '>' . $option . '</option>';
                 } else {
-                    $options .= '<option value="' . $key . '" ' . selected( $key == $value, true, false ) . '>' . $option . '</option>';
+                    $options .= '<option value="' . $key . '" ' . selected( (string)$key == $value, true, false ) . '>' . $option . '</option>';
                 }
             }
 

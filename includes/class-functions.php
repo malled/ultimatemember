@@ -165,11 +165,9 @@ if ( ! class_exists( 'UM_Functions' ) ) {
                 $tip = esc_attr( $tip );
             }
 
-            ob_start(); ?>
+            ob_start();
 
-            <span class="um_tooltip dashicons dashicons-editor-help" title="<?php echo $tip ?>"></span>
-
-            <?php if ( ! isset( $this->screenload_flags['render_tooltip'] ) ) {
+            if ( empty( $this->screenload_flags['render_tooltip'] ) ) {
 
                 $this->screenload_flags['render_tooltip'] = true; ?>
 
@@ -184,7 +182,7 @@ if ( ! class_exists( 'UM_Functions' ) ) {
                     });
                 </script>
 
-                <style>
+                <style type="text/css">
                     .ui-tooltip.um_tooltip {
                         padding: 8px;
                         color: #eeeeee;
@@ -195,6 +193,12 @@ if ( ! class_exists( 'UM_Functions' ) ) {
                         font-size: 12px;
                         border-radius: 5px;
                     }
+
+                    .um_tooltip.dashicons,
+                    .um_tooltip.dashicons:before {
+                        height:22px;
+                    }
+
                     .um_tooltip.dashicons-editor-help::before {
                         float: left;
                         font-size: 20px;
@@ -214,9 +218,11 @@ if ( ! class_exists( 'UM_Functions' ) ) {
                     }
                 </style>
 
-            <?php }
+            <?php } ?>
 
-            if ( $echo ) {
+            <span class="um_tooltip dashicons dashicons-editor-help" title="<?php echo $tip ?>"></span>
+
+            <?php if ( $echo ) {
                 ob_get_flush();
                 return '';
             } else {

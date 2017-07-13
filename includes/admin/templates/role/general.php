@@ -10,7 +10,7 @@
                 'type'		    => 'checkbox',
                 'name'		    => '_um_can_edit_profile',
                 'label'    		=> __( 'Can edit their profile?', 'ultimatemember' ),
-                'description' 	=> __( 'Can this role edit his own profile?', 'ultimatemember' ),
+                'tooltip' 	=> __( 'Can this role edit his own profile?', 'ultimatemember' ),
                 'value'		    => ! empty( $role['_um_can_edit_profile'] ) ? $role['_um_can_edit_profile'] : 0,
             ),
             array(
@@ -18,7 +18,7 @@
                 'type'		    => 'checkbox',
                 'name'		    => '_um_can_delete_profile',
                 'label'    		=> __( 'Can delete their account?', 'ultimatemember' ),
-                'description' 	=> __( 'Allow this role to delete their account and end their membership on your site', 'ultimatemember' ),
+                'tooltip' 	=> __( 'Allow this role to delete their account and end their membership on your site', 'ultimatemember' ),
                 'value'		    => ! empty( $role['_um_can_delete_profile'] ) ? $role['_um_can_delete_profile'] : 0,
             )
         )

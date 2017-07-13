@@ -11,7 +11,7 @@
                 'type'		    => 'select',
                 'name'		    => '_um_after_login',
                 'label'    		=> __( 'Action to be taken after login', 'ultimatemember' ),
-                'description' 	=> __( 'Select what happens when a user with this role logins to your site', 'ultimatemember' ),
+                'tooltip' 	=> __( 'Select what happens when a user with this role logins to your site', 'ultimatemember' ),
                 'value' 		=> ! empty( $role['_um_after_login'] ) ? $role['_um_after_login'] : array(),
                 'options'		=> array(
                     'redirect_profile'	=> __( 'Redirect to profile', 'ultimatemember' ),
@@ -25,7 +25,7 @@
                 'type'		=> 'text',
                 'name'		=> '_um_login_redirect_url',
                 'label'    		=> __( 'Set Custom Redirect URL', 'ultimatemember' ),
-                'description' 	=> __( 'Set a url to redirect this user role to after they login with their account', 'ultimatemember' ),
+                'tooltip' 	=> __( 'Set a url to redirect this user role to after they login with their account', 'ultimatemember' ),
                 'value' 		=> ! empty( $role['_um_login_redirect_url'] ) ? $role['_um_login_redirect_url'] : '',
                 'conditional'	=> array( '_um_after_login', '=', 'redirect_url' )
             )

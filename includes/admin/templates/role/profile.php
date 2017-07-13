@@ -10,7 +10,7 @@
                 'type'		    => 'checkbox',
                 'name'		    => '_um_can_view_all',
                 'label'    		=> __( 'Can view other member profiles?', 'ultimatemember' ),
-                'description' 	=> __( 'Can this role view all member profiles?', 'ultimatemember' ),
+                'tooltip' 	=> __( 'Can this role view all member profiles?', 'ultimatemember' ),
                 'value'		    => ! empty( $role['_um_can_view_all'] ) ? $role['_um_can_view_all'] : 0,
             ),
             array(
@@ -18,7 +18,7 @@
                 'type'		=> 'select',
                 'name'		=> '_um_can_view_roles',
                 'label'    		=> __( 'Can view these user roles only', 'ultimatemember' ),
-                'description' 	=> __( 'Which roles that role can view, choose none to allow role to view all member roles', 'ultimatemember' ),
+                'tooltip' 	=> __( 'Which roles that role can view, choose none to allow role to view all member roles', 'ultimatemember' ),
                 'options'	=> UM()->roles()->get_roles(),
                 'multi'		=> true,
                 'value'		=> ! empty( $role['_um_can_view_roles'] ) ? $role['_um_can_view_roles'] : array(),
@@ -29,7 +29,7 @@
                 'type'		    => 'checkbox',
                 'name'		    => '_um_can_make_private_profile',
                 'label'    		=> __( 'Can make their profile private?', 'ultimatemember' ),
-                'description' 	=> __( 'Can this role make their profile private?', 'ultimatemember' ),
+                'tooltip' 	=> __( 'Can this role make their profile private?', 'ultimatemember' ),
                 'value'		    => ! empty( $role['_um_can_make_private_profile'] ) ? $role['_um_can_make_private_profile'] : 0,
             ),
             array(
@@ -37,7 +37,7 @@
                 'type'		    => 'checkbox',
                 'name'		    => '_um_can_access_private_profile',
                 'label'    		=> __( 'Can view/access private profiles?', 'ultimatemember' ),
-                'description' 	=> __( 'Can this role view private profiles?', 'ultimatemember' ),
+                'tooltip' 	=> __( 'Can this role view private profiles?', 'ultimatemember' ),
                 'value'		    => ! empty( $role['_um_can_access_private_profile'] ) ? $role['_um_can_access_private_profile'] : 0,
             )
         )

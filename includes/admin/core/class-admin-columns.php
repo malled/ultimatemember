@@ -47,12 +47,9 @@ if ( ! class_exists( 'Admin_Columns' ) ) {
         function manage_edit_um_form_columns( $columns ) {
 
             $new_columns['cb'] = '<input type="checkbox" />';
-            //$new_columns['id'] = __('ID') . UM()->metabox()->_tooltip( 'Unique ID for each form' );
             $new_columns['title'] = __( 'Title', 'ulitmatemember' );
             $new_columns['id'] = __('ID', 'ulitmatemember' );
-            //$new_columns['mode'] = __('Type') . UM()->metabox()->_tooltip( 'This is the type of the form' );
             $new_columns['mode'] = __( 'Type', 'ulitmatemember' );
-            //$new_columns['shortcode'] = __('Shortcode') . UM()->metabox()->_tooltip( 'Use this shortcode to display the form' );
             $new_columns['shortcode'] = __( 'Shortcode', 'ulitmatemember' );
             $new_columns['date'] = __( 'Date', 'ulitmatemember' );
 
@@ -66,10 +63,11 @@ if ( ! class_exists( 'Admin_Columns' ) ) {
         function manage_edit_um_directory_columns( $columns ) {
 
             $new_columns['cb'] = '<input type="checkbox" />';
-            $new_columns['id'] = __('ID') . UM()->metabox()->_tooltip( 'Unique ID for each form' );
-            $new_columns['title'] = __('Title');
-            $new_columns['shortcode'] = __('Shortcode') . UM()->metabox()->_tooltip( 'Use this shortcode to display the member directory' );
-            $new_columns['date'] = __('Date');
+
+            $new_columns['title'] = __( 'Title', 'ultimatemember' );
+            $new_columns['id'] = __( 'ID', 'ultimatemember' );
+            $new_columns['shortcode'] = __( 'Shortcode', 'ultimatemember' );
+            $new_columns['date'] = __( 'Date', 'ultimatemember' );
 
             return $new_columns;
 

@@ -23,7 +23,7 @@ if ( ! class_exists( 'Chart' ) ) {
                 'x_label' => null,
                 'y_label' => null,
                 'vertical_max_lines' => 6,
-                'colors' => '#3ba1da',
+                'colors' => '#0085ba',
                 'backgroundcolor' => 'transparent',
                 'basetextcolor' => '#666',
                 'basebordercolor' => '#bbb',

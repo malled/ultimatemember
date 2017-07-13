@@ -556,7 +556,7 @@ if ( ! class_exists( 'Fields' ) ) {
 
             } else {
 
-                if ( !isset( UM()->form()->post_form ) ) {
+                if ( ! isset( UM()->form()->post_form ) ) {
 
                     if ( um_user( $key ) && $this->editing == true ) {
 

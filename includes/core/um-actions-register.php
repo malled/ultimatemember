@@ -100,12 +100,30 @@
 	function um_post_registration( $user_id, $args ) {
 		unset( $args['user_id'] );
 		extract( $args );
-        
-        $status = um_user( 'status' );
-         
-		do_action( "um_post_registration_global_hook", $user_id, $args );
 
-		do_action( "um_post_registration_{$status}_hook", $user_id, $args );
+        $status = um_user( 'status' );
+
+        /*
+         * maybe in future
+         * if ( ! is_admin() ) {
+            um_fetch_user( $user_id );
+
+            $user_roles = UM()->roles()->um_get_user_role( $user_id );
+            var_dump(  $user_roles );
+            $role_meta = UM()->roles()->role_data( $user_roles );
+            var_dump( $role_meta );
+            if ( $role_meta['_um_status'] == 'approved' ) {
+                UM()->user()->approve();
+            } elseif ( $role_meta['_um_status'] == 'checkmail' ) {
+                UM()->user()->email_pending();
+            } elseif ( $role_meta['_um_status'] == 'pending' ) {
+                UM()->user()->pending();
+            }
+
+            $status = um_user( 'status' );
+        }*/
+
+        do_action( "um_post_registration_{$status}_hook", $user_id, $args );
 
 		if ( ! is_admin() ) {
 
@@ -115,7 +133,7 @@
 			if ( isset( $args['redirect_to'] ) ) {
 				exit( wp_redirect( urldecode( $args['redirect_to'] ) ) );
 			}
-            
+
             if ( $status == 'approved' ) {
 
 				UM()->user()->auto_login( $user_id );

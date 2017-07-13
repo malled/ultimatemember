@@ -15,12 +15,12 @@
 	font-size: 22px !important;
 }
 
-.um-about-wrap a.um-about-icon:hover {color: #3ba1da !important}
+.um-about-wrap a.um-about-icon:hover {color: #0085ba !important}
 
 .um-badge {
 	color: #fff;
 	background: none !important;
-	background: #3ba1da url(../img/logo_small.png) no-repeat center 0px !important;
+	background: #0085ba url(../img/logo_small.png) no-repeat center 0px !important;
 }
 
 .um-about-wrap .ultimatemember-actions a.button-primary,
@@ -76,7 +76,8 @@ body.um-admin-modal-open {
 
 .um-admin a.um-admin-activebg,
 .um-admin a.um-admin-activebg:hover{
-	background: #3ba1da;
+	/*background: #3ba1da;*/
+	background: #0085ba;
 	color: #fff;
 }
 
@@ -237,7 +238,7 @@ p.disabled-on-off .um-admin-yesno *{
 }
 
 .um-admin-yesno .yes {
-	background: #3ba1da;
+	background: #0085ba;
 	border-radius: 3px 0 0 3px;
 	border: 1px solid rgba(0,0,0,.2);
 }
