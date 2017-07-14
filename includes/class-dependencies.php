@@ -104,16 +104,6 @@ if ( ! class_exists( 'um\Dependencies' ) ) {
 
         }
 
-
-        /**
-         * @return mixed|void
-         */
-        public static function ultimatemember_reviews_setup() {
-
-            return get_option( '__ultimatemember_reviews_setup' );
-
-        }
-
     }
 }
 

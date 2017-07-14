@@ -1032,7 +1032,7 @@
 		if ( !um_user('can_access_private_profile') && UM()->user()->is_private_profile( $user_id ) ) return false;
 
 		if ( UM()->roles()->um_user_can( 'can_view_roles' ) && $user_id != get_current_user_id() ) {
-			if ( ! in_array( UM()->roles()->um_get_user_role( $user_id ), um_user_can( 'can_view_roles' ) ) ) {
+			if ( ! in_array( UM()->roles()->um_get_user_role( $user_id ), UM()->roles()->um_user_can( 'can_view_roles' ) ) ) {
 				return false;
 			}
 		}
