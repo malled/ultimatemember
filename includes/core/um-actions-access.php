@@ -339,7 +339,7 @@
 		if ( ! um_is_myprofile() && um_is_core_page( 'user' ) && ! current_user_can( 'edit_users' ) ) {
 			
 			um_fetch_user( $user_id );
-			
+
 			if ( ! in_array( um_user( 'account_status' ), array( 'approved' ) ) ) {
 				um_redirect_home();
 			}

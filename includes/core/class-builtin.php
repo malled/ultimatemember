@@ -13,11 +13,11 @@ if ( ! class_exists( 'Builtin' ) ) {
 
         function __construct() {
 
-            add_action( 'plugins_loaded',  array(&$this, 'set_core_fields'), 1);
+            add_action( 'init',  array(&$this, 'set_core_fields'), 1);
 
-            add_action( 'plugins_loaded',  array(&$this, 'set_predefined_fields'), 1);
+            add_action( 'init',  array(&$this, 'set_predefined_fields'), 1);
 
-            add_action( 'plugins_loaded',  array(&$this, 'set_custom_fields'), 1);
+            add_action( 'init',  array(&$this, 'set_custom_fields'), 1);
 
             $this->saved_fields = get_option( 'um_fields' );
 

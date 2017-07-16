@@ -388,7 +388,79 @@ if ( ! class_exists( 'um\Config' ) ) {
             }
 
 
+            $this->settings_defaults = apply_filters( 'um_default_settings_values', $this->settings_defaults );
+
             $this->permalinks = $this->get_core_pages();
+
+
+
+            $this->default_roles_metadata = array(
+                /*
+                 * All caps map
+                 *
+                 * '_um_can_access_wpadmin'            => 1,
+                    '_um_can_not_see_adminbar'          => 0,
+                    '_um_can_edit_everyone'             => 1,
+                    '_um_can_edit_roles'                => '',
+                    '_um_can_delete_everyone'           => 1,
+                    '_um_can_delete_roles'              => '',
+                    '_um_after_delete'                  => '',
+                    '_um_delete_redirect_url'           => '',
+                    '_um_can_edit_profile'              => 1,
+                    '_um_can_delete_profile'            => 1,
+                    '_um_default_homepage'              => 1,
+                    '_um_redirect_homepage'             => '',
+                    '_um_after_login'                   => 'redirect_admin',
+                    '_um_login_redirect_url'            => '',
+                    '_um_after_logout'                  => 'redirect_home',
+                    '_um_logout_redirect_url'           => '',
+                    '_um_can_view_all'                  => 1,
+                    '_um_can_view_roles'                => '',
+                    '_um_can_make_private_profile'      => 1,
+                    '_um_can_access_private_profile'    => 1,
+                    '_um_status'                        => 'approved',
+                    '_um_auto_approve_act'              => 'redirect_profile',
+                    '_um_auto_approve_url'              => '',
+                    '_um_login_email_activate'          => '',
+                    '_um_checkmail_action'              => '',
+                    '_um_checkmail_message'             => '',
+                    '_um_checkmail_url'                 => '',
+                    '_um_url_email_activate'            => '',
+                    '_um_pending_action'                => '',
+                    '_um_pending_message'               => '',
+                    '_um_pending_url'                   => '',
+                 *
+                 * */
+
+
+                'subscriber' => array(
+                    '_um_can_access_wpadmin'            => 0,
+                    '_um_can_not_see_adminbar'          => 1,
+                    '_um_can_edit_everyone'             => 0,
+                    '_um_can_delete_everyone'           => 0,
+                    '_um_after_login'                   => 'redirect_profile',
+                    '_um_can_make_private_profile'      => 0,
+                    '_um_can_access_private_profile'    => 0,
+                    '_um_status'                        => 'approved',
+                    '_um_auto_approve_act'              => 'redirect_profile',
+                ),
+                'administrator' => array(
+                    '_um_can_access_wpadmin'            => 1,
+                    '_um_can_not_see_adminbar'          => 0,
+                    '_um_can_edit_everyone'             => 1,
+                    '_um_can_delete_everyone'           => 1,
+                    '_um_can_edit_profile'              => 1,
+                    '_um_can_delete_profile'            => 1,
+                    '_um_default_homepage'              => 1,
+                    '_um_after_login'                   => 'redirect_admin',
+                    '_um_after_logout'                  => 'redirect_home',
+                    '_um_can_view_all'                  => 1,
+                    '_um_can_make_private_profile'      => 1,
+                    '_um_can_access_private_profile'    => 1,
+                    '_um_status'                        => 'approved',
+                    '_um_auto_approve_act'              => 'redirect_profile',
+                ),
+            );
         }
 
 

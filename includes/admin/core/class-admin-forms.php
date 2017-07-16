@@ -644,8 +644,10 @@ if ( ! class_exists( 'Admin_Forms' ) ) {
 
             $data = array(
                 'field_id' => $field_data['id'],
-                'default' => esc_attr( $field_data['default']['url'] )
             );
+
+            if ( ! empty( $field_data['default']['url'] ) )
+                $data['default'] = esc_attr( $field_data['default']['url'] );
 
             $data_attr = '';
             foreach ( $data as $key => $value ) {

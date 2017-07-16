@@ -59,6 +59,7 @@ if ( ! class_exists( 'Admin_Settings' ) ) {
             );
 
             $core_pages = UM()->config()->core_pages;
+
             foreach ( $core_pages as $page_s => $page ) {
                 $have_pages = UM()->query()->wp_pages();
                 $page_id = apply_filters( 'um_core_page_id_filter', 'core_' . $page_s );

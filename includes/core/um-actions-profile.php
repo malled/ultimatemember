@@ -447,7 +447,6 @@
 				if ( !is_user_logged_in() ) um_redirect_home();
 				if ( !um_user('can_edit_profile') ) UM()->user()->cannot_edit = 1;
 			}
-
 		}
 
 		if ( $mode == 'profile' && UM()->fields()->editing == true ) {

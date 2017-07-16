@@ -21,6 +21,7 @@ if ( ! class_exists( 'Setup' ) ) {
             $this->install_basics();
             $this->install_default_forms();
             $this->set_default_settings();
+            $this->set_default_role_meta();
         }
 
 
@@ -202,6 +203,16 @@ if ( ! class_exists( 'Setup' ) ) {
                 if ( ! isset( $options[$key] ) )
                     UM()->um_update_option( $key, $value );
 
+            }
+        }
+
+
+        /**
+         * Set UM roles meta to Default WP roles
+         */
+        function set_default_role_meta() {
+            foreach ( UM()->config()->default_roles_metadata as $role => $meta ) {
+                update_option( "um_role_{$role}_meta", $meta );
             }
         }
     }

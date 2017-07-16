@@ -792,8 +792,7 @@
 				$tags = get_option( 'um_user_tags_filters' );
 
 				if ( $tags ) {
-					$tags = array_values( $tags );
-					$tags = array_unique( $tags );
+					$tags = array_unique( array_values( $tags ) );
 					if ( in_array( $filter, $tags ) ) {
 						$term = get_term_by( 'slug', $query[$filter], 'um_user_tag' );
 						if ( ! is_wp_error( $term ) ) {
@@ -802,6 +801,9 @@
 							}
 						}
 					}
+				} else {
+					if ( isset( $query[$filter] ) && $val == $query[$filter] )
+						echo 'selected="selected"';
 				}
 			} else {
 				if ( isset( $query[$filter] ) && $val == $query[$filter] )
@@ -1014,7 +1016,7 @@
 	/***
 	***	@checks if user can view profile
 	***/
-	function um_can_view_profile( $user_id ){
+	function um_can_view_profile( $user_id ) {
 		if ( !um_user('can_view_all') && $user_id != get_current_user_id() && is_user_logged_in() ) return false;
 
 		if ( UM()->roles()->um_current_user_can('edit', $user_id ) ) {
@@ -1029,7 +1031,7 @@
 			}
 		}
 
-		if ( !um_user('can_access_private_profile') && UM()->user()->is_private_profile( $user_id ) ) return false;
+		if ( ! um_user('can_access_private_profile') && UM()->user()->is_private_profile( $user_id ) ) return false;
 
 		if ( UM()->roles()->um_user_can( 'can_view_roles' ) && $user_id != get_current_user_id() ) {
 			if ( ! in_array( UM()->roles()->um_get_user_role( $user_id ), UM()->roles()->um_user_can( 'can_view_roles' ) ) ) {
