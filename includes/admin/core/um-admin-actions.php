@@ -9,28 +9,31 @@
 	/***
 	***	@add option for WPML
 	***/
-	add_action('um_admin_before_access_settings', 'um_admin_wpml_post_options', 10, 1 );
-	function um_admin_wpml_post_options( $instance ) {
-	
-		if ( !function_exists('icl_get_current_language') )
-			return;
-		
-		?>
-		
-		<h4><?php _e('This is a translation of UM profile page?','ultimatemember'); ?></h4>
-		
-		<p>
-			<span><?php $instance->ui_on_off( '_um_wpml_user', 0 ); ?></span>
-		</p>
-		
-		<h4><?php _e('This is a translation of UM account page?','ultimatemember'); ?></h4>
-		
-		<p>
-			<span><?php $instance->ui_on_off( '_um_wpml_account', 0 ); ?></span>
-		</p>
-		
-		<?php
-	
+	add_filter( 'um_admin_access_settings_fields', 'um_admin_wpml_post_options', 10, 2 );
+	function um_admin_wpml_post_options( $fields, $data ) {
+		global $post;
+
+		if ( ! function_exists('icl_get_current_language') )
+			return $fields;
+
+		if ( empty( $post->post_type ) || $post->post_type != 'page' )
+			return $fields;
+
+		$fields[] = array(
+			'id' => '_um_wpml_user',
+			'type'		    => 'checkbox',
+			'label'    		=> __( 'This is a translation of UM profile page?', 'ultimatemember' ),
+			'value' 		=> ! empty( $data['_um_wpml_user'] ) ? $data['_um_wpml_user'] : 0
+		);
+
+		$fields[] = array(
+			'id' => '_um_wpml_account',
+			'type'		    => 'checkbox',
+			'label'    		=> __( 'This is a translation of UM account page?', 'ultimatemember' ),
+			'value' 		=> ! empty( $data['_um_wpml_account'] ) ? $data['_um_wpml_account'] : 0
+		);
+
+		return $fields;
 	}
 
 	

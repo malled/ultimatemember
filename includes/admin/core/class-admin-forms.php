@@ -272,6 +272,8 @@ if ( ! class_exists( 'Admin_Forms' ) ) {
                 $data_attr .= " data-{$key}=\"{$value}\" ";
             }
 
+            $placeholder_attr = ! empty( $field_data['placeholder'] ) ? ' placeholder="' . $field_data['placeholder'] . '"' : '';
+
             $name = $field_data['id'];
             $name = ! empty( $this->form_data['prefix_id'] ) ? $this->form_data['prefix_id'] . '[' . $name . ']' : $name;
             $name_attr = ' name="' . $name . '" ';
@@ -280,7 +282,7 @@ if ( ! class_exists( 'Admin_Forms' ) ) {
             $value = isset( $field_data['value'] ) ? $field_data['value'] : $default;
             $value_attr = ' value="' . $value . '" ';
 
-            $html = "<input type=\"text\" $id_attr $class_attr $name_attr $data_attr $value_attr />";
+            $html = "<input type=\"text\" $id_attr $class_attr $name_attr $data_attr $value_attr $placeholder_attr />";
 
             return $html;
         }

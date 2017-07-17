@@ -210,8 +210,9 @@ if ( ! class_exists( 'Members' ) ) {
 
             $query_args['paged'] = $members_page;
 
-            if( ! um_user('can_view_all') && is_user_logged_in() ){
-                unset( $query_args );
+            if ( ! um_user( 'can_view_all' ) && is_user_logged_in() ) {
+                //unset( $query_args );
+                $query_args = array();
             }
 
             do_action('um_user_before_query', $query_args );
