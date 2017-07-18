@@ -93,6 +93,10 @@ if ( ! class_exists( 'Admin_Forms' ) ) {
 
                             $html .= call_user_func( array( &$this, 'render_' . $data['type'] ), $data );
 
+                        } else {
+
+                            $html .= apply_filters( 'um_render_field_type_' . $data['type'], '', $data, $this->form_data );
+
                         }
 
                         if ( ! empty( $data['description'] ) )
@@ -110,6 +114,10 @@ if ( ! class_exists( 'Admin_Forms' ) ) {
 
                                 $html .= call_user_func( array( &$this, 'render_' . $data['type'] ), $data );
 
+                            } else {
+
+                                $html .= apply_filters( 'um_render_field_type_' . $data['type'], '', $data, $this->form_data );
+
                             }
 
                             if ( ! empty( $data['description'] ) )
@@ -124,6 +132,10 @@ if ( ! class_exists( 'Admin_Forms' ) ) {
                             if ( method_exists( $this, 'render_' . $data['type'] ) ) {
 
                                 $html .= call_user_func( array( &$this, 'render_' . $data['type'] ), $data );
+
+                            } else {
+
+                                $html .= apply_filters( 'um_render_field_type_' . $data['type'], '', $data, $this->form_data );
 
                             }
 
@@ -145,6 +157,10 @@ if ( ! class_exists( 'Admin_Forms' ) ) {
 
                             $html .= call_user_func( array( &$this, 'render_' . $data['type'] ), $data );
 
+                        } else {
+
+                            $html .= apply_filters( 'um_render_field_type_' . $data['type'], '', $data, $this->form_data );
+
                         }
 
                         if ( ! empty( $data['description'] ) )
@@ -163,6 +179,10 @@ if ( ! class_exists( 'Admin_Forms' ) ) {
 
                                 $html .= call_user_func( array( &$this, 'render_' . $data['type'] ), $data );
 
+                            } else {
+
+                                $html .= apply_filters( 'um_render_field_type_' . $data['type'], '', $data, $this->form_data );
+
                             }
 
                             if ( ! empty( $data['description'] ) )
@@ -180,6 +200,10 @@ if ( ! class_exists( 'Admin_Forms' ) ) {
 
                                 $html .= call_user_func( array( &$this, 'render_' . $data['type'] ), $data );
 
+                            } else {
+
+                                $html .= apply_filters( 'um_render_field_type_' . $data['type'], '', $data, $this->form_data );
+
                             }
 
                             if ( ! empty( $data['description'] ) )
@@ -195,6 +219,10 @@ if ( ! class_exists( 'Admin_Forms' ) ) {
                 if ( method_exists( $this, 'render_' . $data['type'] ) ) {
 
                     $html .= call_user_func( array( &$this, 'render_' . $data['type'] ), $data );
+
+                } else {
+
+                    $html .= apply_filters( 'um_render_field_type_' . $data['type'], '', $data, $this->form_data );
 
                 }
             }
@@ -283,6 +311,52 @@ if ( ! class_exists( 'Admin_Forms' ) ) {
             $value_attr = ' value="' . $value . '" ';
 
             $html = "<input type=\"text\" $id_attr $class_attr $name_attr $data_attr $value_attr $placeholder_attr />";
+
+            return $html;
+        }
+
+
+        function render_inline_texts( $field_data ) {
+
+            if ( empty( $field_data['id1'] ) )
+                return false;
+
+
+            $i = 1;
+            $fields = array();
+            while( ! empty( $field_data['id' . $i] ) ) {
+                $id = ( ! empty( $this->form_data['prefix_id'] ) ? $this->form_data['prefix_id'] : '' ) . '_' . $field_data['id'. $i];
+                $id_attr = ' id="' . $id . '" ';
+
+                $class = ! empty( $field_data['class'] ) ? $field_data['class'] : '';
+                $class .= ! empty( $field_data['size'] ) ? 'um-' . $field_data['size'] . '-field' : 'um-long-field';
+                $class_attr = ' class="um-forms-field ' . $class . '" ';
+
+                $data = array(
+                    'field_id' => $field_data['id'. $i]
+                );
+
+                $data_attr = '';
+                foreach ( $data as $key => $value ) {
+                    $data_attr .= " data-{$key}=\"{$value}\" ";
+                }
+
+                $placeholder_attr = ! empty( $field_data['placeholder'] ) ? ' placeholder="' . $field_data['placeholder'] . '"' : '';
+
+                $name = $field_data['id'. $i];
+                $name = ! empty( $this->form_data['prefix_id'] ) ? $this->form_data['prefix_id'] . '[' . $name . ']' : $name;
+                $name_attr = ' name="' . $name . '" ';
+
+                $default = isset( $field_data['default'. $i] ) ? $field_data['default'. $i] : '';
+                $value = isset( $field_data['value'. $i] ) ? $field_data['value'. $i] : $default;
+                $value_attr = ' value="' . $value . '" ';
+
+                $fields[$i] = "<input type=\"text\" $id_attr $class_attr $name_attr $data_attr $value_attr $placeholder_attr style=\"display:inline;\"/>";
+
+                $i++;
+            }
+
+            $html = vsprintf( $field_data['mask'], $fields );
 
             return $html;
         }
