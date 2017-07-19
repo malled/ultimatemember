@@ -235,7 +235,8 @@ if ( ! class_exists( 'Admin_Forms' ) ) {
             if ( empty( $data['label'] ) )
                 return false;
 
-            $id = ( ! empty( $this->form_data['prefix_id'] ) ? $this->form_data['prefix_id'] : '' ) . '_' . $data['id'];
+            $id = ! empty( $data['id1'] ) ? $data['id1'] : $data['id'];
+            $id = ( ! empty( $this->form_data['prefix_id'] ) ? $this->form_data['prefix_id'] : '' ) . '_' . $id;
             $for_attr = ' for="' . $id . '" ';
 
             $label = $data['label'];
@@ -311,6 +312,43 @@ if ( ! class_exists( 'Admin_Forms' ) ) {
             $value_attr = ' value="' . $value . '" ';
 
             $html = "<input type=\"text\" $id_attr $class_attr $name_attr $data_attr $value_attr $placeholder_attr />";
+
+            return $html;
+        }
+
+
+        function render_datepicker( $field_data ) {
+
+            if ( empty( $field_data['id'] ) )
+                return false;
+
+            $id = ( ! empty( $this->form_data['prefix_id'] ) ? $this->form_data['prefix_id'] : '' ) . '_' . $field_data['id'];
+            $id_attr = ' id="' . $id . '" ';
+
+            $class = ! empty( $field_data['class'] ) ? $field_data['class'] : '';
+            $class .= ! empty( $field_data['size'] ) ? 'um-' . $field_data['size'] . '-field' : 'um-long-field';
+            $class_attr = ' class="um-forms-field ' . $class . '" ';
+
+            $data = array(
+                'field_id' => $field_data['id']
+            );
+
+            $data_attr = '';
+            foreach ( $data as $key => $value ) {
+                $data_attr .= " data-{$key}=\"{$value}\" ";
+            }
+
+            $placeholder_attr = ! empty( $field_data['placeholder'] ) ? ' placeholder="' . $field_data['placeholder'] . '"' : '';
+
+            $name = $field_data['id'];
+            $name = ! empty( $this->form_data['prefix_id'] ) ? $this->form_data['prefix_id'] . '[' . $name . ']' : $name;
+            $name_attr = ' name="' . $name . '" ';
+
+            $default = isset( $field_data['default'] ) ? $field_data['default'] : '';
+            $value = isset( $field_data['value'] ) ? $field_data['value'] : $default;
+            $value_attr = ' value="' . $value . '" ';
+
+            $html = "<input type=\"date\" $id_attr $class_attr $name_attr $data_attr $value_attr $placeholder_attr />";
 
             return $html;
         }
@@ -490,7 +528,7 @@ if ( ! class_exists( 'Admin_Forms' ) ) {
             $id_attr = ' id="' . $id . '" ';
 
             $class = ! empty( $field_data['class'] ) ? $field_data['class'] : '';
-            $class .= ! empty( $field_data['size'] ) ? $field_data['size'] : 'um-long-field';
+            $class .= ! empty( $field_data['size'] ) ? 'um-' . $field_data['size'] . '-field' : 'um-long-field';
             $class_attr = ' class="um-forms-field ' . $class . '" ';
 
             $data = array(
@@ -513,6 +551,10 @@ if ( ! class_exists( 'Admin_Forms' ) ) {
             $options = '';
             foreach ( $field_data['options'] as $key=>$option ) {
                 if ( ! empty( $field_data['multi'] ) ) {
+
+                    /*if ( ! is_array( $value ) )
+                        var_dump( $data );*/
+
                     $options .= '<option value="' . $key . '" ' . selected( in_array( $key, $value ), true, false ) . '>' . $option . '</option>';
                 } else {
                     $options .= '<option value="' . $key . '" ' . selected( (string)$key == $value, true, false ) . '>' . $option . '</option>';

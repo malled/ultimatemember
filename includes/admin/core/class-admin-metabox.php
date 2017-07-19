@@ -722,19 +722,16 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
             add_meta_box( 'um-admin-form-shortcode', __( 'Shortcode' ), array( &$this, 'load_metabox_form' ), 'um_form', 'side', 'default' );
 
             add_meta_box('um-admin-form-register_customize', __( 'Customize this form' ), array(&$this, 'load_metabox_form'), 'um_form', 'side', 'default');
-            add_meta_box('um-admin-form-register_css', __( 'Custom CSS' ), array(&$this, 'load_metabox_form'), 'um_form', 'side', 'default');
 
             do_action( 'um_admin_custom_register_metaboxes' );
 
             add_meta_box('um-admin-form-profile_customize', __('Customize this form'), array(&$this, 'load_metabox_form'), 'um_form', 'side', 'default');
             add_meta_box('um-admin-form-profile_settings', __('User Meta'), array(&$this, 'load_metabox_form'), 'um_form', 'side', 'default');
-            add_meta_box('um-admin-form-profile_css', __('Custom CSS'), array(&$this, 'load_metabox_form'), 'um_form', 'side', 'default');
 
             do_action( 'um_admin_custom_profile_metaboxes' );
 
             add_meta_box('um-admin-form-login_customize', __('Customize this form'), array(&$this, 'load_metabox_form'), 'um_form', 'side', 'default');
             add_meta_box('um-admin-form-login_settings', __('Options'), array(&$this, 'load_metabox_form'), 'um_form', 'side', 'default');
-            add_meta_box('um-admin-form-login_css', __('Custom CSS'), array(&$this, 'load_metabox_form'), 'um_form', 'side', 'default');
 
             do_action( 'um_admin_custom_login_metaboxes' );
 

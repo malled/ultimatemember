@@ -261,10 +261,10 @@ if ( ! class_exists( 'Query' ) ) {
         /***
          ***	@Capture selected value
          ***/
-        function get_meta_value($key, $array_key=null, $fallback = null){
+        function get_meta_value( $key, $array_key = null, $fallback = null ) {
             global $post;
             $post_id = get_the_ID();
-            $try = get_post_meta( $post_id, $key, true);
+            $try = get_post_meta( $post_id, $key, true );
 
             if ( ! empty( $try ) )
                 if ( is_array( $try ) && in_array( $array_key, $try ) ) {
