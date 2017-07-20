@@ -67,9 +67,9 @@ jQuery(document).ready(function() {
 	
 	jQuery('.um-admin-colorpicker').wpColorPicker();
 	
-	/**
+/*	/!**
 		Select Dropdowns
-	**/
+	**!/
 	
 	jQuery(".umaf-selectjs").select2({
 		allowClear: false,
@@ -79,7 +79,7 @@ jQuery(document).ready(function() {
 	jQuery('.um-admin-field select').select2({
 		allowClear: true,
 		minimumResultsForSearch: 10
-	});
+	});*/
 	
 	/**
 		Tooltips
@@ -98,44 +98,51 @@ jQuery(document).ready(function() {
 	
 	jQuery(document).on('change', '.um-adm-conditional', function(){
 
+        var value;
+        if ( jQuery(this).attr("type") == 'checkbox' ) {
+            value = jQuery(this).is(':checked') ? 1 : 0;
+        } else {
+            value = jQuery(this).val();
+        }
+
 		if ( jQuery(this).data('cond1') ) {
-		if (jQuery(this).val() == jQuery(this).data('cond1') ){
-			jQuery('.' + jQuery(this).data('cond1-show') ).show();
-			jQuery('.' + jQuery(this).data('cond1-hide') ).hide();
-			
-			if ( jQuery(this).data('cond1-show') == '_roles' ) {
-				return false;
-			}
-			
-		} else {
-			jQuery('.' + jQuery(this).data('cond1-show') ).hide();
-			jQuery('.' + jQuery(this).data('cond1-hide') ).show();
-		}
+            if ( value == jQuery(this).data('cond1') ) {
+                jQuery('.' + jQuery(this).data('cond1-show') ).show();
+                jQuery('.' + jQuery(this).data('cond1-hide') ).hide();
+
+                if ( jQuery(this).data('cond1-show') == '_roles' ) {
+                    return false;
+                }
+
+            } else {
+                jQuery('.' + jQuery(this).data('cond1-show') ).hide();
+                jQuery('.' + jQuery(this).data('cond1-hide') ).show();
+		    }
 		}
 		
 		if ( jQuery(this).data('cond2') ) {
-		if (jQuery(this).val() == jQuery(this).data('cond2') ){
-			jQuery('.' + jQuery(this).data('cond2-show') ).show();
-			jQuery('.' + jQuery(this).data('cond2-hide') ).hide();
-			
-			if ( jQuery(this).data('cond2-show') == '_roles' ) {
-				return false;
-			}
-			
-		} else {
-			jQuery('.' + jQuery(this).data('cond2-show') ).hide();
-			jQuery('.' + jQuery(this).data('cond2-hide') ).show();
-		}
+            if ( value == jQuery(this).data('cond2') ) {
+                jQuery('.' + jQuery(this).data('cond2-show') ).show();
+                jQuery('.' + jQuery(this).data('cond2-hide') ).hide();
+
+                if ( jQuery(this).data('cond2-show') == '_roles' ) {
+                    return false;
+                }
+
+            } else {
+                jQuery('.' + jQuery(this).data('cond2-show') ).hide();
+                jQuery('.' + jQuery(this).data('cond2-hide') ).show();
+            }
 		}
 		
 		if ( jQuery(this).data('cond3') ) {
-		if (jQuery(this).val() == jQuery(this).data('cond3') ){
-			jQuery('.' + jQuery(this).data('cond3-show') ).show();
-			jQuery('.' + jQuery(this).data('cond3-hide') ).hide();
-		} else {
-			jQuery('.' + jQuery(this).data('cond3-show') ).hide();
-			jQuery('.' + jQuery(this).data('cond3-hide') ).show();
-		}
+            if ( value == jQuery(this).data('cond3') ) {
+                jQuery('.' + jQuery(this).data('cond3-show') ).show();
+                jQuery('.' + jQuery(this).data('cond3-hide') ).hide();
+            } else {
+                jQuery('.' + jQuery(this).data('cond3-show') ).hide();
+                jQuery('.' + jQuery(this).data('cond3-hide') ).show();
+            }
 		}
 		
 	});jQuery('.um-adm-conditional').each(function(){jQuery(this).trigger('change');});

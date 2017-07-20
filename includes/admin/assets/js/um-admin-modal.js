@@ -1,9 +1,9 @@
 function um_admin_live_update_scripts() {
 
-	jQuery('.um-admin-modal-body:visible select').select2({
+	/*jQuery('.um-admin-modal-body:visible select').select2({
 		allowClear: false,
 		minimumResultsForSearch: 10
-	});
+	});*/
 
 	jQuery('.um-adm-conditional').each(function(){jQuery(this).trigger('change');});
 	
@@ -199,7 +199,7 @@ jQuery(document).ready(function() {
 		var content = jQuery(this).parents('.um-admin-btn-content');
 		var length = content.find('.um-admin-cur-condition').length;
 		if ( length < 5 ) {
-			content.find('select').select2('destroy');
+			//content.find('select').select2('destroy');
 
 			var cloned = jQuery(this).parents('.um-admin-cur-condition').clone();
 			cloned.find('input[type=text],select').each(function(){

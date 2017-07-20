@@ -13,6 +13,7 @@ if ( ! class_exists( 'Admin_Builder' ) ) {
 
         }
 
+
         /***
          ***	@update the builder area
          ***/
@@ -35,6 +36,7 @@ if ( ! class_exists( 'Admin_Builder' ) ) {
 
         }
 
+
         /***
          ***	@sort array function
          ***/
@@ -51,6 +53,7 @@ if ( ! class_exists( 'Admin_Builder' ) ) {
 
             return $arr;
         }
+
 
         /***
          ***	@get fields in row
@@ -70,6 +73,7 @@ if ( ! class_exists( 'Admin_Builder' ) ) {
             return ( isset ( $results ) ) ? $results : '';
         }
 
+
         /***
          ***	@get fields by sub row
          ***/
@@ -83,6 +87,7 @@ if ( ! class_exists( 'Admin_Builder' ) ) {
             }
             return ( isset ( $results ) ) ? $results : '';
         }
+
 
         /***
          ***	@Display the builder
@@ -300,7 +305,6 @@ if ( ! class_exists( 'Admin_Builder' ) ) {
         }
 
 
-
         function update_field() {
             if ( ! is_user_logged_in() || ! current_user_can( 'manage_options' ) )
                 die( __('Please login as administrator','ultimatemember') );
@@ -367,7 +371,7 @@ if ( ! class_exists( 'Admin_Builder' ) ) {
         }
 
 
-        function dynamic_modal_content(){
+        function dynamic_modal_content() {
             $metabox = UM()->metabox();
 
             if ( !is_user_logged_in() || !current_user_can('manage_options') ) die( __('Please login as administrator','ultimatemember') );
@@ -643,6 +647,7 @@ if ( ! class_exists( 'Admin_Builder' ) ) {
             die;
 
         }
+
 
         /**
          *  Retrieves dropdown/multi-select options from a callback function

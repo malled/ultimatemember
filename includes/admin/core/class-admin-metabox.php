@@ -85,41 +85,6 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
 
 
         /***
-         ***	@on/off UI
-         ***/
-        function ui_on_off( $id, $default=0, $is_conditional=false, $cond1='', $cond1_show='', $cond1_hide='', $yes='', $no='' ) {
-
-            $meta = (string)get_post_meta( get_the_ID(), $id, true );
-            if ( $meta === '0' && $default > 0 ) {
-                $default = $meta;
-            }
-
-            $yes = ( !empty( $yes ) ) ? $yes : __('Yes');
-            $no = ( !empty( $no ) ) ? $no : __('No');
-
-            if (isset($this->postmeta[$id][0]) || $meta ) {
-                $active = ( isset( $this->postmeta[$id][0] ) ) ? $this->postmeta[$id][0] : $meta;
-            } else {
-                $active = $default;
-            }
-
-            if ($is_conditional == true) {
-                $is_conditional = ' class="um-adm-conditional" data-cond1="'.$cond1.'" data-cond1-show="'.$cond1_show.'" data-cond1-hide="'.$cond1_hide.'"';
-            }
-
-            ?>
-
-            <span class="um-admin-yesno">
-                <span class="btn pos-<?php echo $active; ?>"></span>
-                <span class="yes" data-value="1"><?php echo $yes; ?></span>
-                <span class="no" data-value="0"><?php echo $no; ?></span>
-                <input type="hidden" name="<?php echo $id; ?>" id="<?php echo $id; ?>" value="<?php echo $active; ?>" <?php echo $is_conditional; ?> />
-            </span>
-
-            <?php
-        }
-
-        /***
          ***	@Init the metaboxes
          ***/
         function add_metabox() {
@@ -883,18 +848,18 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
         /***
          ***	@Show field input for edit
          ***/
-        function field_input ( $attribute, $form_id=null, $field_args = array() ) {
+        function field_input( $attribute, $form_id = null, $field_args = array() ) {
 
             if ( $this->in_edit == true ) { // we're editing a field
-                $real_attr = substr($attribute, 1);
+                $real_attr = substr( $attribute, 1 );
                 $this->edit_mode_value = (isset( $this->edit_array[ $real_attr ] ) ) ?  $this->edit_array[ $real_attr ] : null;
             }
 
-            switch($attribute) {
+            switch ( $attribute ) {
 
                 default:
 
-                    do_action("um_admin_field_edit_hook{$attribute}", $this->edit_mode_value);
+                    do_action( "um_admin_field_edit_hook{$attribute}", $this->edit_mode_value );
 
                     break;
 
@@ -902,7 +867,7 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
                     ?>
 
                     <p><label for="_visibility">Visibility <?php UM()->tooltip( __('Select where this field should appear. This option should only be changed on the profile form and allows you to show a field in one mode only (edit or view) or in both modes.','ultimatemember' ) ); ?></label>
-                        <select name="_visibility" id="_visibility" class="umaf-selectjs" style="width: 100%">
+                        <select name="_visibility" id="_visibility" style="width: 100%">
                             <option value="all"  <?php selected( 'all', $this->edit_mode_value ); ?>>View everywhere</option>
                             <option value="edit" <?php selected( 'edit', $this->edit_mode_value ); ?>>Edit mode only</option>
                             <option value="view" <?php selected( 'view', $this->edit_mode_value ); ?>>View mode only</option>
@@ -920,7 +885,7 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
                     ?>
 
                     <p>
-                        <select name="<?php echo $attribute; ?>" id="<?php echo $attribute; ?>" class="umaf-selectjs" style="width: 90px">
+                        <select name="<?php echo $attribute; ?>" id="<?php echo $attribute; ?>" style="width: 90px">
 
                             <option></option>
 
@@ -949,7 +914,7 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
                     ?>
 
                     <p>
-                        <select name="<?php echo $attribute; ?>" id="<?php echo $attribute; ?>" class="umaf-selectjs" style="width: 150px">
+                        <select name="<?php echo $attribute; ?>" id="<?php echo $attribute; ?>" style="width: 150px">
 
                             <option></option>
 
@@ -978,7 +943,7 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
                     ?>
 
                     <p>
-                        <select name="<?php echo $attribute; ?>" id="<?php echo $attribute; ?>" class="umaf-selectjs" style="width: 150px">
+                        <select name="<?php echo $attribute; ?>" id="<?php echo $attribute; ?>" style="width: 150px">
 
                             <option></option>
 
@@ -1022,7 +987,7 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
                     ?>
 
                     <p><label for="_validate">Validate <?php UM()->tooltip( __( 'Does this field require a special validation', 'ultimatemember' ) ); ?></label>
-                        <select name="_validate" id="_validate" data-placeholder="Select a validation type..." class="umaf-selectjs um-adm-conditional" data-cond1='custom' data-cond1-show='_custom_validate' style="width: 100%">
+                        <select name="_validate" id="_validate" data-placeholder="Select a validation type..." class="um-adm-conditional" data-cond1='custom' data-cond1-show='_custom_validate' style="width: 100%">
 
                             <option value="" <?php selected( '', $this->edit_mode_value ); ?>></option>
 
@@ -1173,7 +1138,7 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
                     ?>
 
                     <p><label for="_borderstyle">Style <?php UM()->tooltip( __( 'Choose the border style', 'ultimatemember' ) ); ?></label>
-                        <select name="_borderstyle" id="_borderstyle" class="umaf-selectjs" style="width: 100%">
+                        <select name="_borderstyle" id="_borderstyle" style="width: 100%">
                             <option value="solid"  <?php selected( 'solid', $this->edit_mode_value ); ?>>Solid</option>
                             <option value="dotted" <?php selected( 'dotted', $this->edit_mode_value ); ?>>Dotted</option>
                             <option value="dashed" <?php selected( 'dashed', $this->edit_mode_value ); ?>>Dashed</option>
@@ -1207,8 +1172,8 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
                 case '_heading':
                     ?>
 
-                    <p><label for="_heading">Enable Row Heading <?php UM()->tooltip( __( 'Whether to enable a heading for this row', 'ultimatemember' ) ); ?></label>
-                        <?php if ( isset( $this->edit_mode_value ) ) $this->ui_on_off('_heading', $this->edit_mode_value, true, 1, '_heading_text', 'xxx' ); else  $this->ui_on_off('_heading', 0, true, 1, '_heading_text', 'xxx'); ?>
+                    <p><label for="_heading"><?php _e( 'Enable Row Heading', 'ultimatemember' ) ?> <?php UM()->tooltip( __( 'Whether to enable a heading for this row', 'ultimatemember' ) ); ?></label>
+                        <input type="checkbox" name="_heading" id="_heading" value="1" <?php checked( isset( $this->edit_mode_value ) ? $this->edit_mode_value : 0 ) ?> class="um-adm-conditional" data-cond1="1" data-cond1-show="_heading_text" data-cond1-hide="xxx" />
                     </p>
 
                     <?php
@@ -1298,7 +1263,7 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
                     ?>
 
                     <p><label for="_url_target">Link Target <?php UM()->tooltip( __( 'Choose whether to open this link in same window or in a new window', 'ultimatemember' ) ); ?></label>
-                        <select name="_url_target" id="_url_target" class="umaf-selectjs" style="width: 100%">
+                        <select name="_url_target" id="_url_target" style="width: 100%">
                             <option value="_blank" <?php selected( '_blank', $this->edit_mode_value ); ?>>Open in new window</option>
                             <option value="_self"  <?php selected( '_self', $this->edit_mode_value ); ?>>Same window</option>
                         </select>
@@ -1311,7 +1276,7 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
                     ?>
 
                     <p><label for="_url_rel">SEO Follow <?php UM()->tooltip( __( 'Whether to follow or nofollow this link by search engines', 'ultimatemember' ) ); ?></label>
-                        <select name="_url_rel" id="_url_rel" class="umaf-selectjs" style="width: 100%">
+                        <select name="_url_rel" id="_url_rel" style="width: 100%">
                             <option value="follow"  <?php selected( 'follow', $this->edit_mode_value ); ?>>Follow</option>
                             <option value="nofollow" <?php selected( 'nofollow', $this->edit_mode_value ); ?>>No-Follow</option>
                         </select>
@@ -1324,7 +1289,7 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
                     ?>
 
                     <p><label for="_force_good_pass">Force strong password? <?php UM()->tooltip( __( 'Turn on to force users to create a strong password (A combination of one lowercase letter, one uppercase letter, and one number). If turned on this option is only applied to register forms and not to login forms.', 'ultimatemember' ) ); ?></label>
-                        <?php if ( isset( $this->edit_mode_value ) ) $this->ui_on_off('_force_good_pass', $this->edit_mode_value ); else  $this->ui_on_off('_force_good_pass', 0 ); ?>
+                        <input type="checkbox" name="_force_good_pass" id="_force_good_pass" value="1" <?php checked( isset( $this->edit_mode_value ) ? $this->edit_mode_value : 0 ) ?> />
                     </p>
 
                     <?php
@@ -1334,7 +1299,7 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
                     ?>
 
                     <p><label for="_force_confirm_pass">Automatically add a confirm password field? <?php UM()->tooltip( __( 'Turn on to add a confirm password field. If turned on the confirm password field will only show on register forms and not on login forms.', 'ultimatemember' ) ); ?></label>
-                        <?php if ( isset( $this->edit_mode_value ) ) $this->ui_on_off('_force_confirm_pass', $this->edit_mode_value ); else  $this->ui_on_off('_force_confirm_pass', 1 ); ?>
+                        <input type="checkbox" name="_force_confirm_pass" id="_force_confirm_pass" value="1" <?php checked( isset( $this->edit_mode_value ) ? $this->edit_mode_value : 0 ) ?> />
                     </p>
 
                     <?php
@@ -1344,7 +1309,7 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
                     ?>
 
                     <p><label for="_style">Style <?php UM()->tooltip( __( 'This is the line-style of divider', 'ultimatemember' ) ); ?></label>
-                        <select name="_style" id="_style" class="umaf-selectjs" style="width: 100%">
+                        <select name="_style" id="_style" style="width: 100%">
                             <option value="solid"  <?php selected( 'solid', $this->edit_mode_value ); ?>>Solid</option>
                             <option value="dotted" <?php selected( 'dotted', $this->edit_mode_value ); ?>>Dotted</option>
                             <option value="dashed" <?php selected( 'dashed', $this->edit_mode_value ); ?>>Dashed</option>
@@ -1373,7 +1338,7 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
                         ?>
 
                         <p><label for="_format">Date User-Friendly Format <?php UM()->tooltip( __( 'The display format of the date which is visible to user.', 'ultimatemember' ) ); ?></label>
-                            <select name="_format" id="_format" class="umaf-selectjs" style="width: 100%">
+                            <select name="_format" id="_format" style="width: 100%">
                                 <option value="j M Y" <?php selected( 'j M Y', $this->edit_mode_value ); ?>><?php echo UM()->datetime()->get_time('j M Y'); ?></option>
                                 <option value="M j Y" <?php selected( 'M j Y', $this->edit_mode_value ); ?>><?php echo UM()->datetime()->get_time('M j Y'); ?></option>
                                 <option value="j F Y" <?php selected( 'j F Y', $this->edit_mode_value ); ?>><?php echo UM()->datetime()->get_time('j F Y'); ?></option>
@@ -1384,7 +1349,7 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
                     <?php } else { ?>
 
                         <p><label for="_format">Time Format <?php UM()->tooltip( __( 'Choose the displayed time-format for this field', 'ultimatemember' ) ); ?></label>
-                            <select name="_format" id="_format" class="umaf-selectjs" style="width: 100%">
+                            <select name="_format" id="_format" style="width: 100%">
                                 <option value="g:i a" <?php selected( 'g:i a', $this->edit_mode_value ); ?>><?php echo UM()->datetime()->get_time('g:i a'); ?> ( 12-hr format )</option>
                                 <option value="g:i A" <?php selected( 'g:i A', $this->edit_mode_value ); ?>><?php echo UM()->datetime()->get_time('g:i A'); ?> ( 12-hr format )</option>
                                 <option value="H:i"  <?php selected( 'H:i', $this->edit_mode_value ); ?>><?php echo UM()->datetime()->get_time('H:i'); ?> ( 24-hr format )</option>
@@ -1399,7 +1364,7 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
                     ?>
 
                     <p><label for="_pretty_format">Displayed Date Format <?php UM()->tooltip( __( 'Whether you wish to show the date in full or only show the years e.g. 25 Years', 'ultimatemember' ) ); ?></label>
-                        <select name="_pretty_format" id="_pretty_format" class="umaf-selectjs" style="width: 100%">
+                        <select name="_pretty_format" id="_pretty_format" style="width: 100%">
                             <option value="0" <?php selected( 0, $this->edit_mode_value ); ?>>Show full date</option>
                             <option value="1" <?php selected( 1, $this->edit_mode_value ); ?>>Show years only</option>
                         </select>
@@ -1418,7 +1383,7 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
                     ?>
 
                     <p><label for="_disabled_weekdays">Disable specific weekdays <?php UM()->tooltip( __( 'Disable specific week days from being available for selection in this date picker', 'ultimatemember' ) ); ?></label>
-                        <select name="_disabled_weekdays[]" id="_disabled_weekdays" class="umaf-selectjs" multiple="multiple" style="width: 100%">
+                        <select name="_disabled_weekdays[]" id="_disabled_weekdays" multiple="multiple" style="width: 100%">
                             <option value="1" <?php if ( in_array( 1, $values ) ) { echo 'selected'; } ?>>Sunday</option>
                             <option value="2" <?php if ( in_array( 2, $values ) ) { echo 'selected'; } ?>>Monday</option>
                             <option value="3" <?php if ( in_array( 3, $values ) ) { echo 'selected'; } ?>>Tuesday</option>
@@ -1446,7 +1411,7 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
                     ?>
 
                     <p class="_years"><label for="_years_x">Years Selection <?php UM()->tooltip( __( 'This decides which years should be shown relative to today date', 'ultimatemember' ) ); ?></label>
-                        <select name="_years_x" id="_years_x" class="umaf-selectjs" style="width: 100%">
+                        <select name="_years_x" id="_years_x" style="width: 100%">
                             <option value="equal"  <?php selected( 'equal', $this->edit_mode_value ); ?>>Equal years before / after today</option>
                             <option value="past" <?php selected( 'past', $this->edit_mode_value ); ?>>Past years only</option>
                             <option value="future" <?php selected( 'future', $this->edit_mode_value ); ?>>Future years only</option>
@@ -1480,7 +1445,7 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
                     ?>
 
                     <p><label for="_range">Set Date Range <?php UM()->tooltip( __( 'Whether to show a specific number of years or specify a date range to be available for the date picker.', 'ultimatemember' ) ); ?></label>
-                        <select name="_range" id="_range" class="umaf-selectjs um-adm-conditional" data-cond1='years' data-cond1-show='_years' data-cond2="date_range" data-cond2-show="_date_range" style="width: 100%">
+                        <select name="_range" id="_range" class="um-adm-conditional" data-cond1='years' data-cond1-show='_years' data-cond2="date_range" data-cond2-show="_date_range" style="width: 100%">
                             <option value="years" <?php selected( 'years', $this->edit_mode_value ); ?>>Fixed Number of Years</option>
                             <option value="date_range" <?php selected( 'date_range', $this->edit_mode_value ); ?>>Specific Date Range</option>
                         </select>
@@ -1519,7 +1484,7 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
                     ?>
 
                     <p><label for="_crop">Crop Feature <?php UM()->tooltip( __( 'Enable/disable crop feature for this image upload and define ratio', 'ultimatemember' ) ); ?></label>
-                        <select name="_crop" id="_crop" class="umaf-selectjs" style="width: 100%">
+                        <select name="_crop" id="_crop" style="width: 100%">
                             <option value="0" <?php selected( '0', $this->edit_mode_value ); ?>>Turn Off (Default)</option>
                             <option value="1" <?php selected( '1', $this->edit_mode_value ); ?>>Crop and force 1:1 ratio</option>
                             <option value="3" <?php selected( '3', $this->edit_mode_value ); ?>>Crop and force user-defined ratio</option>
@@ -1541,7 +1506,7 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
                         ?>
 
                         <p><label for="_allowed_types">Allowed Image Types <?php UM()->tooltip( __( 'Select the image types that you want to allow to be uploaded via this field.', 'ultimatemember' ) ); ?></label>
-                            <select name="_allowed_types[]" id="_allowed_types" class="umaf-selectjs" multiple="multiple" style="width: 100%">
+                            <select name="_allowed_types[]" id="_allowed_types" multiple="multiple" style="width: 100%">
                                 <?php foreach( UM()->files()->allowed_image_types() as $e => $n ) { ?>
                                     <option value="<?php echo $e; ?>" <?php if ( in_array( $e, $values ) ) { echo 'selected'; } ?>><?php echo $n; ?></option>
                                 <?php } ?>
@@ -1561,7 +1526,7 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
                         ?>
 
                         <p><label for="_allowed_types">Allowed File Types <?php UM()->tooltip( __( 'Select the image types that you want to allow to be uploaded via this field.', 'ultimatemember' ) ); ?></label>
-                            <select name="_allowed_types[]" id="_allowed_types" class="umaf-selectjs" multiple="multiple" style="width: 100%">
+                            <select name="_allowed_types[]" id="_allowed_types" multiple="multiple" style="width: 100%">
                                 <?php foreach( UM()->files()->allowed_file_types() as $e => $n ) { ?>
                                     <option value="<?php echo $e; ?>" <?php if ( in_array( $e, $values ) ) { echo 'selected'; } ?>><?php echo $n; ?></option>
                                 <?php } ?>
@@ -1642,13 +1607,7 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
                     ?>
 
                     <p><label for="_is_multi">Allow multiple selections <?php UM()->tooltip( __( 'Enable/disable multiple selections for this field', 'ultimatemember' ) ); ?></label>
-                        <?php
-                        if ( isset( $this->edit_mode_value ) ) {
-                            $this->ui_on_off('_is_multi', $this->edit_mode_value, true, 1, '_max_selections', 'xxx');
-                        } else {
-                            $this->ui_on_off('_is_multi', 0, true, 1, '_max_selections', 'xxx');
-                        }
-                        ?>
+                        <input type="checkbox" name="_is_multi" id="_is_multi" value="1" <?php checked( isset( $this->edit_mode_value ) ? $this->edit_mode_value : 0 ) ?> class="um-adm-conditional" data-cond1="1" data-cond1-show="_max_selections" data-cond1-hide="xxx" />
                     </p>
 
                     <?php
@@ -1738,7 +1697,7 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
                     ?>
 
                     <p><label for="_html">Does this textarea accept HTML? <?php UM()->tooltip( __( 'Turn on/off HTML tags for this textarea', 'ultimatemember' ) ); ?></label>
-                        <?php if ( isset( $this->edit_mode_value ) ) $this->ui_on_off('_html', $this->edit_mode_value ); else  $this->ui_on_off('_html', 0); ?>
+                        <input type="checkbox" name="_html" id="_html" value="1" <?php checked( isset( $this->edit_mode_value ) ? $this->edit_mode_value : 0 ) ?> />
                     </p>
 
                     <?php
@@ -1867,7 +1826,7 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
                     ?>
 
                     <p><label for="_public">Privacy <?php UM()->tooltip( __( 'Field privacy allows you to select who can view this field on the front-end. The site admin can view all fields regardless of the option set here.', 'ultimatemember' ) ); ?></label>
-                        <select name="_public" id="_public" class="umaf-selectjs um-adm-conditional" data-cond1='-2' data-cond1-show='_roles' data-cond2='-3' data-cond2-show='_roles'  style="width: 100%">
+                        <select name="_public" id="_public" class="um-adm-conditional" data-cond1='-2' data-cond1-show='_roles' data-cond2='-3' data-cond2-show='_roles'  style="width: 100%">
                             <option value="1" <?php selected( 1, $this->edit_mode_value ); ?>>Everyone</option>
                             <option value="2" <?php selected( 2, $this->edit_mode_value ); ?>>Members</option>
                             <option value="-1" <?php selected( -1, $this->edit_mode_value ); ?>>Only visible to profile owner and admins</option>
@@ -1890,7 +1849,7 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
                     ?>
 
                     <p class="_roles"><label for="_roles">Select member roles <?php UM()->tooltip( __( 'Select the member roles that can view this field on the front-end.', 'ultimatemember' ) ); ?></label>
-                        <select name="_roles[]" id="_roles" class="umaf-selectjs" style="width: 100%" multiple="multiple">
+                        <select name="_roles[]" id="_roles" style="width: 100%" multiple="multiple">
 
                             <?php foreach( UM()->roles()->get_roles() as $key => $value) { ?>
 
@@ -1916,7 +1875,7 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
                     <div class="um-admin-tri">
 
                         <p><label for="_required">Is this field required? <?php UM()->tooltip( __( 'This option allows you to set whether the field must be filled in before the form can be processed.', 'ultimatemember' ) ); ?></label>
-                            <?php if ( isset( $this->edit_mode_value ) ) $this->ui_on_off('_required', $this->edit_mode_value ); else  $this->ui_on_off('_required', $def_required); ?>
+                            <input type="checkbox" name="_required" id="_required" value="1" <?php checked( isset( $this->edit_mode_value ) ? $this->edit_mode_value : $def_required ) ?> />
                         </p>
 
                     </div>
@@ -1930,7 +1889,7 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
                     <div class="um-admin-tri">
 
                         <p><label for="_editable">Can user edit this field? <?php UM()->tooltip( __( 'This option allows you to set whether or not the user can edit the information in this field.', 'ultimatemember' ) ); ?></label>
-                            <?php if ( isset( $this->edit_mode_value ) ) $this->ui_on_off('_editable', $this->edit_mode_value ); else  $this->ui_on_off('_editable', 1); ?>
+                            <input type="checkbox" name="_editable" id="_editable" value="1" <?php checked( isset( $this->edit_mode_value ) ? $this->edit_mode_value : 0 ) ?> />
                         </p>
 
                     </div>
@@ -1942,7 +1901,7 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
                     ?>
 
                     <p><label for="_number">Rating System <?php UM()->tooltip( __( 'Choose whether you want a 5-stars or 10-stars ratings based here.', 'ultimatemember' ) ); ?></label>
-                        <select name="_number" id="_number" class="umaf-selectjs" style="width: 100%">
+                        <select name="_number" id="_number" style="width: 100%">
                             <option value="5" <?php selected( 5, $this->edit_mode_value ); ?>>5  stars rating system</option>
                             <option value="10" <?php selected( 10, $this->edit_mode_value ); ?>>10 stars rating system</option>
                         </select>
@@ -1966,7 +1925,7 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
                     ?>
 
                     <p><label for="_parent_dropdown_relationship">Parent Option<?php UM()->tooltip( __( 'Dynamically populates the option based from selected parent option.', 'ultimatemember' ) ); ?></label>
-                        <select name="_parent_dropdown_relationship" id="_parent_dropdown_relationship" class="umaf-selectjs" style="width: 100%">
+                        <select name="_parent_dropdown_relationship" id="_parent_dropdown_relationship" style="width: 100%">
                             <option value="">No Selected</option>
                             <?php
                             if ( UM()->builtin()->custom_fields ) {
