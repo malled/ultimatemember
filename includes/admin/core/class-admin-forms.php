@@ -317,6 +317,83 @@ if ( ! class_exists( 'Admin_Forms' ) ) {
         }
 
 
+        function render_color( $field_data ) {
+
+            if ( empty( $field_data['id'] ) )
+                return false;
+
+            $id = ( ! empty( $this->form_data['prefix_id'] ) ? $this->form_data['prefix_id'] : '' ) . '_' . $field_data['id'];
+            $id_attr = ' id="' . $id . '" ';
+
+            $class = ! empty( $field_data['class'] ) ? $field_data['class'] : '';
+            $class .= ! empty( $field_data['size'] ) ? ' um-' . $field_data['size'] . '-field ' : ' um-long-field ';
+            $class .= ' um-admin-colorpicker ';
+            $class_attr = ' class="um-forms-field ' . $class . '" ';
+
+            $data = array(
+                'field_id' => $field_data['id']
+            );
+
+            $data_attr = '';
+            foreach ( $data as $key => $value ) {
+                $data_attr .= " data-{$key}=\"{$value}\" ";
+            }
+
+            $placeholder_attr = ! empty( $field_data['placeholder'] ) ? ' placeholder="' . $field_data['placeholder'] . '"' : '';
+
+            $name = $field_data['id'];
+            $name = ! empty( $this->form_data['prefix_id'] ) ? $this->form_data['prefix_id'] . '[' . $name . ']' : $name;
+            $name_attr = ' name="' . $name . '" ';
+
+            $default = isset( $field_data['default'] ) ? $field_data['default'] : '';
+            $value = isset( $field_data['value'] ) ? $field_data['value'] : $default;
+            $value_attr = ' value="' . $value . '" ';
+
+            $html = "<input type=\"text\" $id_attr $class_attr $name_attr $data_attr $value_attr $placeholder_attr />";
+
+            return $html;
+        }
+
+
+        function render_icon( $field_data ) {
+
+            if ( empty( $field_data['id'] ) )
+                return false;
+
+            $id = ( ! empty( $this->form_data['prefix_id'] ) ? $this->form_data['prefix_id'] : '' ) . '_' . $field_data['id'];
+            $id_attr = ' id="' . $id . '" ';
+
+            $name = $field_data['id'];
+            $name = ! empty( $this->form_data['prefix_id'] ) ? $this->form_data['prefix_id'] . '[' . $name . ']' : $name;
+            $name_attr = ' name="' . $name . '" ';
+
+            $default = isset( $field_data['default'] ) ? $field_data['default'] : '';
+            $value = isset( $field_data['value'] ) ? $field_data['value'] : $default;
+            $value_attr = ' value="' . $value . '" ';
+
+            $html = '<a href="#" class="button" data-modal="UM_fonticons" data-modal-size="normal" data-dynamic-content="um_admin_fonticon_selector" data-arg1="" data-arg2="" data-back="">' . __( 'Choose Icon', 'ultimatemember' ) . '</a>
+                <span class="um-admin-icon-value">';
+
+            if ( ! empty( $value ) ) {
+                $html .= '<i class="' . $value . '"></i>';
+            } else {
+                $html .= __( 'No Icon', 'ultimatemember' );
+            }
+
+            $html .= '</span><input type="hidden" ' . $name_attr . ' ' . $id_attr . ' ' . $value_attr . ' />';
+
+            if ( get_post_meta( get_the_ID(), '_um_icon', true ) ) {
+                $html .= '<span class="um-admin-icon-clear show"><i class="um-icon-android-cancel"></i></span>';
+            } else {
+                $html .= '<span class="um-admin-icon-clear"><i class="um-icon-android-cancel"></i></span>';
+            }
+
+            $html .= '</span>';
+
+            return $html;
+        }
+
+
         function render_datepicker( $field_data ) {
 
             if ( empty( $field_data['id'] ) )
@@ -421,13 +498,15 @@ if ( ! class_exists( 'Admin_Forms' ) ) {
                 $data_attr .= " data-{$key}=\"{$value}\" ";
             }
 
+            $rows = ! empty( $field_data['args']['textarea_rows'] ) ? ' rows="' . $field_data['args']['textarea_rows'] . '" ' : '';
+
             $name = $field_data['id'];
             $name = ! empty( $this->form_data['prefix_id'] ) ? $this->form_data['prefix_id'] . '[' . $name . ']' : $name;
             $name_attr = ' name="' . $name . '" ';
 
             $default = isset( $field_data['default'] ) ? $field_data['default'] : '';
             $value = isset( $field_data['value'] ) ? $field_data['value'] : $default;
-            $html = "<textarea $id_attr $class_attr $name_attr $data_attr>$value</textarea>";
+            $html = "<textarea $id_attr $class_attr $name_attr $data_attr $rows>$value</textarea>";
 
             return $html;
         }
@@ -694,8 +773,9 @@ if ( ! class_exists( 'Admin_Forms' ) ) {
 
             $id = ( ! empty( $this->form_data['prefix_id'] ) ? $this->form_data['prefix_id'] : '' ) . '_' . $field_data['id'];
 
+            $size = ! empty( $field_data['size'] ) ? 'um-' . $field_data['size'] . '-field' : 'um-long-field';
+
             $class = ! empty( $field_data['class'] ) ? $field_data['class'] : '';
-            $class .= ! empty( $field_data['size'] ) ? $field_data['size'] : 'um-long-field';
             $class_attr = ' class="um-forms-field ' . $class . '" ';
 
             $data = array(
@@ -726,7 +806,7 @@ if ( ! class_exists( 'Admin_Forms' ) ) {
 
                     $id_attr = ' id="' . $id . '-' . $k . '" ';
 
-                    $html .= "<li class=\"um-multi-text-option-line\"><span class=\"um-field-wrapper\">
+                    $html .= "<li class=\"um-multi-text-option-line {$size}\"><span class=\"um-field-wrapper\">
                         <input type=\"text\" $id_attr $name_attr $class_attr $data_attr value=\"$value\" /></span>
                         <span class=\"um-field-control\"><a href=\"javascript:void(0);\" class=\"um-text-delete\">" . __( 'Remove', 'ultimatemember' ) . "</a></span></li>";
                 }
@@ -735,7 +815,7 @@ if ( ! class_exists( 'Admin_Forms' ) ) {
                 while( $i < $field_data['show_default_number'] ) {
                     $id_attr = ' id="' . $id . '-' . $i . '" ';
 
-                    $html .= "<li class=\"um-multi-text-option-line\"><span class=\"um-field-wrapper\">
+                    $html .= "<li class=\"um-multi-text-option-line {$size}\"><span class=\"um-field-wrapper\">
                          <input type=\"text\" $id_attr $name_attr $class_attr $data_attr value=\"\" /></span>
                         <span class=\"um-field-control\"><a href=\"javascript:void(0);\" class=\"um-text-delete\">" . __( 'Remove', 'ultimatemember' ) . "</a></span></li>";
 

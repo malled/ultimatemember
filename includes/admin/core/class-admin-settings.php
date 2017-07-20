@@ -124,6 +124,7 @@ if ( ! class_exists( 'Admin_Settings' ) ) {
                         'conditional'		=> array( 'profile_tab_' . $id, '=', 1 ),
                         'value' 		=> UM()->um_get_option( 'profile_tab_' . $id . '_privacy' ),
                         'default' 		=> UM()->um_get_default( 'profile_tab_' . $id . '_privacy' ),
+                        'size'          => 'small'
                     ),
                     array(
                         'id'       		=> 'profile_tab_' . $id . '_roles',
@@ -136,6 +137,7 @@ if ( ! class_exists( 'Admin_Settings' ) ) {
                         'conditional'		=> array( 'profile_tab_' . $id . '_privacy', '=', 4 ),
                         'value' 		=> UM()->um_get_option( 'profile_tab_' . $id . '_roles' ),
                         'default' 		=> UM()->um_get_default( 'profile_tab_' . $id . '_roles' ),
+                        'size'          => 'small'
                     )
                 ) );
             }
@@ -150,6 +152,7 @@ if ( ! class_exists( 'Admin_Settings' ) ) {
                     'conditional'	=> array( 'profile_menu', '=', 1 ),
                     'value' 		=> UM()->um_get_option( 'profile_menu_default_tab' ),
                     'default' 		=> UM()->um_get_default( 'profile_menu_default_tab' ),
+                    'size'          => 'small'
                 ),
                 array(
                     'id'       		=> 'profile_menu_icons',
@@ -237,7 +240,7 @@ if ( ! class_exists( 'Admin_Settings' ) ) {
                                 array(
                                     'id'       		=> 'display_name',
                                     'type'     		=> 'select',
-                                    'size'          => 'small',
+                                    'size'          => 'medium',
                                     'label'    		=> __( 'User Display Name','ultimatemember' ),
                                     'tooltip' 	=> __( 'This is the name that will be displayed for users on the front end of your site. Default setting uses first/last name as display name if it exists','ultimatemember' ),
                                     'options' 		=> array(
@@ -306,6 +309,7 @@ if ( ! class_exists( 'Admin_Settings' ) ) {
                                     'conditional'		=> array( 'use_gravatars', '=', 1 ),
                                     'value' 		=> UM()->um_get_option( 'use_um_gravatar_default_builtin_image' ),
                                     'default' 		=> UM()->um_get_default( 'use_um_gravatar_default_builtin_image' ),
+                                    'size'          => 'medium'
                                 ),
                                 array(
                                     'id'       		=> 'use_um_gravatar_default_image',
@@ -430,6 +434,7 @@ if ( ! class_exists( 'Admin_Settings' ) ) {
                                 array(
                                     'id'       		=> 'photo_thumb_sizes',
                                     'type'     		=> 'multi_text',
+                                    'size'     		=> 'small',
                                     'label'    		=> __( 'Profile Photo Thumbnail Sizes (px)','ultimatemember' ),
                                     'tooltip' 	=> __( 'Here you can define which thumbnail sizes will be created for each profile photo upload.','ultimatemember' ),
                                     'validate' 		=> 'numeric',
@@ -441,6 +446,7 @@ if ( ! class_exists( 'Admin_Settings' ) ) {
                                 array(
                                     'id'       		=> 'cover_thumb_sizes',
                                     'type'     		=> 'multi_text',
+                                    'size'     		=> 'small',
                                     'label'    		=> __( 'Cover Photo Thumbnail Sizes (px)','ultimatemember' ),
                                     'tooltip' 	=> __( 'Here you can define which thumbnail sizes will be created for each cover photo upload.','ultimatemember' ),
                                     'validate' 		=> 'numeric',
@@ -470,6 +476,7 @@ if ( ! class_exists( 'Admin_Settings' ) ) {
                                     ),
                                     'value' 		=> UM()->um_get_option( 'accessible' ),
                                     'default' 		=> UM()->um_get_default( 'accessible' ),
+                                    'size'          => 'medium'
                                 ),
                                 array(
                                     'id'       		=> 'access_redirect',
@@ -629,6 +636,7 @@ if ( ! class_exists( 'Admin_Settings' ) ) {
                                     'default'  		=> um_get_metadefault('profile_template'),
                                     'options' 		=> UM()->shortcodes()->get_templates( 'profile' ),
                                     'value' 		=> UM()->um_get_option( 'profile_template' ),
+                                    'size'          => 'small'
                                 ),
                                 array(
                                     'id'      		=> 'profile_max_width',
@@ -637,6 +645,7 @@ if ( ! class_exists( 'Admin_Settings' ) ) {
                                     'default'  		=> um_get_metadefault('profile_max_width'),
                                     'tooltip' 	=> 'The maximum width this shortcode can take from the page width',
                                     'value' 		=> UM()->um_get_option( 'profile_max_width' ),
+                                    'size'          => 'small'
                                 ),
 
                                 array(
@@ -646,6 +655,7 @@ if ( ! class_exists( 'Admin_Settings' ) ) {
                                     'default'  		=> um_get_metadefault('profile_area_max_width'),
                                     'tooltip' 	=> __('The maximum width of the profile area inside profile (below profile header)','ultimatemember'),
                                     'value' 		=> UM()->um_get_option( 'profile_area_max_width' ),
+                                    'size'          => 'small'
                                 ),
                                 array(
                                     'id'       		=> 'profile_icons',
@@ -659,6 +669,7 @@ if ( ! class_exists( 'Admin_Settings' ) ) {
                                         'off' 				=> __('Turn off','ultimatemember'),
                                     ),
                                     'value' 		=> UM()->um_get_option( 'profile_icons' ),
+                                    'size'          => 'small'
                                 ),
                                 array(
                                     'id'      		=> 'profile_primary_btn_word',
@@ -667,6 +678,7 @@ if ( ! class_exists( 'Admin_Settings' ) ) {
                                     'default'  		=> um_get_metadefault('profile_primary_btn_word'),
                                     'tooltip' 	=> __('The text that is used for updating profile button','ultimatemember'),
                                     'value' 		=> UM()->um_get_option( 'profile_primary_btn_word' ),
+                                    'size'          => 'medium'
                                 ),
                                 array(
                                     'id'       		=> 'profile_secondary_btn',
@@ -684,6 +696,7 @@ if ( ! class_exists( 'Admin_Settings' ) ) {
                                     'tooltip' 	=> __('The text that is used for cancelling update profile button','ultimatemember'),
                                     'conditional'		=> array( 'profile_secondary_btn', '=', 1 ),
                                     'value' 		=> UM()->um_get_option( 'profile_secondary_btn_word' ),
+                                    'size'          => 'medium'
                                 ),
                                 array(
                                     'id'      			=> 'default_avatar',
@@ -713,6 +726,7 @@ if ( ! class_exists( 'Admin_Settings' ) ) {
                                     'default'  		=> um_get_metadefault('profile_photosize'),
                                     'tooltip' 	=> __('The global default of profile photo size. This can be overridden by individual form settings','ultimatemember'),
                                     'value' 		=> UM()->um_get_option( 'profile_photosize' ),
+                                    'size'          => 'small'
                                 ),
                                 array(
                                     'id'       		=> 'profile_cover_enabled',
@@ -736,6 +750,7 @@ if ( ! class_exists( 'Admin_Settings' ) ) {
                                     ),
                                     'conditional'		=> array( 'profile_cover_enabled', '=', 1 ),
                                     'value' 		=> UM()->um_get_option( 'profile_cover_ratio' ),
+                                    'size'          => 'small'
                                 ),
                                 array(
                                     'id'       		=> 'profile_show_metaicon',
@@ -785,6 +800,7 @@ if ( ! class_exists( 'Admin_Settings' ) ) {
                                     'tooltip' 	=> __('Maximum number of characters to allow in user description field in header.','ultimatemember'),
                                     'conditional'		=> array( 'profile_show_bio', '=', 1 ),
                                     'value' 		=> UM()->um_get_option( 'profile_bio_maxchars' ),
+                                    'size'          => 'small'
                                 ),
                                 array(
                                     'id'       		=> 'profile_header_menu',
@@ -797,6 +813,7 @@ if ( ! class_exists( 'Admin_Settings' ) ) {
                                         'lc' 		=> 'Left of Icon',
                                     ),
                                     'value' 		=> UM()->um_get_option( 'profile_header_menu' ),
+                                    'size'          => 'small'
                                 ),
                                 array(
                                     'id'       		=> 'profile_empty_text',
@@ -832,6 +849,7 @@ if ( ! class_exists( 'Admin_Settings' ) ) {
                                     'default'  		=> um_get_metadefault('register_template'),
                                     'options' 		=> UM()->shortcodes()->get_templates( 'register' ),
                                     'value' 		=> UM()->um_get_option( 'register_template' ),
+                                    'size'          => 'small'
                                 ),
                                 array(
                                     'id'      		=> 'register_max_width',
@@ -840,6 +858,7 @@ if ( ! class_exists( 'Admin_Settings' ) ) {
                                     'default'  		=> um_get_metadefault('register_max_width'),
                                     'tooltip' 	=> __('The maximum width this shortcode can take from the page width','ultimatemember'),
                                     'value' 		=> UM()->um_get_option( 'register_max_width' ),
+                                    'size'          => 'small'
                                 ),
                                 array(
                                     'id'       		=> 'register_align',
@@ -853,6 +872,7 @@ if ( ! class_exists( 'Admin_Settings' ) ) {
                                         'right' 			=> __('Right aligned'),
                                     ),
                                     'value' 		=> UM()->um_get_option( 'register_align' ),
+                                    'size'          => 'small'
                                 ),
                                 array(
                                     'id'       		=> 'register_icons',
@@ -866,6 +886,7 @@ if ( ! class_exists( 'Admin_Settings' ) ) {
                                         'off' 				=> __('Turn off'),
                                     ),
                                     'value' 		=> UM()->um_get_option( 'register_icons' ),
+                                    'size'          => 'small'
                                 ),
                                 array(
                                     'id'      		=> 'register_primary_btn_word',
@@ -874,6 +895,7 @@ if ( ! class_exists( 'Admin_Settings' ) ) {
                                     'default'  		=> um_get_metadefault('register_primary_btn_word'),
                                     'tooltip' 	   		=> __('The text that is used for primary button text','ultimatemember'),
                                     'value' 		=> UM()->um_get_option( 'register_primary_btn_word' ),
+                                    'size'          => 'medium'
                                 ),
                                 array(
                                     'id'       		=> 'register_secondary_btn',
@@ -891,6 +913,7 @@ if ( ! class_exists( 'Admin_Settings' ) ) {
                                     'tooltip' 	=> __('The text that is used for the secondary button text','ultimatemember'),
                                     'conditional'		=> array( 'register_secondary_btn', '=', 1 ),
                                     'value' 		=> UM()->um_get_option( 'register_secondary_btn_word' ),
+                                    'size'          => 'medium'
                                 ),
                                 array(
                                     'id'      		=> 'register_secondary_btn_url',
@@ -900,6 +923,7 @@ if ( ! class_exists( 'Admin_Settings' ) ) {
                                     'tooltip' 	=> __('You can replace default link for this button by entering custom URL','ultimatemember'),
                                     'conditional'		=> array( 'register_secondary_btn', '=', 1 ),
                                     'value' 		=> UM()->um_get_option( 'register_secondary_btn_url' ),
+                                    'size'          => 'medium'
                                 ),
                                 array(
                                     'id'       		=> 'register_role',
@@ -909,6 +933,7 @@ if ( ! class_exists( 'Admin_Settings' ) ) {
                                     'default'  		=> um_get_metadefault('register_role'),
                                     'options' 		=> UM()->roles()->get_roles( $add_default = 'Default' ),
                                     'value' 		=> UM()->um_get_option( 'register_role' ),
+                                    'size'          => 'small'
                                 )
                             )
                         ),
@@ -923,6 +948,7 @@ if ( ! class_exists( 'Admin_Settings' ) ) {
                                     'default'  		=> um_get_metadefault('login_template'),
                                     'options' 		=> UM()->shortcodes()->get_templates( 'login' ),
                                     'value' 		=> UM()->um_get_option( 'login_template' ),
+                                    'size'          => 'small'
                                 ),
                                 array(
                                     'id'      		=> 'login_max_width',
@@ -931,6 +957,7 @@ if ( ! class_exists( 'Admin_Settings' ) ) {
                                     'default'  		=> um_get_metadefault('login_max_width'),
                                     'tooltip' 	=> __('The maximum width this shortcode can take from the page width','ultimatemember'),
                                     'value' 		=> UM()->um_get_option( 'login_max_width' ),
+                                    'size'          => 'small'
                                 ),
                                 array(
                                     'id'       		=> 'login_align',
@@ -944,6 +971,7 @@ if ( ! class_exists( 'Admin_Settings' ) ) {
                                         'right' 			=> __('Right aligned','ultimatemember'),
                                     ),
                                     'value' 		=> UM()->um_get_option( 'login_align' ),
+                                    'size'          => 'small'
                                 ),
                                 array(
                                     'id'       		=> 'login_icons',
@@ -957,6 +985,7 @@ if ( ! class_exists( 'Admin_Settings' ) ) {
                                         'off' 				=> __('Turn off','ultimatemember'),
                                     ),
                                     'value' 		=> UM()->um_get_option( 'login_icons' ),
+                                    'size'          => 'small'
                                 ),
                                 array(
                                     'id'      		=> 'login_primary_btn_word',
@@ -965,6 +994,7 @@ if ( ! class_exists( 'Admin_Settings' ) ) {
                                     'default'  		=> um_get_metadefault('login_primary_btn_word'),
                                     'tooltip' 	=> __('The text that is used for primary button text','ultimatemember'),
                                     'value' 		=> UM()->um_get_option( 'login_primary_btn_word' ),
+                                    'size'          => 'medium'
                                 ),
                                 array(
                                     'id'       		=> 'login_secondary_btn',
@@ -982,6 +1012,7 @@ if ( ! class_exists( 'Admin_Settings' ) ) {
                                     'tooltip' 	=> __('The text that is used for the secondary button text','ultimatemember'),
                                     'conditional'		=> array( 'login_secondary_btn', '=', 1 ),
                                     'value' 		=> UM()->um_get_option( 'login_secondary_btn_word' ),
+                                    'size'          => 'medium'
                                 ),
                                 array(
                                     'id'      		=> 'login_secondary_btn_url',
@@ -991,6 +1022,7 @@ if ( ! class_exists( 'Admin_Settings' ) ) {
                                     'tooltip' 	=> __('You can replace default link for this button by entering custom URL','ultimatemember'),
                                     'conditional'		=> array( 'login_secondary_btn', '=', 1 ),
                                     'value' 		=> UM()->um_get_option( 'login_secondary_btn_url' ),
+                                    'size'          => 'medium'
                                 ),
                                 array(
                                     'id'       		=> 'login_forgot_pass_link',
@@ -1035,6 +1067,7 @@ if ( ! class_exists( 'Admin_Settings' ) ) {
                             'tooltip' 	=> __('This is the title that is displayed on a specific user profile','ultimatemember'),
                             'value' 		=> UM()->um_get_option( 'profile_title' ),
                             'default' 		=> UM()->um_get_default( 'profile_title' ),
+                            'size'          => 'medium'
                         ),
                         array(
                             'id'       		=> 'profile_desc',
@@ -1043,6 +1076,9 @@ if ( ! class_exists( 'Admin_Settings' ) ) {
                             'tooltip'	=> __('This will be used in the meta description that is available for search-engines.','ultimatemember'),
                             'value' 		=> UM()->um_get_option( 'profile_desc' ),
                             'default' 		=> UM()->um_get_default( 'profile_desc' ),
+                            'args'          => array(
+                                'textarea_rows' => 6
+                            )
                         ),
                         array(
                             'id'       		=> 'allow_tracking',
@@ -1760,7 +1796,7 @@ if ( ! class_exists( 'Admin_Settings' ) ) {
             ob_start();
 
             UM()->admin_forms( array(
-                'class'		=> 'um_options-' . $current_tab . '-' . $current_subtab . ' um-half-part',
+                'class'		=> 'um_options-' . $current_tab . '-' . $current_subtab . ' um-third-column',
                 'prefix_id'	=> 'um_options',
                 'fields' => $section_fields
             ) )->render_form(); ?>

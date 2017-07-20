@@ -52,6 +52,7 @@ textarea.um-forms-field.um-small-field {
     width:100%;
     margin: 0;
     padding: 0;
+    clear:both;
 }
 
 .um-multi-text-option-line .um-field-wrapper,
