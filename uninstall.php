@@ -73,4 +73,34 @@ if ( ! empty( $delete_options ) ) {
         if ( substr( $k, 0, 18 ) == 'um_cache_userdata_' )
             delete_option( $k );
     }
+
+
+    global $wpdb;
+
+
+    $wpdb->query(
+        "DELETE 
+        FROM {$wpdb->usermeta} 
+        WHERE meta_key LIKE '_um%' OR 
+              meta_key LIKE 'um%' OR 
+              meta_key LIKE 'reviews%' OR 
+              meta_key = 'submitted' OR 
+              meta_key = 'account_status' OR 
+              meta_key = 'password_rst_attempts' OR 
+              meta_key = 'profile_photo' OR 
+              meta_key = '_enable_new_follow' OR 
+              meta_key = '_enable_new_friend' OR 
+              meta_key = '_mylists' OR 
+              meta_key = '_enable_new_pm' OR 
+              meta_key = '_hidden_conversations' OR 
+              meta_key = '_pm_blocked' OR 
+              meta_key = '_notifications_prefs' OR 
+              meta_key = '_profile_progress' OR 
+              meta_key = '_completed' OR 
+              meta_key = '_cannot_add_review' OR 
+              meta_key = 'synced_profile_photo' OR 
+              meta_key = 'full_name'"
+    );
+
+
 }

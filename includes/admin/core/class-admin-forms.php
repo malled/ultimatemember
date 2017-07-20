@@ -631,8 +631,8 @@ if ( ! class_exists( 'Admin_Forms' ) ) {
             foreach ( $field_data['options'] as $key=>$option ) {
                 if ( ! empty( $field_data['multi'] ) ) {
 
-                    /*if ( ! is_array( $value ) )
-                        var_dump( $data );*/
+                    if ( ! is_array( $value ) && empty( $value ) )
+                        $value = array();
 
                     $options .= '<option value="' . $key . '" ' . selected( in_array( $key, $value ), true, false ) . '>' . $option . '</option>';
                 } else {

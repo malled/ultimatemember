@@ -135,7 +135,7 @@ if ( ! class_exists( 'Admin_Settings' ) ) {
                         'options' 		=> UM()->roles()->get_roles(),
                         'placeholder' 	=> __( 'Choose user roles...','ultimatemember' ),
                         'conditional'		=> array( 'profile_tab_' . $id . '_privacy', '=', 4 ),
-                        'value' 		=> UM()->um_get_option( 'profile_tab_' . $id . '_roles' ),
+                        'value' 		=> ! empty( UM()->um_get_option( 'profile_tab_' . $id . '_roles' ) ) ? UM()->um_get_option( 'profile_tab_' . $id . '_roles' ) : array(),
                         'default' 		=> UM()->um_get_default( 'profile_tab_' . $id . '_roles' ),
                         'size'          => 'small'
                     )
@@ -209,7 +209,7 @@ if ( ! class_exists( 'Admin_Settings' ) ) {
                         'users'     => array(
                             'title'     => __( 'Users', 'ultimatemember' ),
                             'fields'    => array(
-                                array(
+                                /*array(
                                     'id'       		=> 'default_role',
                                     'type'     		=> 'select',
                                     'size'          => 'small',
@@ -219,7 +219,7 @@ if ( ! class_exists( 'Admin_Settings' ) ) {
                                     'placeholder' 	=> __('Choose user role...','ultimatemember'),
                                     'value' 		=> UM()->um_get_option( 'default_role' ),
                                     'default' 		=> UM()->um_get_default( 'default_role' ),
-                                ),
+                                ),*/
                                 array(
                                     'id'       		=> 'permalink_base',
                                     'type'     		=> 'select',

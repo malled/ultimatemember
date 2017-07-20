@@ -71,7 +71,8 @@ class UM_ADDON_generate_random_users {
 					remove_action('um_after_new_user_register', 'um_after_new_user_register', 10, 2);
 
 					$failed_dummies = 0;
-					$default_role = um_get_option("default_role");
+					//$default_role = um_get_option("default_role");
+					$default_role = get_option( "default_role", true );
 
 					foreach( $json->results as $dummy ){
 							

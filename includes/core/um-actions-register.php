@@ -42,10 +42,10 @@
 		um_fetch_user( $user_id );
 
 		if ( ! isset( $args['role'] ) )
-			$args['role'] = um_get_option( 'default_role' );
+			$args['role'] = get_option( 'default_role', true );
 
 		if ( $pagenow != 'user-new.php' && ! array_key_exists( $args['role'], UM()->roles()->get_roles( false, array( 'admin' ) ) ) )
-			$args['role'] = um_get_option( 'default_role' );
+			$args['role'] = get_option( 'default_role', true );
 
 		if ( ! user_can( $user_id, $args['role'] ) )
 			UM()->roles()->set_um_user_role( $user_id, $args['role'] );
@@ -243,9 +243,9 @@
 
 		do_action( 'um_before_new_user_register', $args );
 
-		$default_role = um_get_option( 'default_role' );
-		if ( empty( $default_role ) )
-			$default_role = get_option( 'default_role' );
+		$default_role = get_option( 'default_role', true );
+/*		if ( empty( $default_role ) )
+			$default_role = get_option( 'default_role' );*/
 
 		$userdata = array(
 			'user_login'	=> $user_login,
@@ -283,7 +283,8 @@
 		if (isset($args['role']) && !empty($args['role']) && $use_global_settings == 0 ) {
 			$role = $args['role'];
 		} else if( $use_global_settings == 1 ) {
-			$role = um_get_option('default_role');
+			//$role = um_get_option('default_role');
+			$role = get_option( 'default_role' );
 		}
 
 		if( empty( $role ) ) return;
