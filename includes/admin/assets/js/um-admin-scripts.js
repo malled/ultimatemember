@@ -84,6 +84,14 @@ jQuery(document).ready(function() {
 	/**
 		Tooltips
 	**/
+	if ( jQuery( '.um_tooltip' ).length > 0 ) {
+        jQuery( '.um_tooltip' ).tooltip({
+            tooltipClass: "um_tooltip",
+            content: function () {
+                return jQuery( this ).attr( 'title' );
+            }
+        });
+	}
 	
 	if( typeof tipsy !== 'undefined' ){
 		jQuery('.um-admin-tipsy-n').tipsy({gravity: 'n', opacity: 1, live: 'a.live' });

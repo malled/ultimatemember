@@ -145,8 +145,6 @@ if ( ! class_exists( 'UM_Functions' ) ) {
          * @return string
          */
         function tooltip( $tip, $allow_html = false, $echo = true ) {
-            wp_enqueue_script( 'jquery-ui-tooltip' );
-
             if ( $allow_html ) {
 
                 $tip = htmlspecialchars( wp_kses( html_entity_decode( $tip ), array(
@@ -165,60 +163,7 @@ if ( ! class_exists( 'UM_Functions' ) ) {
                 $tip = esc_attr( $tip );
             }
 
-            ob_start();
-
-            if ( empty( $this->screenload_flags['render_tooltip'] ) ) {
-
-                $this->screenload_flags['render_tooltip'] = true; ?>
-
-                <script type="text/javascript">
-                    jQuery( document ).ready( function() {
-                        jQuery( '.um_tooltip' ).tooltip({
-                            tooltipClass: "um_tooltip",
-                            content: function () {
-                                return jQuery( this ).attr( 'title' );
-                            }
-                        });
-                    });
-                </script>
-
-                <style type="text/css">
-                    .ui-tooltip.um_tooltip {
-                        padding: 8px;
-                        color: #eeeeee;
-                        background-color: #333;
-                        position: absolute;
-                        z-index: 1000000;
-                        max-width: 300px;
-                        font-size: 12px;
-                        border-radius: 5px;
-                    }
-
-                    .um_tooltip.dashicons,
-                    .um_tooltip.dashicons:before {
-                        height:22px;
-                    }
-
-                    .um_tooltip.dashicons-editor-help::before {
-                        float: left;
-                        font-size: 20px;
-                        line-height: 20px;
-                        color: #333 !important;
-                    }
-                    .um_tooltip {
-                        cursor: pointer;
-                        vertical-align: middle;
-                    }
-                    .um_tooltip:hover {
-                        opacity: 1;
-                    }
-
-                    .um_tooltip:hover:before {
-                        opacity: 0.8;
-                    }
-                </style>
-
-            <?php } ?>
+            ob_start(); ?>
 
             <span class="um_tooltip dashicons dashicons-editor-help" title="<?php echo $tip ?>"></span>
 

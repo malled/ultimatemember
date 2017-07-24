@@ -257,6 +257,8 @@ if ( ! class_exists( 'Admin_Enqueue' ) ) {
             wp_enqueue_script( 'jquery-ui-draggable' );
             wp_enqueue_script( 'jquery-ui-sortable' );
 
+            wp_enqueue_script( 'jquery-ui-tooltip' );
+
         }
 
 

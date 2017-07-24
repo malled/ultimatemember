@@ -205,4 +205,12 @@ th.column-email.column-primary {
     .um-settings-line .multi-checkbox-column label {
         line-height: 30px !important;
     }
+
+    .um-medium-field {
+        width:100%;
+    }
+
+    .um-small-field {
+        width:50%;
+    }
 }

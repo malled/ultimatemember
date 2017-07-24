@@ -43,7 +43,7 @@ textarea.um-forms-field.um-small-field {
 
 .um-hidden-multi-text,
 .um-hidden-multi-selects {
-    display: none;
+    display: none !important;
 }
 
 .um-multi-text-option-line,
@@ -58,14 +58,23 @@ textarea.um-forms-field.um-small-field {
 .um-multi-text-option-line .um-field-wrapper,
 .um-multi-selects-option-line .um-field-wrapper {
     float:left;
-    width: 80%;
+    width: calc( 100% - 60px );
     line-height: 30px;
     box-sizing: border-box;
 }
+
+.um-multi-text-option-line .um-field-wrapper input,
+.um-multi-selects-option-line .um-field-wrapper select {
+    float:left;
+    width: 100%;
+    margin:0;
+}
+
+
 .um-multi-text-option-line .um-field-control,
 .um-multi-selects-option-line .um-field-control {
     float:left;
-    width: 20%;
+    width: 60px;
     line-height: 30px;
     padding: 0 10px;
     box-sizing: border-box;
@@ -115,12 +124,30 @@ textarea.um-forms-field.um-small-field {
     .um-form-fields-section label span {
         width:calc( 100% - 30px );
     }
+
+    .um-multi-text-option-line,
+    .um-multi-selects-option-line {
+        margin: 0 0 6px 0;
+    }
+
+    .um-forms-line label {
+        float:left;
+        width:100%;
+    }
+
+
+    .um-form-table.um-third-column .um-forms-line th,
+    .um-form-table.um-half-column .um-forms-line th,
+    .um-form-table.um-two-thirds-column .um-forms-line th {
+        width: 100%;
+    }
 }
 
 
 /*Multi text filed */
 .um-forms-line .um-text-delete {
     color: #a00;
+    float:left;
 }
 
 .um-forms-line .um-text-delete:hover {
