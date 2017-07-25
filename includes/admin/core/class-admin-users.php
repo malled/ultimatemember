@@ -32,14 +32,14 @@ if ( ! class_exists( 'Admin_Users' ) ) {
         function restrict_manage_users() { ?>
             <div style="float:right;margin:0 4px">
 
-                <label class="screen-reader-text" for="um_bulk_action"><?php _e( 'UM Action', 'ultimatemember' ); ?></label>
+                <label class="screen-reader-text" for="um_bulk_action"><?php _e( 'UM Action', 'ultimate-member' ); ?></label>
 
                 <select name="um_bulk_action[]" id="um_bulk_action" class="" style="width: 200px">
-                    <option value="0"><?php _e( 'UM Action', 'ultimatemember' ); ?></option>
+                    <option value="0"><?php _e( 'UM Action', 'ultimate-member' ); ?></option>
                     <?php echo $this->get_bulk_admin_actions(); ?>
                 </select>
 
-                <input name="um_bulkedit" id="um_bulkedit" class="button" value="<?php _e( 'Apply', 'ultimatemember' ); ?>" type="submit" />
+                <input name="um_bulkedit" id="um_bulkedit" class="button" value="<?php _e( 'Apply', 'ultimate-member' ); ?>" type="submit" />
 
             </div>
 
@@ -58,26 +58,23 @@ if ( ! class_exists( 'Admin_Users' ) ) {
 
             $actions = apply_filters( 'um_admin_bulk_user_actions_hook', array(
                 'um_approve_membership' => array(
-                    'label' => __( 'Approve Membership', 'ultimatemember' )
+                    'label' => __( 'Approve Membership', 'ultimate-member' )
                 ),
                 'um_reject_membership'  => array(
-                    'label' => __( 'Reject Membership', 'ultimatemember' )
+                    'label' => __( 'Reject Membership', 'ultimate-member' )
                 ),
                 'um_put_as_pending'     => array(
-                    'label' => __( 'Put as Pending Review', 'ultimatemember' )
+                    'label' => __( 'Put as Pending Review', 'ultimate-member' )
                 ),
                 'um_resend_activation'  => array(
-                    'label' => __( 'Resend Activation E-mail', 'ultimatemember' )
+                    'label' => __( 'Resend Activation E-mail', 'ultimate-member' )
                 ),
                 'um_deactivate'         => array(
-                    'label' => __( 'Deactivate', 'ultimatemember' )
+                    'label' => __( 'Deactivate', 'ultimate-member' )
                 ),
                 'um_reenable'           => array(
-                    'label' => __( 'Reactivate', 'ultimatemember' )
-                ),
-/*                'um_delete'             => array(
-                    'label' => __( 'Delete', 'ultimatemember' )
-                )*/
+                    'label' => __( 'Reactivate', 'ultimate-member' )
+                )
             ) );
 
             $output = '';
@@ -98,11 +95,11 @@ if ( ! class_exists( 'Admin_Users' ) ) {
         function user_row_actions( $actions, $user_object ) {
             $user_id = $user_object->ID;
 
-            $actions['frontend_profile'] = "<a class='' href='" . UM()->user()->get_profile_url( $user_id ) . "'>" . __( 'View profile', 'ultimatemember' ) . "</a>";
+            $actions['frontend_profile'] = "<a class='' href='" . UM()->user()->get_profile_url( $user_id ) . "'>" . __( 'View profile', 'ultimate-member' ) . "</a>";
 
             $submitted = get_user_meta( $user_id, 'submitted', true );
             if ( ! empty( $submitted ) )
-                $actions['view_info'] = '<a href="#" data-modal="UM_preview_registration" data-modal-size="smaller" data-dynamic-content="um_admin_review_registration" data-arg1="' . $user_id . '" data-arg2="edit_registration">' . __( 'Info', 'ultimatemember' ) . '</a>';
+                $actions['view_info'] = '<a href="#" data-modal="UM_preview_registration" data-modal-size="smaller" data-dynamic-content="um_admin_review_registration" data-arg1="' . $user_id . '" data-arg2="edit_registration">' . __( 'Info', 'ultimate-member' ) . '</a>';
 
             $actions = apply_filters( 'um_admin_user_row_actions', $actions, $user_id );
 
@@ -186,11 +183,11 @@ if ( ! class_exists( 'Admin_Users' ) ) {
             }
 
             $status = array(
-                'approved'                      => __( 'Approved', 'ultimatemember' ),
-                'awaiting_admin_review'         => __( 'Pending review', 'ultimatemember' ),
-                'awaiting_email_confirmation'   => __( 'Waiting e-mail confirmation', 'ultimatemember' ),
-                'inactive'                      => __( 'Inactive', 'ultimatemember' ),
-                'rejected'                      => __( 'Rejected', 'ultimatemember' )
+                'approved'                      => __( 'Approved', 'ultimate-member' ),
+                'awaiting_admin_review'         => __( 'Pending review', 'ultimate-member' ),
+                'awaiting_email_confirmation'   => __( 'Waiting e-mail confirmation', 'ultimate-member' ),
+                'inactive'                      => __( 'Inactive', 'ultimate-member' ),
+                'rejected'                      => __( 'Rejected', 'ultimate-member' )
             );
 
             UM()->query()->count_users_by_status( 'unassigned' );
@@ -232,7 +229,7 @@ if ( ! class_exists( 'Admin_Users' ) ) {
             if ( ! empty( $_REQUEST['users'] ) && ! empty( $_REQUEST['um_bulkedit'] ) && ! empty( $_REQUEST['um_bulk_action'] ) ) {
 
                 if ( ! current_user_can( 'edit_users' ) )
-                    wp_die( __( 'You do not have enough permissions to do that.', 'ultimatemember' ) );
+                    wp_die( __( 'You do not have enough permissions to do that.', 'ultimate-member' ) );
 
                 check_admin_referer( 'bulk-users' );
 

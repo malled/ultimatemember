@@ -1,12 +1,24 @@
 <?php
 
-$i = 0;
 $dirname = dirname( __FILE__ );
 do {
-	$dirname = dirname( $dirname );
-	$wp_load = "{$dirname}/wp-load.php";
+    $dirname = dirname( $dirname );
+    $wp_config = "{$dirname}/wp-config.php";
+    $wp_load = "{$dirname}/wp-load.php";
 }
-while( ++$i < 10 && !file_exists( $wp_load ) );
+while( !file_exists( $wp_config ) );
+
+if ( ! file_exists( $wp_load ) ) {
+    $dirs = glob( $dirname . '/*' , GLOB_ONLYDIR );
+
+    foreach ( $dirs as $key => $value ) {
+        $wp_load = "{$value}/wp-load.php";
+        if ( file_exists( $wp_load ) ) {
+            break;
+        }
+    }
+}
+
 require_once( $wp_load );
 
 $ret['error'] = null;
@@ -36,7 +48,7 @@ if(isset($_FILES[$id]['name'])) {
     if(!is_array($_FILES[$id]['name'])) {
 	
 		$temp = $_FILES[$id]["tmp_name"];
-		$file = $id."-".$_FILES[$id]["name"];
+        $file = apply_filters('um_upload_file_name',$id."-".$_FILES[$id]["name"],$id,$_FILES[$id]["name"]);
 		$file = sanitize_file_name($file);
 		$extension = strtolower( pathinfo($file, PATHINFO_EXTENSION) );
 		
@@ -53,6 +65,6 @@ if(isset($_FILES[$id]['name'])) {
     }
 	
 } else {
-	$ret['error'] = __('A theme or plugin compatibility issue','ultimatemember');
+	$ret['error'] = __('A theme or plugin compatibility issue','ultimate-member');
 }
 echo json_encode($ret);

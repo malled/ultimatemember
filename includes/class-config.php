@@ -32,13 +32,13 @@ if ( ! class_exists( 'um\Config' ) ) {
             );
 
             $this->core_pages = apply_filters( 'um_core_pages', array(
-                'user'              => array( 'title' => __( 'User', 'ultimatemember' ) ),
-                'login'             => array( 'title' => __( 'Login', 'ultimatemember' ) ),
-                'register'          => array( 'title' => __( 'Register', 'ultimatemember' ) ),
-                'members'           => array( 'title' => __( 'Members', 'ultimatemember' ) ),
-                'logout'            => array( 'title' => __( 'Logout', 'ultimatemember' ) ),
-                'account'           => array( 'title' => __( 'Account', 'ultimatemember' ) ),
-                'password-reset'    => array( 'title' => __( 'Password Reset', 'ultimatemember' ) ),
+                'user'              => array( 'title' => __( 'User', 'ultimate-member' ) ),
+                'login'             => array( 'title' => __( 'Login', 'ultimate-member' ) ),
+                'register'          => array( 'title' => __( 'Register', 'ultimate-member' ) ),
+                'members'           => array( 'title' => __( 'Members', 'ultimate-member' ) ),
+                'logout'            => array( 'title' => __( 'Logout', 'ultimate-member' ) ),
+                'account'           => array( 'title' => __( 'Account', 'ultimate-member' ) ),
+                'password-reset'    => array( 'title' => __( 'Password Reset', 'ultimate-member' ) ),
             ) );
 
             $this->core_directory_meta['members'] = array(
@@ -55,9 +55,9 @@ if ( ! class_exists( 'um\Config' ) ) {
                 '_um_profile_photo' => '1',
                 '_um_cover_photos' => '1',
                 '_um_show_name' => '1',
-                '_um_directory_header' => __('{total_users} Members','ultimatemember'),
-                '_um_directory_header_single' => __('{total_users} Member','ultimatemember'),
-                '_um_directory_no_users' => __('We are sorry. We cannot find any users who match your search criteria.','ultimatemember'),
+                '_um_directory_header' => __('{total_users} Members','ultimate-member'),
+                '_um_directory_header_single' => __('{total_users} Member','ultimate-member'),
+                '_um_directory_no_users' => __('We are sorry. We cannot find any users who match your search criteria.','ultimate-member'),
                 '_um_profiles_per_page' => 12,
                 '_um_profiles_per_page_mobile' => 6,
                 '_um_core' => 'members',
@@ -112,23 +112,23 @@ if ( ! class_exists( 'um\Config' ) ) {
                 '_um_register_max_width' => '450px',
                 '_um_register_align' => 'center',
                 '_um_register_icons' => 'label',
-                '_um_register_primary_btn_word' => __('Register','ultimatemember'),
+                '_um_register_primary_btn_word' => __('Register','ultimate-member'),
                 '_um_register_secondary_btn' => 1,
-                '_um_register_secondary_btn_word' => __('Login','ultimatemember'),
+                '_um_register_secondary_btn_word' => __('Login','ultimate-member'),
                 '_um_register_secondary_btn_url' => '',
                 '_um_login_template' => 'login',
                 '_um_login_max_width' => '450px',
                 '_um_login_align' => 'center',
                 '_um_login_icons' => 'label',
-                '_um_login_primary_btn_word' => __('Login','ultimatemember'),
+                '_um_login_primary_btn_word' => __('Login','ultimate-member'),
                 '_um_login_forgot_pass_link' => 1,
                 '_um_login_show_rememberme' => 1,
                 '_um_login_secondary_btn' => 1,
-                '_um_login_secondary_btn_word' => __('Register','ultimatemember'),
+                '_um_login_secondary_btn_word' => __('Register','ultimate-member'),
                 '_um_login_secondary_btn_url' => '',
                 '_um_directory_template' => 'members',
-                '_um_directory_header' => __('{total_users} Members','ultimatemember'),
-                '_um_directory_header_single' => __('{total_users} Member','ultimatemember'),
+                '_um_directory_header' => __('{total_users} Members','ultimate-member'),
+                '_um_directory_header_single' => __('{total_users} Member','ultimate-member'),
             ) );
 
             $this->core_form_meta['register'] = array(
@@ -155,7 +155,7 @@ if ( ! class_exists( 'um\Config' ) ) {
             $this->email_notifications = apply_filters( 'um_email_notifications', array(
                 'welcome_email' => array(
                     'key'           => 'welcome_email',
-                    'title'         => __( 'Account Welcome Email','ultimatemember' ),
+                    'title'         => __( 'Account Welcome Email','ultimate-member' ),
                     'subject'       => 'Welcome to {site_name}!',
                     'body'          => 'Hi {display_name},<br /><br />' .
                         'Thank you for signing up with {site_name}! Your account is now active.<br /><br />' .
@@ -166,13 +166,13 @@ if ( ! class_exists( 'um\Config' ) ) {
                         'If you have any problems, please contact us at {admin_email}<br /><br />' .
                         'Thanks,<br />' .
                         '{site_name}',
-                    'description'   => __('Whether to send the user an email when his account is automatically approved','ultimatemember'),
+                    'description'   => __('Whether to send the user an email when his account is automatically approved','ultimate-member'),
                     'recipient'   => 'user',
                     'default_active' => true
                 ),
                 'checkmail_email' => array(
                     'key'           => 'checkmail_email',
-                    'title'         => __( 'Account Activation Email','ultimatemember' ),
+                    'title'         => __( 'Account Activation Email','ultimate-member' ),
                     'subject'       => 'Please activate your account',
                     'body'          => 'Hi {display_name},<br /><br />' .
                         'Thank you for signing up with {site_name}! To activate your account, please click the link below to confirm your email address:<br /><br />' .
@@ -180,12 +180,12 @@ if ( ! class_exists( 'um\Config' ) ) {
                         'If you have any problems, please contact us at {admin_email}<br /><br />' .
                         'Thanks, <br />' .
                         '{site_name}',
-                    'description'   => __('Whether to send the user an email when his account needs e-mail activation','ultimatemember'),
+                    'description'   => __('Whether to send the user an email when his account needs e-mail activation','ultimate-member'),
                     'recipient'   => 'user'
                 ),
                 'pending_email' => array(
                     'key'           => 'pending_email',
-                    'title'         => __( 'Your account is pending review','ultimatemember' ),
+                    'title'         => __( 'Your account is pending review','ultimate-member' ),
                     'subject'       => '[{site_name}] New user account',
                     'body'          => 'Hi {display_name}, <br /><br />' .
                         'Thank you for signing up with {site_name}! Your account is currently being reviewed by a member of our team.<br /><br />' .
@@ -193,12 +193,12 @@ if ( ! class_exists( 'um\Config' ) ) {
                         'If you have any problems, please contact us at {admin_email}<br /><br />' .
                         'Thanks,<br />' .
                         '{site_name}',
-                    'description'   => __('Whether to send the user an email when his account needs admin review','ultimatemember'),
+                    'description'   => __('Whether to send the user an email when his account needs admin review','ultimate-member'),
                     'recipient'   => 'user'
                 ),
                 'approved_email' => array(
                     'key'           => 'approved_email',
-                    'title'         => __( 'Account Approved Email','ultimatemember' ),
+                    'title'         => __( 'Account Approved Email','ultimate-member' ),
                     'subject'       => 'Your account at {site_name} is now active',
                     'body'          => 'Hi {display_name},<br /><br />' .
                         'Thank you for signing up with {site_name}! Your account has been approved and is now active.<br /><br />' .
@@ -210,50 +210,50 @@ if ( ! class_exists( 'um\Config' ) ) {
                         'If you have any problems, please contact us at {admin_email}<br /><br />' .
                         'Thanks,<br />' .
                         '{site_name}',
-                    'description'   => __('Whether to send the user an email when his account is approved','ultimatemember'),
+                    'description'   => __('Whether to send the user an email when his account is approved','ultimate-member'),
                     'recipient'   => 'user'
                 ),
                 'rejected_email' => array(
                     'key'           => 'rejected_email',
-                    'title'         => __( 'Account Rejected Email','ultimatemember' ),
+                    'title'         => __( 'Account Rejected Email','ultimate-member' ),
                     'subject'       => 'Your account has been rejected',
                     'body'          => 'Hi {display_name},<br /><br />' .
                         'Thank you for applying for membership to {site_name}! We have reviewed your information and unfortunately we are unable to accept you as a member at this moment.<br /><br />' .
                         'Please feel free to apply again at a future date.<br /><br />' .
                         'Thanks,<br />' .
                         '{site_name}',
-                    'description'   => __('Whether to send the user an email when his account is rejected','ultimatemember'),
+                    'description'   => __('Whether to send the user an email when his account is rejected','ultimate-member'),
                     'recipient'   => 'user'
                 ),
                 'inactive_email' => array(
                     'key'           => 'inactive_email',
-                    'title'         => __( 'Account Deactivated Email','ultimatemember' ),
+                    'title'         => __( 'Account Deactivated Email','ultimate-member' ),
                     'subject'       => 'Your account has been deactivated',
                     'body'          => 'Hi {display_name},<br /><br />' .
                         'This is an automated email to let you know your {site_name} account has been deactivated.<br /><br />' .
                         'If you would like your account to be reactivated please contact us at {admin_email}<br /><br />' .
                         'Thanks,<br />' .
                         '{site_name}',
-                    'description'   => __('Whether to send the user an email when his account is deactivated','ultimatemember'),
+                    'description'   => __('Whether to send the user an email when his account is deactivated','ultimate-member'),
                     'recipient'   => 'user',
                     'default_active' => true
                 ),
                 'deletion_email' => array(
                     'key'           => 'deletion_email',
-                    'title'         => __( 'Account Deleted Email','ultimatemember' ),
+                    'title'         => __( 'Account Deleted Email','ultimate-member' ),
                     'subject'       => 'Your account has been deleted',
                     'body'          => 'Hi {display_name},<br /><br />' .
                         'This is an automated email to let you know your {site_name} account has been deleted. All of your personal information has been permanently deleted and you will no longer be able to login to {site_name}.<br /><br />' .
                         'If your account has been deleted by accident please contact us at {admin_email} <br />' .
                         'Thanks,<br />' .
                         '{site_name}',
-                    'description'   => __('Whether to send the user an email when his account is deleted','ultimatemember'),
+                    'description'   => __('Whether to send the user an email when his account is deleted','ultimate-member'),
                     'recipient'   => 'user',
                     'default_active' => true
                 ),
                 'resetpw_email' => array(
                     'key'           => 'resetpw_email',
-                    'title'         => __( 'Password Reset Email','ultimatemember' ),
+                    'title'         => __( 'Password Reset Email','ultimate-member' ),
                     'subject'       => 'Reset your password',
                     'body'          => 'Hi {display_name},<br /><br />' .
                         'We received a request to reset the password for your account. If you made this request, click the link below to change your password:<br /><br />' .
@@ -261,53 +261,53 @@ if ( ! class_exists( 'um\Config' ) ) {
                         'If you didn\'t make this request, you can ignore this email <br /><br />' .
                         'Thanks,<br />' .
                         '{site_name}',
-                    'description'   => __('Whether to send an email when users changed their password (Recommended, please keep on)','ultimatemember'),
+                    'description'   => __('Whether to send an email when users changed their password (Recommended, please keep on)','ultimate-member'),
                     'recipient'   => 'user',
                     'default_active' => true
                 ),
                 'changedpw_email' => array(
                     'key'           => 'changedpw_email',
-                    'title'         => __( 'Password Changed Email','ultimatemember' ),
+                    'title'         => __( 'Password Changed Email','ultimate-member' ),
                     'subject'       => 'Your {site_name} password has been changed',
                     'body'          => 'Hi {display_name},<br /><br />' .
                         'You recently changed the password associated with your {site_name} account.<br /><br />' .
                         'If you did not make this change and believe your {site_name} account has been compromised, please contact us at the following email address: {admin_email}<br /><br />' .
                         'Thanks,<br />' .
                         '{site_name}',
-                    'description'   => __('Whether to send the user an email when he request to reset password (Recommended, please keep on)','ultimatemember'),
+                    'description'   => __('Whether to send the user an email when he request to reset password (Recommended, please keep on)','ultimate-member'),
                     'recipient'   => 'user',
                     'default_active' => true
                 ),
                 'notification_new_user' => array(
                     'key'           => 'notification_new_user',
-                    'title'         => __( 'New User Notification','ultimatemember' ),
+                    'title'         => __( 'New User Notification','ultimate-member' ),
                     'subject'       => '[{site_name}] New user account',
                     'body'          => '{display_name} has just created an account on {site_name}. To view their profile click here:<br /><br />' .
                         '{user_profile_link}<br /><br />' .
                         'Here is the submitted registration form:<br /><br />' .
                         '{submitted_registration}',
-                    'description'   => __('Whether to receive notification when a new user account is approved','ultimatemember'),
+                    'description'   => __('Whether to receive notification when a new user account is approved','ultimate-member'),
                     'recipient'   => 'admin',
                     'default_active' => true
                 ),
                 'notification_review' => array(
                     'key'           => 'notification_review',
-                    'title'         => __( 'Account Needs Review Notification','ultimatemember' ),
+                    'title'         => __( 'Account Needs Review Notification','ultimate-member' ),
                     'subject'       => '[{site_name}] New user awaiting review',
                     'body'          => '{display_name} has just applied for membership to {site_name} and is waiting to be reviewed.<br /><br />' .
                         'To review this member please click the following link:<br /><br />' .
                         '{user_profile_link}<br /><br />' .
                         'Here is the submitted registration form:<br /><br />' .
                         '{submitted_registration}',
-                    'description'   => __('Whether to receive notification when an account needs admin review','ultimatemember'),
+                    'description'   => __('Whether to receive notification when an account needs admin review','ultimate-member'),
                     'recipient'   => 'admin'
                 ),
                 'notification_deletion' => array(
                     'key'           => 'notification_deletion',
-                    'title'         => __( 'Account Deletion Notification','ultimatemember' ),
+                    'title'         => __( 'Account Deletion Notification','ultimate-member' ),
                     'subject'       => '[{site_name}] Account deleted',
                     'body'          => '{display_name} has just deleted their {site_name} account.',
-                    'description'   => __('Whether to receive notification when an account is deleted','ultimatemember'),
+                    'description'   => __('Whether to receive notification when an account is deleted','ultimate-member'),
                     'recipient'   => 'admin'
                 )
             ) );
@@ -330,7 +330,7 @@ if ( ! class_exists( 'um\Config' ) ) {
                 'account_tab_privacy'                   => 1,
                 'account_tab_notifications'             => 1,
                 'account_tab_delete'                    => 1,
-                'delete_account_text'                   => __('Are you sure you want to delete your account? This will erase all of your account data from the site. To delete your account enter your password below','ultimatemember'),
+                'delete_account_text'                   => __('Are you sure you want to delete your account? This will erase all of your account data from the site. To delete your account enter your password below','ultimate-member'),
                 'account_name'                          => 1,
                 'account_name_disable'                  => 0,
                 'account_name_require'                  => 1,

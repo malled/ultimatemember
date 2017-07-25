@@ -274,15 +274,15 @@ if ( ! class_exists( 'User' ) ) {
 
             <div id="um_role_selector_wrapper" <?php echo $style ?>>
                 <?php if ( $userdata !== 'add-new-user' ) { ?>
-                    <h3><?php esc_html_e( 'Ultimate Member', 'ultimatemember' ); ?></h3>
+                    <h3><?php esc_html_e( 'Ultimate Member', 'ultimate-member' ); ?></h3>
                 <?php } ?>
                 <table class="form-table">
                     <tbody>
                     <tr>
-                        <th><label for="um-role"><?php esc_html_e( 'Ultimate Member Role', 'ultimatemember' ); ?></label></th>
+                        <th><label for="um-role"><?php esc_html_e( 'Ultimate Member Role', 'ultimate-member' ); ?></label></th>
                         <td>
                             <select name="um-role" id="um-role">
-                                <option value="" <?php selected( empty( $user_role ) ) ?>><?php esc_html_e( '&mdash; No role for Ultimate Member &mdash;', 'ultimatemember' ); ?></option>
+                                <option value="" <?php selected( empty( $user_role ) ) ?>><?php esc_html_e( '&mdash; No role for Ultimate Member &mdash;', 'ultimate-member' ); ?></option>
                                 <?php foreach ( $roles as $role_id => $details ) { ?>
                                     <option <?php selected( $user_role, $role_id ); ?> value="<?php echo esc_attr( $role_id ); ?>"><?php echo $details['name']; ?></option>
                                 <?php } ?>
@@ -445,23 +445,23 @@ if ( ! class_exists( 'User' ) ) {
                     }
 
                     if ( $this->usermeta['account_status'][0] == 'approved' ) {
-                        $this->usermeta['account_status_name'][0] = __('Approved','ultimatemember');
+                        $this->usermeta['account_status_name'][0] = __('Approved','ultimate-member');
                     }
 
                     if ( $this->usermeta['account_status'][0] == 'awaiting_email_confirmation' ) {
-                        $this->usermeta['account_status_name'][0] = __('Awaiting E-mail Confirmation','ultimatemember');
+                        $this->usermeta['account_status_name'][0] = __('Awaiting E-mail Confirmation','ultimate-member');
                     }
 
                     if ( $this->usermeta['account_status'][0] == 'awaiting_admin_review' ) {
-                        $this->usermeta['account_status_name'][0] = __('Pending Review','ultimatemember');
+                        $this->usermeta['account_status_name'][0] = __('Pending Review','ultimate-member');
                     }
 
                     if ( $this->usermeta['account_status'][0] == 'rejected' ) {
-                        $this->usermeta['account_status_name'][0] = __('Membership Rejected','ultimatemember');
+                        $this->usermeta['account_status_name'][0] = __('Membership Rejected','ultimate-member');
                     }
 
                     if ( $this->usermeta['account_status'][0] == 'inactive' ) {
-                        $this->usermeta['account_status_name'][0] = __('Membership Inactive','ultimatemember');
+                        $this->usermeta['account_status_name'][0] = __('Membership Inactive','ultimate-member');
                     }
 
                     // add user meta
@@ -960,7 +960,7 @@ if ( ! class_exists( 'User' ) ) {
          */
         function is_private_profile( $user_id ) {
             $privacy = get_user_meta( $user_id, 'profile_privacy', true );
-            if ( $privacy == __('Only me','ultimatemember') ) {
+            if ( $privacy == __('Only me','ultimate-member') ) {
                 return true;
             }
             return false;

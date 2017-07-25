@@ -123,7 +123,7 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
         function add_metabox_restrict_content() {
             global $current_screen;
 
-            add_meta_box( 'um-admin-restrict-content', __( 'UM Content Restriction', 'ultimatemember' ), array( &$this, 'restrict_content_cb' ), $current_screen->id, 'normal', 'default' );
+            add_meta_box( 'um-admin-restrict-content', __( 'UM Content Restriction', 'ultimate-member' ), array( &$this, 'restrict_content_cb' ), $current_screen->id, 'normal', 'default' );
             do_action( 'um_admin_custom_restrict_content_metaboxes' );
         }
 
@@ -199,21 +199,21 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
                         'id'		    => '_um_custom_access_settings',
                         'type'		    => 'checkbox',
                         'name'		    => '_um_custom_access_settings',
-                        'label'    		=> __( 'Restrict access to this content?', 'ultimatemember' ),
-                        'description' 	=> __( 'Activate content restriction for this post', 'ultimatemember' ),
+                        'label'    		=> __( 'Restrict access to this content?', 'ultimate-member' ),
+                        'description' 	=> __( 'Activate content restriction for this post', 'ultimate-member' ),
                         'value' 		=> ! empty( $data['_um_custom_access_settings'] ) ? $data['_um_custom_access_settings'] : 0,
                     ),
                     array(
                         'id'		=> '_um_accessible',
                         'type'		=> 'select',
                         'name'		=> '_um_accessible',
-                        'label'    		=> __( 'Who can access this content?', 'ultimatemember' ),
-                        'description' 	=> __( 'Activate content restriction for this post', 'ultimatemember' ),
+                        'label'    		=> __( 'Who can access this content?', 'ultimate-member' ),
+                        'description' 	=> __( 'Activate content restriction for this post', 'ultimate-member' ),
                         'value' 		=> ! empty( $data['_um_accessible'] ) ? $data['_um_accessible'] : 0,
                         'options'		=> array(
-                            '0'         => __( 'Everyone', 'ultimatemember' ),
-                            '1'         => __( 'Logged out users', 'ultimatemember' ),
-                            '2'         => __( 'Logged in users', 'ultimatemember' ),
+                            '0'         => __( 'Everyone', 'ultimate-member' ),
+                            '1'         => __( 'Logged out users', 'ultimate-member' ),
+                            '2'         => __( 'Logged in users', 'ultimate-member' ),
                         ),
                         'conditional'	=> array( '_um_custom_access_settings', '=', '1' )
                     ),
@@ -221,8 +221,8 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
                         'id'       		=> '_um_access_roles',
                         'type'     		=> 'multi_checkbox',
                         'name'		    => '_um_access_roles',
-                        'label'    		=> __( 'Select which roles can access this content', 'ultimatemember' ),
-                        'description' 	=> __( 'Activate content restriction for this post', 'ultimatemember' ),
+                        'label'    		=> __( 'Select which roles can access this content', 'ultimate-member' ),
+                        'description' 	=> __( 'Activate content restriction for this post', 'ultimate-member' ),
                         'options'		=> UM()->roles()->get_roles( false, array( 'administrator' ) ),
                         'columns'       => 3,
                         'conditional'	=> array( '_um_accessible', '=', '2' )
@@ -231,12 +231,12 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
                         'id'       		=> '_um_noaccess_action',
                         'type'     		=> 'select',
                         'name'		    => '_um_noaccess_action',
-                        'label'    		=> __( 'What happens when users without access tries to view the content?', 'ultimatemember' ),
-                        'description' 	=> __( 'Action when users without access tries to view the content', 'ultimatemember' ),
+                        'label'    		=> __( 'What happens when users without access tries to view the content?', 'ultimate-member' ),
+                        'description' 	=> __( 'Action when users without access tries to view the content', 'ultimate-member' ),
                         'value' 		=> ! empty( $data['_um_noaccess_action'] ) ? $data['_um_noaccess_action'] : 0,
                         'options'		=> array(
-                            '0'         => __( 'Show access restricted message', 'ultimatemember' ),
-                            '1'         => __( 'Redirect user', 'ultimatemember' ),
+                            '0'         => __( 'Show access restricted message', 'ultimate-member' ),
+                            '1'         => __( 'Redirect user', 'ultimate-member' ),
                         ),
                         'conditional'	=> array( '_um_accessible', '!=', '0' )
                     ),
@@ -244,12 +244,12 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
                         'id'       		=> '_um_restrict_by_custom_message',
                         'type'     		=> 'select',
                         'name'		    => '_um_restrict_by_custom_message',
-                        'label'    		=> __( 'Would you like to use the global default message or apply a custom message to this content?', 'ultimatemember' ),
-                        'description' 	=> __( 'Action when users without access tries to view the content', 'ultimatemember' ),
+                        'label'    		=> __( 'Would you like to use the global default message or apply a custom message to this content?', 'ultimate-member' ),
+                        'description' 	=> __( 'Action when users without access tries to view the content', 'ultimate-member' ),
                         'value' 		=> ! empty( $data['_um_restrict_by_custom_message'] ) ? $data['_um_restrict_by_custom_message'] : '0',
                         'options'		=> array(
-                            '0'         => __( 'Global default message (default)', 'ultimatemember' ),
-                            '1'         => __( 'Custom message', 'ultimatemember' ),
+                            '0'         => __( 'Global default message (default)', 'ultimate-member' ),
+                            '1'         => __( 'Custom message', 'ultimate-member' ),
                         ),
                         'conditional'	=> array( '_um_noaccess_action', '=', '0' )
                     ),
@@ -257,8 +257,8 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
                         'id'       		=> '_um_restrict_custom_message',
                         'type'     		=> 'wp_editor',
                         'name'		    => '_um_restrict_custom_message',
-                        'label'    		=> __( 'Custom Restrict Content message', 'ultimatemember' ),
-                        'description' 	=> __( 'Changed global restrict message', 'ultimatemember' ),
+                        'label'    		=> __( 'Custom Restrict Content message', 'ultimate-member' ),
+                        'description' 	=> __( 'Changed global restrict message', 'ultimate-member' ),
                         'value' 		=> ! empty( $data['_um_restrict_custom_message'] ) ? $data['_um_restrict_custom_message'] : '',
                         'conditional'	=> array( '_um_restrict_by_custom_message', '=', '1' )
                     ),
@@ -266,21 +266,21 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
                         'id'       		=> '_um_access_redirect',
                         'type'     		=> 'select',
                         'name'		    => '_um_access_redirect',
-                        'label'    		=> __( 'Where should users be redirected to?', 'ultimatemember' ),
-                        'description' 	=> __( 'Select redirect to page when user hasn\'t access to content', 'ultimatemember' ),
+                        'label'    		=> __( 'Where should users be redirected to?', 'ultimate-member' ),
+                        'description' 	=> __( 'Select redirect to page when user hasn\'t access to content', 'ultimate-member' ),
                         'value' 		=> ! empty( $data['_um_access_redirect'] ) ? $data['_um_access_redirect'] : '0',
                         'conditional'	=> array( '_um_noaccess_action', '=', '1' ),
                         'options'		=> array(
-                            '0'         => __( 'Login page', 'ultimatemember' ),
-                            '1'         => __( 'Custom URL', 'ultimatemember' ),
+                            '0'         => __( 'Login page', 'ultimate-member' ),
+                            '1'         => __( 'Custom URL', 'ultimate-member' ),
                         ),
                     ),
                     array(
                         'id'       		=> '_um_access_redirect_url',
                         'type'     		=> 'text',
                         'name'		    => '_um_access_redirect_url',
-                        'label'    		=> __( 'Redirect URL', 'ultimatemember' ),
-                        'description' 	=> __( 'Changed global restrict message', 'ultimatemember' ),
+                        'label'    		=> __( 'Redirect URL', 'ultimate-member' ),
+                        'description' 	=> __( 'Changed global restrict message', 'ultimate-member' ),
                         'value' 		=> ! empty( $data['_um_access_redirect_url'] ) ? $data['_um_access_redirect_url'] : '',
                         'conditional'	=> array( '_um_access_redirect', '=', '1' )
                     ),
@@ -288,8 +288,8 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
                         'id'       		=> '_um_access_hide_from_queries',
                         'type'     		=> 'checkbox',
                         'name'		    => '_um_access_hide_from_queries',
-                        'label'    		=> __( 'Hide from queries', 'ultimatemember' ),
-                        'description' 	=> __( 'Hide this content from archives, RSS feeds etc for users who do not have permission to view this content', 'ultimatemember' ),
+                        'label'    		=> __( 'Hide from queries', 'ultimate-member' ),
+                        'description' 	=> __( 'Hide this content from archives, RSS feeds etc for users who do not have permission to view this content', 'ultimate-member' ),
                         'value' 		=> ! empty( $data['_um_access_hide_from_queries'] ) ? $data['_um_access_hide_from_queries'] : '',
                         'conditional'	=> array( '_um_accessible', '!=', '0' )
                     )
@@ -324,8 +324,8 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
                         'type'		    => 'checkbox',
                         'class'		    => 'form-field',
                         'name'		    => '_um_custom_access_settings',
-                        'label'    		=> __( 'Restrict access to this content?', 'ultimatemember' ),
-                        'description' 	=> __( 'Activate content restriction for this post', 'ultimatemember' ),
+                        'label'    		=> __( 'Restrict access to this content?', 'ultimate-member' ),
+                        'description' 	=> __( 'Activate content restriction for this post', 'ultimate-member' ),
                         'value' 		=> ! empty( $data['_um_custom_access_settings'] ) ? $data['_um_custom_access_settings'] : 0,
                     ),
                     array(
@@ -333,13 +333,13 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
                         'type'		=> 'select',
                         'class'		=> 'form-field',
                         'name'		=> '_um_accessible',
-                        'label'    		=> __( 'Who can access this content?', 'ultimatemember' ),
-                        'description' 	=> __( 'Activate content restriction for this post', 'ultimatemember' ),
+                        'label'    		=> __( 'Who can access this content?', 'ultimate-member' ),
+                        'description' 	=> __( 'Activate content restriction for this post', 'ultimate-member' ),
                         'value' 		=> ! empty( $data['_um_accessible'] ) ? $data['_um_accessible'] : 0,
                         'options'		=> array(
-                            '0'         => __( 'Everyone', 'ultimatemember' ),
-                            '1'         => __( 'Logged out users', 'ultimatemember' ),
-                            '2'         => __( 'Logged in users', 'ultimatemember' ),
+                            '0'         => __( 'Everyone', 'ultimate-member' ),
+                            '1'         => __( 'Logged out users', 'ultimate-member' ),
+                            '2'         => __( 'Logged in users', 'ultimate-member' ),
                         ),
                         'conditional'	=> array( '_um_custom_access_settings', '=', '1' )
                     ),
@@ -348,8 +348,8 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
                         'type'     		=> 'multi_checkbox',
                         'class'		    => 'form-field',
                         'name'		    => '_um_access_roles',
-                        'label'    		=> __( 'Select which roles can access this content', 'ultimatemember' ),
-                        'description' 	=> __( 'Activate content restriction for this post', 'ultimatemember' ),
+                        'label'    		=> __( 'Select which roles can access this content', 'ultimate-member' ),
+                        'description' 	=> __( 'Activate content restriction for this post', 'ultimate-member' ),
                         'value' 		=> $_um_access_roles_value,
                         'options'		=> UM()->roles()->get_roles( false, array( 'administrator' ) ),
                         'columns'       => 3,
@@ -360,12 +360,12 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
                         'type'     		=> 'select',
                         'class'		    => 'form-field',
                         'name'		    => '_um_noaccess_action',
-                        'label'    		=> __( 'What happens when users without access tries to view the content?', 'ultimatemember' ),
-                        'description' 	=> __( 'Action when users without access tries to view the content', 'ultimatemember' ),
+                        'label'    		=> __( 'What happens when users without access tries to view the content?', 'ultimate-member' ),
+                        'description' 	=> __( 'Action when users without access tries to view the content', 'ultimate-member' ),
                         'value' 		=> ! empty( $data['_um_noaccess_action'] ) ? $data['_um_noaccess_action'] : 0,
                         'options'		=> array(
-                            '0'         => __( 'Show access restricted message', 'ultimatemember' ),
-                            '1'         => __( 'Redirect user', 'ultimatemember' ),
+                            '0'         => __( 'Show access restricted message', 'ultimate-member' ),
+                            '1'         => __( 'Redirect user', 'ultimate-member' ),
                         ),
                         'conditional'	=> array( '_um_accessible', '!=', '0' )
                     ),
@@ -374,12 +374,12 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
                         'type'     		=> 'select',
                         'class'		    => 'form-field',
                         'name'		    => '_um_restrict_by_custom_message',
-                        'label'    		=> __( 'Would you like to use the global default message or apply a custom message to this content?', 'ultimatemember' ),
-                        'description' 	=> __( 'Action when users without access tries to view the content', 'ultimatemember' ),
+                        'label'    		=> __( 'Would you like to use the global default message or apply a custom message to this content?', 'ultimate-member' ),
+                        'description' 	=> __( 'Action when users without access tries to view the content', 'ultimate-member' ),
                         'value' 		=> ! empty( $data['_um_restrict_by_custom_message'] ) ? $data['_um_restrict_by_custom_message'] : '0',
                         'options'		=> array(
-                            '0'         => __( 'Global default message (default)', 'ultimatemember' ),
-                            '1'         => __( 'Custom message', 'ultimatemember' ),
+                            '0'         => __( 'Global default message (default)', 'ultimate-member' ),
+                            '1'         => __( 'Custom message', 'ultimate-member' ),
                         ),
                         'conditional'	=> array( '_um_noaccess_action', '=', '0' )
                     ),
@@ -388,8 +388,8 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
                         'type'     		=> 'wp_editor',
                         'class'		    => 'form-field',
                         'name'		    => '_um_restrict_custom_message',
-                        'label'    		=> __( 'Custom Restrict Content message', 'ultimatemember' ),
-                        'description' 	=> __( 'Changed global restrict message', 'ultimatemember' ),
+                        'label'    		=> __( 'Custom Restrict Content message', 'ultimate-member' ),
+                        'description' 	=> __( 'Changed global restrict message', 'ultimate-member' ),
                         'value' 		=> ! empty( $data['_um_restrict_custom_message'] ) ? $data['_um_restrict_custom_message'] : '',
                         'conditional'	=> array( '_um_restrict_by_custom_message', '=', '1' )
                     ),
@@ -398,13 +398,13 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
                         'type'     		=> 'select',
                         'class'		    => 'form-field',
                         'name'		    => '_um_access_redirect',
-                        'label'    		=> __( 'Where should users be redirected to?', 'ultimatemember' ),
-                        'description' 	=> __( 'Select redirect to page when user hasn\'t access to content', 'ultimatemember' ),
+                        'label'    		=> __( 'Where should users be redirected to?', 'ultimate-member' ),
+                        'description' 	=> __( 'Select redirect to page when user hasn\'t access to content', 'ultimate-member' ),
                         'value' 		=> ! empty( $data['_um_access_redirect'] ) ? $data['_um_access_redirect'] : '0',
                         'conditional'	=> array( '_um_noaccess_action', '=', '1' ),
                         'options'		=> array(
-                            '0'         => __( 'Login page', 'ultimatemember' ),
-                            '1'         => __( 'Custom URL', 'ultimatemember' ),
+                            '0'         => __( 'Login page', 'ultimate-member' ),
+                            '1'         => __( 'Custom URL', 'ultimate-member' ),
                         ),
                     ),
                     array(
@@ -412,8 +412,8 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
                         'type'     		=> 'text',
                         'class'		    => 'form-field',
                         'name'		    => '_um_access_redirect_url',
-                        'label'    		=> __( 'Redirect URL', 'ultimatemember' ),
-                        'description' 	=> __( 'Changed global restrict message', 'ultimatemember' ),
+                        'label'    		=> __( 'Redirect URL', 'ultimate-member' ),
+                        'description' 	=> __( 'Changed global restrict message', 'ultimate-member' ),
                         'value' 		=> ! empty( $data['_um_access_redirect_url'] ) ? $data['_um_access_redirect_url'] : '',
                         'conditional'	=> array( '_um_access_redirect', '=', '1' )
                     ),
@@ -422,8 +422,8 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
                         'type'     		=> 'checkbox',
                         'class'		    => 'form-field',
                         'name'		    => '_um_access_hide_from_queries',
-                        'label'    		=> __( 'Hide from queries', 'ultimatemember' ),
-                        'description' 	=> __( 'Hide this content from archives, RSS feeds etc for users who do not have permission to view this content', 'ultimatemember' ),
+                        'label'    		=> __( 'Hide from queries', 'ultimate-member' ),
+                        'description' 	=> __( 'Hide this content from archives, RSS feeds etc for users who do not have permission to view this content', 'ultimate-member' ),
                         'value' 		=> ! empty( $data['_um_access_hide_from_queries'] ) ? $data['_um_access_hide_from_queries'] : '',
                         'conditional'	=> array( '_um_accessible', '!=', '0' )
                     )
@@ -576,7 +576,7 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
         function add_metabox_role() {
             add_meta_box(
                 'um-admin-form-admin',
-                __( 'Administrative Permissions', 'ultimatemember' ),
+                __( 'Administrative Permissions', 'ultimate-member' ),
                 array( &$this, 'load_metabox_role' ),
                 'um_role_meta',
                 'normal',
@@ -585,7 +585,7 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
 
             add_meta_box(
                 'um-admin-form-general',
-                __( 'General Permissions', 'ultimatemember' ),
+                __( 'General Permissions', 'ultimate-member' ),
                 array( &$this, 'load_metabox_role' ),
                 'um_role_meta',
                 'normal',
@@ -594,7 +594,7 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
 
             add_meta_box(
                 'um-admin-form-profile',
-                __( 'Profile Access', 'ultimatemember' ),
+                __( 'Profile Access', 'ultimate-member' ),
                 array( &$this, 'load_metabox_role' ),
                 'um_role_meta',
                 'normal',
@@ -603,7 +603,7 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
 
             add_meta_box(
                 'um-admin-form-home',
-                __( 'Homepage Options', 'ultimatemember' ),
+                __( 'Homepage Options', 'ultimate-member' ),
                 array( &$this, 'load_metabox_role' ),
                 'um_role_meta',
                 'normal',
@@ -612,7 +612,7 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
 
             add_meta_box(
                 'um-admin-form-register',
-                __( 'Registration Options', 'ultimatemember' ),
+                __( 'Registration Options', 'ultimate-member' ),
                 array( &$this, 'load_metabox_role' ),
                 'um_role_meta',
                 'normal',
@@ -621,7 +621,7 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
 
             add_meta_box(
                 'um-admin-form-login',
-                __( 'Login Options', 'ultimatemember' ),
+                __( 'Login Options', 'ultimate-member' ),
                 array( &$this, 'load_metabox_role' ),
                 'um_role_meta',
                 'normal',
@@ -630,7 +630,7 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
 
             add_meta_box(
                 'um-admin-form-logout',
-                __( 'Logout Options', 'ultimatemember' ),
+                __( 'Logout Options', 'ultimate-member' ),
                 array( &$this, 'load_metabox_role' ),
                 'um_role_meta',
                 'normal',
@@ -639,7 +639,7 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
 
             add_meta_box(
                 'um-admin-form-delete',
-                __( 'Delete Options', 'ultimatemember' ),
+                __( 'Delete Options', 'ultimate-member' ),
                 array( &$this, 'load_metabox_role' ),
                 'um_role_meta',
                 'normal',
@@ -648,7 +648,7 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
 
             add_meta_box(
                 'um-admin-form-publish',
-                __( 'Publish', 'ultimatemember' ),
+                __( 'Publish', 'ultimate-member' ),
                 array( &$this, 'load_metabox_role' ),
                 'um_role_meta',
                 'side',
@@ -667,7 +667,7 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
             if ( 'add' == $_GET['tab'] || $wp_caps_metabox ) {
                 add_meta_box(
                     'um-admin-form-wp-capabilities',
-                    __( 'WP Capabilities', 'ultimatemember' ),
+                    __( 'WP Capabilities', 'ultimate-member' ),
                     array( &$this, 'load_metabox_role' ),
                     'um_role_meta',
                     'normal',
@@ -866,7 +866,7 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
                 case '_visibility':
                     ?>
 
-                    <p><label for="_visibility">Visibility <?php UM()->tooltip( __('Select where this field should appear. This option should only be changed on the profile form and allows you to show a field in one mode only (edit or view) or in both modes.','ultimatemember' ) ); ?></label>
+                    <p><label for="_visibility">Visibility <?php UM()->tooltip( __('Select where this field should appear. This option should only be changed on the profile form and allows you to show a field in one mode only (edit or view) or in both modes.','ultimate-member' ) ); ?></label>
                         <select name="_visibility" id="_visibility" style="width: 100%">
                             <option value="all"  <?php selected( 'all', $this->edit_mode_value ); ?>>View everywhere</option>
                             <option value="edit" <?php selected( 'edit', $this->edit_mode_value ); ?>>Edit mode only</option>
@@ -977,7 +977,7 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
                     ?>
 
                     <p>
-                        <input type="text" name="<?php echo $attribute; ?>" id="<?php echo $attribute; ?>" value="<?php echo ( $this->edit_mode_value ) ? $this->edit_mode_value : ''; ?>" placeholder="<?php _e( 'Value', 'ultimatemember' ); ?>" style="width: 150px!important;position: relative;top: -1px;" />
+                        <input type="text" name="<?php echo $attribute; ?>" id="<?php echo $attribute; ?>" value="<?php echo ( $this->edit_mode_value ) ? $this->edit_mode_value : ''; ?>" placeholder="<?php _e( 'Value', 'ultimate-member' ); ?>" style="width: 150px!important;position: relative;top: -1px;" />
                     </p>
 
                     <?php
@@ -986,7 +986,7 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
                 case '_validate':
                     ?>
 
-                    <p><label for="_validate">Validate <?php UM()->tooltip( __( 'Does this field require a special validation', 'ultimatemember' ) ); ?></label>
+                    <p><label for="_validate">Validate <?php UM()->tooltip( __( 'Does this field require a special validation', 'ultimate-member' ) ); ?></label>
                         <select name="_validate" id="_validate" data-placeholder="Select a validation type..." class="um-adm-conditional" data-cond1='custom' data-cond1-show='_custom_validate' style="width: 100%">
 
                             <option value="" <?php selected( '', $this->edit_mode_value ); ?>></option>
@@ -1008,7 +1008,7 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
                 case '_custom_validate':
                     ?>
 
-                    <p class="_custom_validate"><label for="_custom_validate">Custom Action <?php UM()->tooltip( __( 'If you want to apply your custom validation, you can use action hooks to add custom validation. Please refer to documentation for further details.', 'ultimatemember' ) ); ?></label>
+                    <p class="_custom_validate"><label for="_custom_validate">Custom Action <?php UM()->tooltip( __( 'If you want to apply your custom validation, you can use action hooks to add custom validation. Please refer to documentation for further details.', 'ultimate-member' ) ); ?></label>
                         <input type="text" name="_custom_validate" id="_custom_validate" value="<?php echo ( $this->edit_mode_value ) ? $this->edit_mode_value : ''; ?>" />
                     </p>
 
@@ -1022,7 +1022,7 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
 
                         ?>
 
-                        <p class="_heading_text"><label for="_icon">Icon <?php UM()->tooltip( __( 'Select an icon to appear in the field. Leave blank if you do not want an icon to show in the field.', 'ultimatemember' ) ); ?></label>
+                        <p class="_heading_text"><label for="_icon">Icon <?php UM()->tooltip( __( 'Select an icon to appear in the field. Leave blank if you do not want an icon to show in the field.', 'ultimate-member' ) ); ?></label>
 
                             <a href="#" class="button" data-modal="UM_fonticons" data-modal-size="normal" data-dynamic-content="um_admin_fonticon_selector" data-arg1="" data-arg2="" data-back="<?php echo $back; ?>">Choose Icon</a>
 
@@ -1050,7 +1050,7 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
 
                         <div class="um-admin-tri">
 
-                            <p><label for="_icon">Icon <?php UM()->tooltip( __( 'Select an icon to appear in the field. Leave blank if you do not want an icon to show in the field.', 'ultimatemember' ) ); ?></label>
+                            <p><label for="_icon">Icon <?php UM()->tooltip( __( 'Select an icon to appear in the field. Leave blank if you do not want an icon to show in the field.', 'ultimate-member' ) ); ?></label>
 
                                 <a href="#" class="button" data-modal="UM_fonticons" data-modal-size="normal" data-dynamic-content="um_admin_fonticon_selector" data-arg1="" data-arg2="" data-back="<?php echo $back; ?>">Choose Icon</a>
 
@@ -1077,7 +1077,7 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
                 case '_css_class':
                     ?>
 
-                    <p><label for="_css_class">CSS Class <?php UM()->tooltip( __( 'Specify a custom CSS class to be applied to this element', 'ultimatemember' ) ); ?></label>
+                    <p><label for="_css_class">CSS Class <?php UM()->tooltip( __( 'Specify a custom CSS class to be applied to this element', 'ultimate-member' ) ); ?></label>
                         <input type="text" name="_css_class" id="_css_class" value="<?php echo ( $this->edit_mode_value ) ? $this->edit_mode_value : ''; ?>" />
                     </p>
 
@@ -1087,7 +1087,7 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
                 case '_width':
                     ?>
 
-                    <p><label for="_width">Thickness (in pixels) <?php UM()->tooltip( __( 'This is the width in pixels, e.g. 4 or 2, etc', 'ultimatemember' ) ); ?></label>
+                    <p><label for="_width">Thickness (in pixels) <?php UM()->tooltip( __( 'This is the width in pixels, e.g. 4 or 2, etc', 'ultimate-member' ) ); ?></label>
                         <input type="text" name="_width" id="_width" value="<?php echo ( $this->edit_mode_value ) ? $this->edit_mode_value : 4; ?>" />
                     </p>
 
@@ -1097,7 +1097,7 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
                 case '_divider_text':
                     ?>
 
-                    <p><label for="_divider_text">Optional Text <?php UM()->tooltip( __( 'Optional text to include with the divider', 'ultimatemember' ) ); ?></label>
+                    <p><label for="_divider_text">Optional Text <?php UM()->tooltip( __( 'Optional text to include with the divider', 'ultimate-member' ) ); ?></label>
                         <input type="text" name="_divider_text" id="_divider_text" value="<?php echo ( $this->edit_mode_value ) ? $this->edit_mode_value : ''; ?>" />
                     </p>
 
@@ -1107,7 +1107,7 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
                 case '_padding':
                     ?>
 
-                    <p><label for="_padding">Padding <?php UM()->tooltip( __( 'Set padding for this section', 'ultimatemember' ) ); ?></label>
+                    <p><label for="_padding">Padding <?php UM()->tooltip( __( 'Set padding for this section', 'ultimate-member' ) ); ?></label>
                         <input type="text" name="_padding" id="_padding" value="<?php echo ( $this->edit_mode_value ) ? $this->edit_mode_value : '0px 0px 0px 0px'; ?>" />
                     </p>
 
@@ -1117,7 +1117,7 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
                 case '_margin':
                     ?>
 
-                    <p><label for="_margin">Margin <?php UM()->tooltip( __( 'Set margin for this section', 'ultimatemember' ) ); ?></label>
+                    <p><label for="_margin">Margin <?php UM()->tooltip( __( 'Set margin for this section', 'ultimate-member' ) ); ?></label>
                         <input type="text" name="_margin" id="_margin" value="<?php echo ( $this->edit_mode_value ) ? $this->edit_mode_value : '0px 0px 30px 0px'; ?>" />
                     </p>
 
@@ -1127,7 +1127,7 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
                 case '_border':
                     ?>
 
-                    <p><label for="_border">Border <?php UM()->tooltip( __( 'Set border for this section', 'ultimatemember' ) ); ?></label>
+                    <p><label for="_border">Border <?php UM()->tooltip( __( 'Set border for this section', 'ultimate-member' ) ); ?></label>
                         <input type="text" name="_border" id="_border" value="<?php echo ( $this->edit_mode_value ) ? $this->edit_mode_value : '0px 0px 0px 0px'; ?>" />
                     </p>
 
@@ -1137,7 +1137,7 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
                 case '_borderstyle':
                     ?>
 
-                    <p><label for="_borderstyle">Style <?php UM()->tooltip( __( 'Choose the border style', 'ultimatemember' ) ); ?></label>
+                    <p><label for="_borderstyle">Style <?php UM()->tooltip( __( 'Choose the border style', 'ultimate-member' ) ); ?></label>
                         <select name="_borderstyle" id="_borderstyle" style="width: 100%">
                             <option value="solid"  <?php selected( 'solid', $this->edit_mode_value ); ?>>Solid</option>
                             <option value="dotted" <?php selected( 'dotted', $this->edit_mode_value ); ?>>Dotted</option>
@@ -1152,7 +1152,7 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
                 case '_borderradius':
                     ?>
 
-                    <p><label for="_borderradius">Border Radius <?php UM()->tooltip( __( 'Rounded corners can be applied by setting a pixels value here. e.g. 5px', 'ultimatemember' ) ); ?></label>
+                    <p><label for="_borderradius">Border Radius <?php UM()->tooltip( __( 'Rounded corners can be applied by setting a pixels value here. e.g. 5px', 'ultimate-member' ) ); ?></label>
                         <input type="text" name="_borderradius" id="_borderradius" value="<?php echo ( $this->edit_mode_value ) ? $this->edit_mode_value : '0px'; ?>" />
                     </p>
 
@@ -1162,7 +1162,7 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
                 case '_bordercolor':
                     ?>
 
-                    <p><label for="_bordercolor">Border Color <?php UM()->tooltip( __( 'Give a color to this border', 'ultimatemember' ) ); ?></label>
+                    <p><label for="_bordercolor">Border Color <?php UM()->tooltip( __( 'Give a color to this border', 'ultimate-member' ) ); ?></label>
                         <input type="text" name="_bordercolor" id="_bordercolor" class="um-admin-colorpicker" data-default-color="" value="<?php echo ( $this->edit_mode_value ) ? $this->edit_mode_value : ''; ?>" />
                     </p>
 
@@ -1172,7 +1172,7 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
                 case '_heading':
                     ?>
 
-                    <p><label for="_heading"><?php _e( 'Enable Row Heading', 'ultimatemember' ) ?> <?php UM()->tooltip( __( 'Whether to enable a heading for this row', 'ultimatemember' ) ); ?></label>
+                    <p><label for="_heading"><?php _e( 'Enable Row Heading', 'ultimate-member' ) ?> <?php UM()->tooltip( __( 'Whether to enable a heading for this row', 'ultimate-member' ) ); ?></label>
                         <input type="checkbox" name="_heading" id="_heading" value="1" <?php checked( isset( $this->edit_mode_value ) ? $this->edit_mode_value : 0 ) ?> class="um-adm-conditional" data-cond1="1" data-cond1-show="_heading_text" data-cond1-hide="xxx" />
                     </p>
 
@@ -1182,7 +1182,7 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
                 case '_heading_text':
                     ?>
 
-                    <p class="_heading_text"><label for="_heading_text">Heading Text <?php UM()->tooltip( __( 'Enter the row heading text here', 'ultimatemember' ) ); ?></label>
+                    <p class="_heading_text"><label for="_heading_text">Heading Text <?php UM()->tooltip( __( 'Enter the row heading text here', 'ultimate-member' ) ); ?></label>
                         <input type="text" name="_heading_text" id="_heading_text" value="<?php echo ( $this->edit_mode_value ) ? $this->edit_mode_value : ''; ?>" />
                     </p>
 
@@ -1192,7 +1192,7 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
                 case '_background':
                     ?>
 
-                    <p><label for="_background">Background Color <?php UM()->tooltip( __( 'This will be the background of entire section', 'ultimatemember' ) ); ?></label>
+                    <p><label for="_background">Background Color <?php UM()->tooltip( __( 'This will be the background of entire section', 'ultimate-member' ) ); ?></label>
                         <input type="text" name="_background" id="_background" class="um-admin-colorpicker" data-default-color="" value="<?php echo ( $this->edit_mode_value ) ? $this->edit_mode_value : ''; ?>" />
                     </p>
 
@@ -1202,7 +1202,7 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
                 case '_heading_background_color':
                     ?>
 
-                    <p class="_heading_text"><label for="_heading_background_color">Heading Background Color <?php UM()->tooltip( __( 'This will be the background of the heading section', 'ultimatemember' ) ); ?></label>
+                    <p class="_heading_text"><label for="_heading_background_color">Heading Background Color <?php UM()->tooltip( __( 'This will be the background of the heading section', 'ultimate-member' ) ); ?></label>
                         <input type="text" name="_heading_background_color" id="_heading_background_color" class="um-admin-colorpicker" data-default-color="" value="<?php echo ( $this->edit_mode_value ) ? $this->edit_mode_value : ''; ?>" />
                     </p>
 
@@ -1212,7 +1212,7 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
                 case '_heading_text_color':
                     ?>
 
-                    <p class="_heading_text"><label for="_heading_text_color">Heading Text Color <?php UM()->tooltip( __( 'This will be the text color of heading part only', 'ultimatemember' ) ); ?></label>
+                    <p class="_heading_text"><label for="_heading_text_color">Heading Text Color <?php UM()->tooltip( __( 'This will be the text color of heading part only', 'ultimate-member' ) ); ?></label>
                         <input type="text" name="_heading_text_color" id="_heading_text_color" class="um-admin-colorpicker" data-default-color="" value="<?php echo ( $this->edit_mode_value ) ? $this->edit_mode_value : ''; ?>" />
                     </p>
 
@@ -1222,7 +1222,7 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
                 case '_text_color':
                     ?>
 
-                    <p><label for="_text_color">Text Color <?php UM()->tooltip( __( 'This will be the text color of entire section', 'ultimatemember' ) ); ?></label>
+                    <p><label for="_text_color">Text Color <?php UM()->tooltip( __( 'This will be the text color of entire section', 'ultimate-member' ) ); ?></label>
                         <input type="text" name="_text_color" id="_text_color" class="um-admin-colorpicker" data-default-color="" value="<?php echo ( $this->edit_mode_value ) ? $this->edit_mode_value : ''; ?>" />
                     </p>
 
@@ -1232,7 +1232,7 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
                 case '_icon_color':
                     ?>
 
-                    <p class="_heading_text"><label for="_icon_color">Icon Color <?php UM()->tooltip( __( 'This will be the color of selected icon. By default It will be the same color as heading text color', 'ultimatemember' ) ); ?></label>
+                    <p class="_heading_text"><label for="_icon_color">Icon Color <?php UM()->tooltip( __( 'This will be the color of selected icon. By default It will be the same color as heading text color', 'ultimate-member' ) ); ?></label>
                         <input type="text" name="_icon_color" id="_icon_color" class="um-admin-colorpicker" data-default-color="" value="<?php echo ( $this->edit_mode_value ) ? $this->edit_mode_value : ''; ?>" />
                     </p>
 
@@ -1242,7 +1242,7 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
                 case '_color':
                     ?>
 
-                    <p><label for="_color">Color <?php UM()->tooltip( __( 'Select a color for this divider', 'ultimatemember' ) ); ?></label>
+                    <p><label for="_color">Color <?php UM()->tooltip( __( 'Select a color for this divider', 'ultimate-member' ) ); ?></label>
                         <input type="text" name="_color" id="_color" class="um-admin-colorpicker" data-default-color="#eeeeee" value="<?php echo ( $this->edit_mode_value ) ? $this->edit_mode_value : '#eeeeee'; ?>" />
                     </p>
 
@@ -1252,7 +1252,7 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
                 case '_url_text':
                     ?>
 
-                    <p><label for="_url_text">URL Alt Text <?php UM()->tooltip( __( 'Entering custom text here will replace the url with a text link', 'ultimatemember' ) ); ?></label>
+                    <p><label for="_url_text">URL Alt Text <?php UM()->tooltip( __( 'Entering custom text here will replace the url with a text link', 'ultimate-member' ) ); ?></label>
                         <input type="text" name="_url_text" id="_url_text" value="<?php echo ( $this->edit_mode_value ) ? $this->edit_mode_value : ''; ?>" />
                     </p>
 
@@ -1262,7 +1262,7 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
                 case '_url_target':
                     ?>
 
-                    <p><label for="_url_target">Link Target <?php UM()->tooltip( __( 'Choose whether to open this link in same window or in a new window', 'ultimatemember' ) ); ?></label>
+                    <p><label for="_url_target">Link Target <?php UM()->tooltip( __( 'Choose whether to open this link in same window or in a new window', 'ultimate-member' ) ); ?></label>
                         <select name="_url_target" id="_url_target" style="width: 100%">
                             <option value="_blank" <?php selected( '_blank', $this->edit_mode_value ); ?>>Open in new window</option>
                             <option value="_self"  <?php selected( '_self', $this->edit_mode_value ); ?>>Same window</option>
@@ -1275,7 +1275,7 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
                 case '_url_rel':
                     ?>
 
-                    <p><label for="_url_rel">SEO Follow <?php UM()->tooltip( __( 'Whether to follow or nofollow this link by search engines', 'ultimatemember' ) ); ?></label>
+                    <p><label for="_url_rel">SEO Follow <?php UM()->tooltip( __( 'Whether to follow or nofollow this link by search engines', 'ultimate-member' ) ); ?></label>
                         <select name="_url_rel" id="_url_rel" style="width: 100%">
                             <option value="follow"  <?php selected( 'follow', $this->edit_mode_value ); ?>>Follow</option>
                             <option value="nofollow" <?php selected( 'nofollow', $this->edit_mode_value ); ?>>No-Follow</option>
@@ -1288,7 +1288,7 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
                 case '_force_good_pass':
                     ?>
 
-                    <p><label for="_force_good_pass">Force strong password? <?php UM()->tooltip( __( 'Turn on to force users to create a strong password (A combination of one lowercase letter, one uppercase letter, and one number). If turned on this option is only applied to register forms and not to login forms.', 'ultimatemember' ) ); ?></label>
+                    <p><label for="_force_good_pass">Force strong password? <?php UM()->tooltip( __( 'Turn on to force users to create a strong password (A combination of one lowercase letter, one uppercase letter, and one number). If turned on this option is only applied to register forms and not to login forms.', 'ultimate-member' ) ); ?></label>
                         <input type="checkbox" name="_force_good_pass" id="_force_good_pass" value="1" <?php checked( isset( $this->edit_mode_value ) ? $this->edit_mode_value : 0 ) ?> />
                     </p>
 
@@ -1298,7 +1298,7 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
                 case '_force_confirm_pass':
                     ?>
 
-                    <p><label for="_force_confirm_pass">Automatically add a confirm password field? <?php UM()->tooltip( __( 'Turn on to add a confirm password field. If turned on the confirm password field will only show on register forms and not on login forms.', 'ultimatemember' ) ); ?></label>
+                    <p><label for="_force_confirm_pass">Automatically add a confirm password field? <?php UM()->tooltip( __( 'Turn on to add a confirm password field. If turned on the confirm password field will only show on register forms and not on login forms.', 'ultimate-member' ) ); ?></label>
                         <input type="checkbox" name="_force_confirm_pass" id="_force_confirm_pass" value="1" <?php checked( isset( $this->edit_mode_value ) ? $this->edit_mode_value : 0 ) ?> />
                     </p>
 
@@ -1308,7 +1308,7 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
                 case '_style':
                     ?>
 
-                    <p><label for="_style">Style <?php UM()->tooltip( __( 'This is the line-style of divider', 'ultimatemember' ) ); ?></label>
+                    <p><label for="_style">Style <?php UM()->tooltip( __( 'This is the line-style of divider', 'ultimate-member' ) ); ?></label>
                         <select name="_style" id="_style" style="width: 100%">
                             <option value="solid"  <?php selected( 'solid', $this->edit_mode_value ); ?>>Solid</option>
                             <option value="dotted" <?php selected( 'dotted', $this->edit_mode_value ); ?>>Dotted</option>
@@ -1324,7 +1324,7 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
 
                     ?>
 
-                    <p><label for="_intervals">Time Intervals (in minutes) <?php UM()->tooltip( __( 'Choose the minutes interval between each time in the time picker.', 'ultimatemember' ) ); ?></label>
+                    <p><label for="_intervals">Time Intervals (in minutes) <?php UM()->tooltip( __( 'Choose the minutes interval between each time in the time picker.', 'ultimate-member' ) ); ?></label>
                         <input type="text" name="_intervals" id="_intervals" value="<?php echo ( $this->edit_mode_value ) ? $this->edit_mode_value : 60; ?>" placeholder="e.g. 30, 60, 120" />
                     </p>
 
@@ -1337,7 +1337,7 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
                     if ( $this->set_field_type == 'date' ) {
                         ?>
 
-                        <p><label for="_format">Date User-Friendly Format <?php UM()->tooltip( __( 'The display format of the date which is visible to user.', 'ultimatemember' ) ); ?></label>
+                        <p><label for="_format">Date User-Friendly Format <?php UM()->tooltip( __( 'The display format of the date which is visible to user.', 'ultimate-member' ) ); ?></label>
                             <select name="_format" id="_format" style="width: 100%">
                                 <option value="j M Y" <?php selected( 'j M Y', $this->edit_mode_value ); ?>><?php echo UM()->datetime()->get_time('j M Y'); ?></option>
                                 <option value="M j Y" <?php selected( 'M j Y', $this->edit_mode_value ); ?>><?php echo UM()->datetime()->get_time('M j Y'); ?></option>
@@ -1348,7 +1348,7 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
 
                     <?php } else { ?>
 
-                        <p><label for="_format">Time Format <?php UM()->tooltip( __( 'Choose the displayed time-format for this field', 'ultimatemember' ) ); ?></label>
+                        <p><label for="_format">Time Format <?php UM()->tooltip( __( 'Choose the displayed time-format for this field', 'ultimate-member' ) ); ?></label>
                             <select name="_format" id="_format" style="width: 100%">
                                 <option value="g:i a" <?php selected( 'g:i a', $this->edit_mode_value ); ?>><?php echo UM()->datetime()->get_time('g:i a'); ?> ( 12-hr format )</option>
                                 <option value="g:i A" <?php selected( 'g:i A', $this->edit_mode_value ); ?>><?php echo UM()->datetime()->get_time('g:i A'); ?> ( 12-hr format )</option>
@@ -1363,7 +1363,7 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
                 case '_pretty_format':
                     ?>
 
-                    <p><label for="_pretty_format">Displayed Date Format <?php UM()->tooltip( __( 'Whether you wish to show the date in full or only show the years e.g. 25 Years', 'ultimatemember' ) ); ?></label>
+                    <p><label for="_pretty_format">Displayed Date Format <?php UM()->tooltip( __( 'Whether you wish to show the date in full or only show the years e.g. 25 Years', 'ultimate-member' ) ); ?></label>
                         <select name="_pretty_format" id="_pretty_format" style="width: 100%">
                             <option value="0" <?php selected( 0, $this->edit_mode_value ); ?>>Show full date</option>
                             <option value="1" <?php selected( 1, $this->edit_mode_value ); ?>>Show years only</option>
@@ -1382,7 +1382,7 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
                     }
                     ?>
 
-                    <p><label for="_disabled_weekdays">Disable specific weekdays <?php UM()->tooltip( __( 'Disable specific week days from being available for selection in this date picker', 'ultimatemember' ) ); ?></label>
+                    <p><label for="_disabled_weekdays">Disable specific weekdays <?php UM()->tooltip( __( 'Disable specific week days from being available for selection in this date picker', 'ultimate-member' ) ); ?></label>
                         <select name="_disabled_weekdays[]" id="_disabled_weekdays" multiple="multiple" style="width: 100%">
                             <option value="1" <?php if ( in_array( 1, $values ) ) { echo 'selected'; } ?>>Sunday</option>
                             <option value="2" <?php if ( in_array( 2, $values ) ) { echo 'selected'; } ?>>Monday</option>
@@ -1400,7 +1400,7 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
                 case '_years':
                     ?>
 
-                    <p class="_years"><label for="_years">Number of Years to pick from <?php UM()->tooltip( __( 'Number of years available for the date selection. Default to last 50 years', 'ultimatemember' ) ); ?></label>
+                    <p class="_years"><label for="_years">Number of Years to pick from <?php UM()->tooltip( __( 'Number of years available for the date selection. Default to last 50 years', 'ultimate-member' ) ); ?></label>
                         <input type="text" name="_years" id="_years" value="<?php echo ( $this->edit_mode_value ) ? $this->edit_mode_value : 50; ?>" />
                     </p>
 
@@ -1410,7 +1410,7 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
                 case '_years_x':
                     ?>
 
-                    <p class="_years"><label for="_years_x">Years Selection <?php UM()->tooltip( __( 'This decides which years should be shown relative to today date', 'ultimatemember' ) ); ?></label>
+                    <p class="_years"><label for="_years_x">Years Selection <?php UM()->tooltip( __( 'This decides which years should be shown relative to today date', 'ultimate-member' ) ); ?></label>
                         <select name="_years_x" id="_years_x" style="width: 100%">
                             <option value="equal"  <?php selected( 'equal', $this->edit_mode_value ); ?>>Equal years before / after today</option>
                             <option value="past" <?php selected( 'past', $this->edit_mode_value ); ?>>Past years only</option>
@@ -1424,7 +1424,7 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
                 case '_range_start':
                     ?>
 
-                    <p class="_date_range"><label for="_range_start">Date Range Start <?php UM()->tooltip( __( 'Set the minimum date/day in range in the format YYYY/MM/DD', 'ultimatemember' ) ); ?></label>
+                    <p class="_date_range"><label for="_range_start">Date Range Start <?php UM()->tooltip( __( 'Set the minimum date/day in range in the format YYYY/MM/DD', 'ultimate-member' ) ); ?></label>
                         <input type="text" name="_range_start" id="_range_start" value="<?php echo $this->edit_mode_value; ?>" placeholder="YYYY/MM/DD" />
                     </p>
 
@@ -1434,7 +1434,7 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
                 case '_range_end':
                     ?>
 
-                    <p class="_date_range"><label for="_range_end">Date Range End <?php UM()->tooltip( __( 'Set the maximum date/day in range in the format YYYY/MM/DD', 'ultimatemember' ) ); ?></label>
+                    <p class="_date_range"><label for="_range_end">Date Range End <?php UM()->tooltip( __( 'Set the maximum date/day in range in the format YYYY/MM/DD', 'ultimate-member' ) ); ?></label>
                         <input type="text" name="_range_end" id="_range_end" value="<?php echo $this->edit_mode_value; ?>" placeholder="YYYY/MM/DD" />
                     </p>
 
@@ -1444,7 +1444,7 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
                 case '_range':
                     ?>
 
-                    <p><label for="_range">Set Date Range <?php UM()->tooltip( __( 'Whether to show a specific number of years or specify a date range to be available for the date picker.', 'ultimatemember' ) ); ?></label>
+                    <p><label for="_range">Set Date Range <?php UM()->tooltip( __( 'Whether to show a specific number of years or specify a date range to be available for the date picker.', 'ultimate-member' ) ); ?></label>
                         <select name="_range" id="_range" class="um-adm-conditional" data-cond1='years' data-cond1-show='_years' data-cond2="date_range" data-cond2-show="_date_range" style="width: 100%">
                             <option value="years" <?php selected( 'years', $this->edit_mode_value ); ?>>Fixed Number of Years</option>
                             <option value="date_range" <?php selected( 'date_range', $this->edit_mode_value ); ?>>Specific Date Range</option>
@@ -1460,7 +1460,7 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
 
                         ?>
 
-                        <p><label for="_content">Enter Shortcode <?php UM()->tooltip( __( 'Enter the shortcode in the following textarea and it will be displayed on the fields', 'ultimatemember' ) ); ?></label>
+                        <p><label for="_content">Enter Shortcode <?php UM()->tooltip( __( 'Enter the shortcode in the following textarea and it will be displayed on the fields', 'ultimate-member' ) ); ?></label>
                             <textarea name="_content" id="_content" placeholder="e.g. [my_custom_shortcode]"><?php echo $this->edit_mode_value; ?></textarea>
                         </p>
 
@@ -1470,7 +1470,7 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
 
                         ?>
 
-                        <div class="um-admin-editor-h"><label>Content Editor <?php UM()->tooltip( __( 'Edit the content of this field here', 'ultimatemember' ) ); ?></label></div>
+                        <div class="um-admin-editor-h"><label>Content Editor <?php UM()->tooltip( __( 'Edit the content of this field here', 'ultimate-member' ) ); ?></label></div>
 
                         <div class="um-admin-editor"><!-- editor dynamically loaded here --></div>
 
@@ -1483,7 +1483,7 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
                 case '_crop':
                     ?>
 
-                    <p><label for="_crop">Crop Feature <?php UM()->tooltip( __( 'Enable/disable crop feature for this image upload and define ratio', 'ultimatemember' ) ); ?></label>
+                    <p><label for="_crop">Crop Feature <?php UM()->tooltip( __( 'Enable/disable crop feature for this image upload and define ratio', 'ultimate-member' ) ); ?></label>
                         <select name="_crop" id="_crop" style="width: 100%">
                             <option value="0" <?php selected( '0', $this->edit_mode_value ); ?>>Turn Off (Default)</option>
                             <option value="1" <?php selected( '1', $this->edit_mode_value ); ?>>Crop and force 1:1 ratio</option>
@@ -1505,7 +1505,7 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
                         }
                         ?>
 
-                        <p><label for="_allowed_types">Allowed Image Types <?php UM()->tooltip( __( 'Select the image types that you want to allow to be uploaded via this field.', 'ultimatemember' ) ); ?></label>
+                        <p><label for="_allowed_types">Allowed Image Types <?php UM()->tooltip( __( 'Select the image types that you want to allow to be uploaded via this field.', 'ultimate-member' ) ); ?></label>
                             <select name="_allowed_types[]" id="_allowed_types" multiple="multiple" style="width: 100%">
                                 <?php foreach( UM()->files()->allowed_image_types() as $e => $n ) { ?>
                                     <option value="<?php echo $e; ?>" <?php if ( in_array( $e, $values ) ) { echo 'selected'; } ?>><?php echo $n; ?></option>
@@ -1525,7 +1525,7 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
 
                         ?>
 
-                        <p><label for="_allowed_types">Allowed File Types <?php UM()->tooltip( __( 'Select the image types that you want to allow to be uploaded via this field.', 'ultimatemember' ) ); ?></label>
+                        <p><label for="_allowed_types">Allowed File Types <?php UM()->tooltip( __( 'Select the image types that you want to allow to be uploaded via this field.', 'ultimate-member' ) ); ?></label>
                             <select name="_allowed_types[]" id="_allowed_types" multiple="multiple" style="width: 100%">
                                 <?php foreach( UM()->files()->allowed_file_types() as $e => $n ) { ?>
                                     <option value="<?php echo $e; ?>" <?php if ( in_array( $e, $values ) ) { echo 'selected'; } ?>><?php echo $n; ?></option>
@@ -1546,7 +1546,7 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
 
                     ?>
 
-                    <p><label for="_upload_text">Upload Box Text <?php UM()->tooltip( __( 'This is the headline that appears in the upload box for this field', 'ultimatemember' ) ); ?></label>
+                    <p><label for="_upload_text">Upload Box Text <?php UM()->tooltip( __( 'This is the headline that appears in the upload box for this field', 'ultimate-member' ) ); ?></label>
                         <input type="text" name="_upload_text" id="_upload_text" value="<?php echo ( $this->edit_mode_value ) ? $this->edit_mode_value : $value; ?>" />
                     </p>
 
@@ -1556,7 +1556,7 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
                 case '_upload_help_text':
                     ?>
 
-                    <p><label for="_upload_help_text">Additional Instructions Text <?php UM()->tooltip( __( 'If you need to add information or secondary line below the headline of upload box, enter it here', 'ultimatemember' ) ); ?></label>
+                    <p><label for="_upload_help_text">Additional Instructions Text <?php UM()->tooltip( __( 'If you need to add information or secondary line below the headline of upload box, enter it here', 'ultimate-member' ) ); ?></label>
                         <input type="text" name="_upload_help_text" id="_upload_help_text" value="<?php echo $this->edit_mode_value; ?>" />
                     </p>
 
@@ -1566,7 +1566,7 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
                 case '_button_text':
                     ?>
 
-                    <p><label for="_button_text">Upload Box Text <?php UM()->tooltip( __( 'The text that appears on the button. e.g. Upload', 'ultimatemember' ) ); ?></label>
+                    <p><label for="_button_text">Upload Box Text <?php UM()->tooltip( __( 'The text that appears on the button. e.g. Upload', 'ultimate-member' ) ); ?></label>
                         <input type="text" name="_button_text" id="_button_text" value="<?php echo ( $this->edit_mode_value ) ? $this->edit_mode_value : 'Upload'; ?>" />
                     </p>
 
@@ -1576,7 +1576,7 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
                 case '_max_size':
                     ?>
 
-                    <p><label for="_max_size">Maximum Size in bytes <?php UM()->tooltip( __( 'The maximum size for image that can be uploaded through this field. Leave empty for unlimited size.', 'ultimatemember' ) ); ?></label>
+                    <p><label for="_max_size">Maximum Size in bytes <?php UM()->tooltip( __( 'The maximum size for image that can be uploaded through this field. Leave empty for unlimited size.', 'ultimate-member' ) ); ?></label>
                         <input type="text" name="_max_size" id="_max_size" value="<?php echo $this->edit_mode_value; ?>" />
                     </p>
 
@@ -1586,7 +1586,7 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
                 case '_height':
                     ?>
 
-                    <p><label for="_height">Textarea Height <?php UM()->tooltip( __( 'The height of textarea in pixels. Default is 100 pixels', 'ultimatemember' ) ); ?></label>
+                    <p><label for="_height">Textarea Height <?php UM()->tooltip( __( 'The height of textarea in pixels. Default is 100 pixels', 'ultimate-member' ) ); ?></label>
                         <input type="text" name="_height" id="_height" value="<?php echo ( $this->edit_mode_value ) ? $this->edit_mode_value : '100px'; ?>" />
                     </p>
 
@@ -1596,7 +1596,7 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
                 case '_spacing':
                     ?>
 
-                    <p><label for="_spacing">Spacing <?php UM()->tooltip( __( 'This is the required spacing in pixels. e.g. 20px', 'ultimatemember' ) ); ?></label>
+                    <p><label for="_spacing">Spacing <?php UM()->tooltip( __( 'This is the required spacing in pixels. e.g. 20px', 'ultimate-member' ) ); ?></label>
                         <input type="text" name="_spacing" id="_spacing" value="<?php echo ( $this->edit_mode_value ) ? $this->edit_mode_value : '20px'; ?>" />
                     </p>
 
@@ -1606,7 +1606,7 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
                 case '_is_multi':
                     ?>
 
-                    <p><label for="_is_multi">Allow multiple selections <?php UM()->tooltip( __( 'Enable/disable multiple selections for this field', 'ultimatemember' ) ); ?></label>
+                    <p><label for="_is_multi">Allow multiple selections <?php UM()->tooltip( __( 'Enable/disable multiple selections for this field', 'ultimate-member' ) ); ?></label>
                         <input type="checkbox" name="_is_multi" id="_is_multi" value="1" <?php checked( isset( $this->edit_mode_value ) ? $this->edit_mode_value : 0 ) ?> class="um-adm-conditional" data-cond1="1" data-cond1-show="_max_selections" data-cond1-hide="xxx" />
                     </p>
 
@@ -1616,7 +1616,7 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
                 case '_max_selections':
                     ?>
 
-                    <p class="_max_selections"><label for="_max_selections">Maximum number of selections <?php UM()->tooltip( __( 'Enter a number here to force a maximum number of selections by user for this field', 'ultimatemember' ) ); ?></label>
+                    <p class="_max_selections"><label for="_max_selections">Maximum number of selections <?php UM()->tooltip( __( 'Enter a number here to force a maximum number of selections by user for this field', 'ultimate-member' ) ); ?></label>
                         <input type="text" name="_max_selections" id="_max_selections" value="<?php echo $this->edit_mode_value; ?>" />
                     </p>
 
@@ -1626,7 +1626,7 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
                 case '_min_selections':
                     ?>
 
-                    <p class="_min_selections"><label for="_min_selections">Minimum number of selections <?php UM()->tooltip( __( 'Enter a number here to force a minimum number of selections by user for this field', 'ultimatemember' ) ); ?></label>
+                    <p class="_min_selections"><label for="_min_selections">Minimum number of selections <?php UM()->tooltip( __( 'Enter a number here to force a minimum number of selections by user for this field', 'ultimate-member' ) ); ?></label>
                         <input type="text" name="_min_selections" id="_min_selections" value="<?php echo $this->edit_mode_value; ?>" />
                     </p>
 
@@ -1636,7 +1636,7 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
                 case '_max_entries':
                     ?>
 
-                    <p class="_max_entries"><label for="_max_selections">Maximum number of entries <?php UM()->tooltip( __( 'This is the max number of entries the user can add via field group.', 'ultimatemember' ) ); ?></label>
+                    <p class="_max_entries"><label for="_max_selections">Maximum number of entries <?php UM()->tooltip( __( 'This is the max number of entries the user can add via field group.', 'ultimate-member' ) ); ?></label>
                         <input type="text" name="_max_entries" id="_max_entries" value="<?php echo ( $this->edit_mode_value ) ? $this->edit_mode_value : 10; ?>" />
                     </p>
 
@@ -1646,7 +1646,7 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
                 case '_max_words':
                     ?>
 
-                    <p><label for="_max_words">Maximum allowed words <?php UM()->tooltip( __( 'If you want to enable a maximum number of words to be input in this textarea. Leave empty to disable this setting', 'ultimatemember' ) ); ?></label>
+                    <p><label for="_max_words">Maximum allowed words <?php UM()->tooltip( __( 'If you want to enable a maximum number of words to be input in this textarea. Leave empty to disable this setting', 'ultimate-member' ) ); ?></label>
                         <input type="text" name="_max_words" id="_max_words" value="<?php echo $this->edit_mode_value; ?>" />
                     </p>
 
@@ -1656,7 +1656,7 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
                 case '_min':
                     ?>
 
-                    <p><label for="_min">Minimum Number <?php UM()->tooltip( __( 'Minimum number that can be entered in this field', 'ultimatemember' ) ); ?></label>
+                    <p><label for="_min">Minimum Number <?php UM()->tooltip( __( 'Minimum number that can be entered in this field', 'ultimate-member' ) ); ?></label>
                         <input type="text" name="_min" id="_min" value="<?php echo $this->edit_mode_value; ?>" />
                     </p>
 
@@ -1666,7 +1666,7 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
                 case '_max':
                     ?>
 
-                    <p><label for="_max">Maximum Number <?php UM()->tooltip( __( 'Maximum number that can be entered in this field', 'ultimatemember' ) ); ?></label>
+                    <p><label for="_max">Maximum Number <?php UM()->tooltip( __( 'Maximum number that can be entered in this field', 'ultimate-member' ) ); ?></label>
                         <input type="text" name="_max" id="_max" value="<?php echo $this->edit_mode_value; ?>" />
                     </p>
 
@@ -1676,7 +1676,7 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
                 case '_min_chars':
                     ?>
 
-                    <p><label for="_min_chars">Minimum length <?php UM()->tooltip( __( 'If you want to enable a minimum number of characters to be input in this field. Leave empty to disable this setting', 'ultimatemember' ) ); ?></label>
+                    <p><label for="_min_chars">Minimum length <?php UM()->tooltip( __( 'If you want to enable a minimum number of characters to be input in this field. Leave empty to disable this setting', 'ultimate-member' ) ); ?></label>
                         <input type="text" name="_min_chars" id="_min_chars" value="<?php echo $this->edit_mode_value; ?>" />
                     </p>
 
@@ -1686,7 +1686,7 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
                 case '_max_chars':
                     ?>
 
-                    <p><label for="_max_chars">Maximum length <?php UM()->tooltip( __( 'If you want to enable a maximum number of characters to be input in this field. Leave empty to disable this setting', 'ultimatemember' ) ); ?></label>
+                    <p><label for="_max_chars">Maximum length <?php UM()->tooltip( __( 'If you want to enable a maximum number of characters to be input in this field. Leave empty to disable this setting', 'ultimate-member' ) ); ?></label>
                         <input type="text" name="_max_chars" id="_max_chars" value="<?php echo $this->edit_mode_value; ?>" />
                     </p>
 
@@ -1696,7 +1696,7 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
                 case '_html':
                     ?>
 
-                    <p><label for="_html">Does this textarea accept HTML? <?php UM()->tooltip( __( 'Turn on/off HTML tags for this textarea', 'ultimatemember' ) ); ?></label>
+                    <p><label for="_html">Does this textarea accept HTML? <?php UM()->tooltip( __( 'Turn on/off HTML tags for this textarea', 'ultimate-member' ) ); ?></label>
                         <input type="checkbox" name="_html" id="_html" value="1" <?php checked( isset( $this->edit_mode_value ) ? $this->edit_mode_value : 0 ) ?> />
                     </p>
 
@@ -1715,7 +1715,7 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
 
                     ?>
 
-                    <p><label for="_options">Edit Choices <?php UM()->tooltip( __( 'Enter one choice per line. This will represent the available choices or selections available for user.', 'ultimatemember' ) ); ?></label>
+                    <p><label for="_options">Edit Choices <?php UM()->tooltip( __( 'Enter one choice per line. This will represent the available choices or selections available for user.', 'ultimate-member' ) ); ?></label>
                         <textarea name="_options" id="_options"><?php echo $values; ?></textarea>
                     </p>
 
@@ -1725,7 +1725,7 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
                 case '_title':
                     ?>
 
-                    <p><label for="_title">Title <?php UM()->tooltip( __( 'This is the title of the field for your reference in the backend. The title will not appear on the front-end of your website.', 'ultimatemember' ) ); ?></label>
+                    <p><label for="_title">Title <?php UM()->tooltip( __( 'This is the title of the field for your reference in the backend. The title will not appear on the front-end of your website.', 'ultimate-member' ) ); ?></label>
                         <input type="text" name="_title" id="_title" value="<?php echo htmlspecialchars($this->edit_mode_value, ENT_QUOTES); ?>" />
                     </p>
 
@@ -1750,13 +1750,13 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
 
                         ?>
 
-                        <p><label for="_metakey">Meta Key <?php UM()->tooltip( __( 'The meta key cannot be changed for duplicated fields or when editing an existing field. If you require a different meta key please create a new field.', 'ultimatemember' ) ); ?></label>
+                        <p><label for="_metakey">Meta Key <?php UM()->tooltip( __( 'The meta key cannot be changed for duplicated fields or when editing an existing field. If you require a different meta key please create a new field.', 'ultimate-member' ) ); ?></label>
                             <input type="text" name="_metakey_locked" id="_metakey_locked" value="<?php echo $this->edit_mode_value; ?>" disabled />
                         </p>
 
                     <?php } else { ?>
 
-                        <p><label for="_metakey">Meta Key <?php UM()->tooltip( __( 'A meta key is required to store the entered info in this field in the database. The meta key should be unique to this field and be written in lowercase with an underscore ( _ ) separating words e.g country_list or job_title', 'ultimatemember' ) ); ?></label>
+                        <p><label for="_metakey">Meta Key <?php UM()->tooltip( __( 'A meta key is required to store the entered info in this field in the database. The meta key should be unique to this field and be written in lowercase with an underscore ( _ ) separating words e.g country_list or job_title', 'ultimate-member' ) ); ?></label>
                             <input type="text" name="_metakey" id="_metakey" value="" />
                         </p>
 
@@ -1769,7 +1769,7 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
                 case '_help':
                     ?>
 
-                    <p><label for="_help">Help Text <?php UM()->tooltip( __('This is the text that appears in a tooltip when a user hovers over the info icon. Help text is useful for providing users with more information about what they should enter in the field. Leave blank if no help text is needed for field.', 'ultimatemember' ) ); ?></label>
+                    <p><label for="_help">Help Text <?php UM()->tooltip( __('This is the text that appears in a tooltip when a user hovers over the info icon. Help text is useful for providing users with more information about what they should enter in the field. Leave blank if no help text is needed for field.', 'ultimate-member' ) ); ?></label>
                         <input type="text" name="_help" id="_help" value="<?php echo $this->edit_mode_value; ?>" />
                     </p>
 
@@ -1781,19 +1781,19 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
 
                     <?php if ( $this->set_field_type == 'textarea' ) { ?>
 
-                    <p><label for="_default">Default Text <?php UM()->tooltip( __( 'Text to display by default in this field', 'ultimatemember' ) ); ?></label>
+                    <p><label for="_default">Default Text <?php UM()->tooltip( __( 'Text to display by default in this field', 'ultimate-member' ) ); ?></label>
                         <textarea name="_default" id="_default"><?php echo $this->edit_mode_value; ?></textarea>
                     </p>
 
                 <?php } elseif ( $this->set_field_type == 'rating' ) { ?>
 
-                    <p><label for="_default">Default Rating <?php UM()->tooltip( __( 'If you wish the rating field to be prefilled with a number of stars, enter it here.', 'ultimatemember' ) ); ?></label>
+                    <p><label for="_default">Default Rating <?php UM()->tooltip( __( 'If you wish the rating field to be prefilled with a number of stars, enter it here.', 'ultimate-member' ) ); ?></label>
                         <input type="text" name="_default" id="_default" value="<?php echo $this->edit_mode_value; ?>" />
                     </p>
 
                 <?php } else { ?>
 
-                    <p><label for="_default">Default Value <?php UM()->tooltip( __( 'This option allows you to pre-fill the field with a default value prior to the user entering a value in the field. Leave blank to have no default value', 'ultimatemember' ) ); ?></label>
+                    <p><label for="_default">Default Value <?php UM()->tooltip( __( 'This option allows you to pre-fill the field with a default value prior to the user entering a value in the field. Leave blank to have no default value', 'ultimate-member' ) ); ?></label>
                         <input type="text" name="_default" id="_default" value="<?php echo $this->edit_mode_value; ?>" />
                     </p>
 
@@ -1805,7 +1805,7 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
                 case '_label':
                     ?>
 
-                    <p><label for="_label">Label <?php UM()->tooltip( __( 'The field label is the text that appears above the field on your front-end form. Leave blank to not show a label above field.', 'ultimatemember' ) ); ?></label>
+                    <p><label for="_label">Label <?php UM()->tooltip( __( 'The field label is the text that appears above the field on your front-end form. Leave blank to not show a label above field.', 'ultimate-member' ) ); ?></label>
                         <input type="text" name="_label" id="_label" value="<?php echo htmlspecialchars($this->edit_mode_value, ENT_QUOTES); ?>" />
                     </p>
 
@@ -1815,7 +1815,7 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
                 case '_placeholder':
                     ?>
 
-                    <p><label for="_placeholder">Placeholder <?php UM()->tooltip( __( 'This is the text that appears within the field e.g please enter your email address. Leave blank to not show any placeholder text.', 'ultimatemember' ) ); ?></label>
+                    <p><label for="_placeholder">Placeholder <?php UM()->tooltip( __( 'This is the text that appears within the field e.g please enter your email address. Leave blank to not show any placeholder text.', 'ultimate-member' ) ); ?></label>
                         <input type="text" name="_placeholder" id="_placeholder" value="<?php echo htmlspecialchars($this->edit_mode_value, ENT_QUOTES); ?>" />
                     </p>
 
@@ -1825,7 +1825,7 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
                 case '_public':
                     ?>
 
-                    <p><label for="_public">Privacy <?php UM()->tooltip( __( 'Field privacy allows you to select who can view this field on the front-end. The site admin can view all fields regardless of the option set here.', 'ultimatemember' ) ); ?></label>
+                    <p><label for="_public">Privacy <?php UM()->tooltip( __( 'Field privacy allows you to select who can view this field on the front-end. The site admin can view all fields regardless of the option set here.', 'ultimate-member' ) ); ?></label>
                         <select name="_public" id="_public" class="um-adm-conditional" data-cond1='-2' data-cond1-show='_roles' data-cond2='-3' data-cond2-show='_roles'  style="width: 100%">
                             <option value="1" <?php selected( 1, $this->edit_mode_value ); ?>>Everyone</option>
                             <option value="2" <?php selected( 2, $this->edit_mode_value ); ?>>Members</option>
@@ -1848,7 +1848,7 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
 
                     ?>
 
-                    <p class="_roles"><label for="_roles">Select member roles <?php UM()->tooltip( __( 'Select the member roles that can view this field on the front-end.', 'ultimatemember' ) ); ?></label>
+                    <p class="_roles"><label for="_roles">Select member roles <?php UM()->tooltip( __( 'Select the member roles that can view this field on the front-end.', 'ultimate-member' ) ); ?></label>
                         <select name="_roles[]" id="_roles" style="width: 100%" multiple="multiple">
 
                             <?php foreach( UM()->roles()->get_roles() as $key => $value) { ?>
@@ -1874,7 +1874,7 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
 
                     <div class="um-admin-tri">
 
-                        <p><label for="_required">Is this field required? <?php UM()->tooltip( __( 'This option allows you to set whether the field must be filled in before the form can be processed.', 'ultimatemember' ) ); ?></label>
+                        <p><label for="_required">Is this field required? <?php UM()->tooltip( __( 'This option allows you to set whether the field must be filled in before the form can be processed.', 'ultimate-member' ) ); ?></label>
                             <input type="checkbox" name="_required" id="_required" value="1" <?php checked( isset( $this->edit_mode_value ) ? $this->edit_mode_value : $def_required ) ?> />
                         </p>
 
@@ -1888,7 +1888,7 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
 
                     <div class="um-admin-tri">
 
-                        <p><label for="_editable">Can user edit this field? <?php UM()->tooltip( __( 'This option allows you to set whether or not the user can edit the information in this field.', 'ultimatemember' ) ); ?></label>
+                        <p><label for="_editable">Can user edit this field? <?php UM()->tooltip( __( 'This option allows you to set whether or not the user can edit the information in this field.', 'ultimate-member' ) ); ?></label>
                             <input type="checkbox" name="_editable" id="_editable" value="1" <?php checked( isset( $this->edit_mode_value ) ? $this->edit_mode_value : 0 ) ?> />
                         </p>
 
@@ -1900,7 +1900,7 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
                 case '_number':
                     ?>
 
-                    <p><label for="_number">Rating System <?php UM()->tooltip( __( 'Choose whether you want a 5-stars or 10-stars ratings based here.', 'ultimatemember' ) ); ?></label>
+                    <p><label for="_number">Rating System <?php UM()->tooltip( __( 'Choose whether you want a 5-stars or 10-stars ratings based here.', 'ultimate-member' ) ); ?></label>
                         <select name="_number" id="_number" style="width: 100%">
                             <option value="5" <?php selected( 5, $this->edit_mode_value ); ?>>5  stars rating system</option>
                             <option value="10" <?php selected( 10, $this->edit_mode_value ); ?>>10 stars rating system</option>
@@ -1913,7 +1913,7 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
                 case '_custom_dropdown_options_source':
                     ?>
 
-                    <p><label for="_custom_dropdown_options_source">Choices Callback<?php UM()->tooltip( __( 'Add a callback source to retrieve choices.', 'ultimatemember' ) ); ?></label>
+                    <p><label for="_custom_dropdown_options_source">Choices Callback<?php UM()->tooltip( __( 'Add a callback source to retrieve choices.', 'ultimate-member' ) ); ?></label>
                         <input type="text" name="_custom_dropdown_options_source" id="_custom_dropdown_options_source" value="<?php echo htmlspecialchars($this->edit_mode_value, ENT_QUOTES); ?>" />
                     </p>
 
@@ -1924,7 +1924,7 @@ if ( ! class_exists( 'Admin_Metabox' ) ) {
                 case '_parent_dropdown_relationship':
                     ?>
 
-                    <p><label for="_parent_dropdown_relationship">Parent Option<?php UM()->tooltip( __( 'Dynamically populates the option based from selected parent option.', 'ultimatemember' ) ); ?></label>
+                    <p><label for="_parent_dropdown_relationship">Parent Option<?php UM()->tooltip( __( 'Dynamically populates the option based from selected parent option.', 'ultimate-member' ) ); ?></label>
                         <select name="_parent_dropdown_relationship" id="_parent_dropdown_relationship" style="width: 100%">
                             <option value="">No Selected</option>
                             <?php

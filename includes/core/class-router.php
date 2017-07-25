@@ -14,10 +14,10 @@ if ( ! class_exists( 'Router' ) ) {
             $user_id = get_current_user_id();
 
             if ( empty( $_REQUEST['um_action'] ) )
-                exit( __( 'Wrong action', 'ultimatemember' ) );
+                exit( __( 'Wrong action', 'ultimate-member' ) );
 
             if ( empty( $_REQUEST['um_resource'] ) )
-                exit( __( 'Wrong resource', 'ultimatemember' ) );
+                exit( __( 'Wrong resource', 'ultimate-member' ) );
 
             if ( $_REQUEST['um_action'] == 'route' )
                 $verify = wp_verify_nonce( $_REQUEST['um_verify'], $ip . $user_id . $_REQUEST['um_resource'] . $_REQUEST['um_method'] );
@@ -25,7 +25,7 @@ if ( ! class_exists( 'Router' ) ) {
                 $verify = wp_verify_nonce( $_REQUEST['um_verify'], $ip . $user_id . $_REQUEST['um_action'] . $_REQUEST['um_resource'] );
 
             if ( empty( $verify ) )
-                exit( __( 'Wrong nonce', 'ultimatemember' ) );
+                exit( __( 'Wrong nonce', 'ultimate-member' ) );
 
             $this->request_process( array(
                 'route'     => $_REQUEST['um_resource'],
@@ -78,10 +78,10 @@ if ( ! class_exists( 'Router' ) ) {
             $ip = isset( $_SERVER['REMOTE_ADDR'] ) ? $_SERVER['REMOTE_ADDR'] : '';
             $user_id = get_current_user_id();
             if ( ! get_query_var( 'um_action' ) )
-                exit( __( 'Wrong action', 'ultimatemember' ) );
+                exit( __( 'Wrong action', 'ultimate-member' ) );
 
             if ( ! get_query_var( 'um_resource' ) )
-                exit( __( 'Wrong resource', 'ultimatemember' ) );
+                exit( __( 'Wrong resource', 'ultimate-member' ) );
 
             $verify = false;
             if ( get_query_var( 'um_action' ) == 'route' )
@@ -95,7 +95,7 @@ if ( ! class_exists( 'Router' ) ) {
                     ) );
                 }
             } else {
-                exit( __( 'Wrong nonce', 'ultimatemember' ) );
+                exit( __( 'Wrong nonce', 'ultimate-member' ) );
             }
         }
 

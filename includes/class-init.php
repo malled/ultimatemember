@@ -114,7 +114,7 @@ if ( ! class_exists( 'UM' ) ) {
          * @since 1.0
          */
         public function __clone() {
-            _doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'ultimatemember' ), '1.0' );
+            _doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'ultimate-member' ), '1.0' );
         }
 
 
@@ -123,7 +123,7 @@ if ( ! class_exists( 'UM' ) ) {
          * @since 1.0
          */
         public function __wakeup() {
-            _doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'ultimatemember' ), '1.0' );
+            _doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'ultimate-member' ), '1.0' );
         }
 
 
@@ -168,7 +168,7 @@ if ( ! class_exists( 'UM' ) ) {
 
                 register_activation_hook( um_plugin, array( &$this, 'activation' ) );
 
-                $language_domain = 'ultimatemember';
+                $language_domain = 'ultimate-member';
                 $language_domain = apply_filters( 'um_language_textdomain', $language_domain );
 
                 $language_locale = ( get_locale() != '' ) ? get_locale() : 'en_US';

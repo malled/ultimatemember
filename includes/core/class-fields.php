@@ -59,7 +59,7 @@ if ( ! class_exists( 'Fields' ) ) {
 
 
         /**
-         * Hidden field insaide a shortcode
+         * Hidden field inside a shortcode
          * @param string $field
          */
         function add_hidden_field( $field ) {
@@ -428,13 +428,17 @@ if ( ! class_exists( 'Fields' ) ) {
 
                 if ( strstr( $key, 'user_pass' ) && $this->set_mode != 'password' ) return '';
 
-                return UM()->form()->post_form[ $key ];
+                return stripslashes_deep( UM()->form()->post_form[ $key ] );
 
             } else if ( um_user( $key ) && $this->editing == true ) {
 
                 if ( strstr( $key, 'user_pass' ) ) return '';
 
-                return apply_filters( "um_edit_{$key}_field_value", um_user( $key ), $key );
+                $value = um_user( $key );
+                $value = apply_filters( "um_edit_{$key}_field_value",  $value,  $key );
+                $value = apply_filters( "um_edit_{$type}_field_value", $value,  $key );
+
+                return $value;
 
             } else if ( ( um_user( $key ) || isset( $data['show_anyway'] ) ) && $this->viewing == true ) {
 
@@ -743,7 +747,7 @@ if ( ! class_exists( 'Fields' ) ) {
                 return $fields[$key]['title'];
             if ( isset( $fields[$key]['label'] ) )
                 return $fields[$key]['label'];
-            return __('Custom Field','ultimatemember');
+            return __('Custom Field','ultimate-member');
         }
 
         /**
@@ -796,6 +800,7 @@ if ( ! class_exists( 'Fields' ) ) {
 
             $array['classes'] .= ' um-field-' . $key;
             $array['classes'] .= ' um-field-' . $array['type'];
+            $array['classes'] .= ' um-field-type_' . $array['type'];
 
             switch( $array['type'] ) {
 
@@ -1016,18 +1021,18 @@ if ( ! class_exists( 'Fields' ) ) {
                     if ( $array['min_width'] == '' && $array['crop'] == 3 ) $array['min_width'] = 600;
                     if ( $array['min_height'] == '' && $array['crop'] == 3 ) $array['min_height'] = 600;
 
-                    if (!isset($array['invalid_image'])) $array['invalid_image'] = __("Please upload a valid image!",'ultimatemember');
+                    if (!isset($array['invalid_image'])) $array['invalid_image'] = __("Please upload a valid image!",'ultimate-member');
                     if (!isset($array['allowed_types'])) {
                         $array['allowed_types'] = "gif,jpg,jpeg,png";
                     } else {
                         $array['allowed_types'] = implode(',',$array['allowed_types']);
                     }
                     if (!isset($array['upload_text'])) $array['upload_text'] = '';
-                    if (!isset($array['button_text'])) $array['button_text'] = __('Upload','ultimatemember');
-                    if (!isset($array['extension_error'])) $array['extension_error'] =  __("Sorry this is not a valid image.",'ultimatemember');
-                    if (!isset($array['max_size_error'])) $array['max_size_error'] = __("This image is too large!",'ultimatemember');
-                    if (!isset($array['min_size_error'])) $array['min_size_error'] = __("This image is too small!",'ultimatemember');
-                    if (!isset($array['max_files_error'])) $array['max_files_error'] = __("You can only upload one image",'ultimatemember');
+                    if (!isset($array['button_text'])) $array['button_text'] = __('Upload','ultimate-member');
+                    if (!isset($array['extension_error'])) $array['extension_error'] =  __("Sorry this is not a valid image.",'ultimate-member');
+                    if (!isset($array['max_size_error'])) $array['max_size_error'] = __("This image is too large!",'ultimate-member');
+                    if (!isset($array['min_size_error'])) $array['min_size_error'] = __("This image is too small!",'ultimate-member');
+                    if (!isset($array['max_files_error'])) $array['max_files_error'] = __("You can only upload one image",'ultimate-member');
                     if (!isset($array['max_size'])) $array['max_size'] = 999999999;
                     if (!isset($array['upload_help_text'])) $array['upload_help_text'] = '';
                     if (!isset($array['icon']) ) $array['icon'] = '';
@@ -1044,7 +1049,7 @@ if ( ! class_exists( 'Fields' ) ) {
                         $array['allowed_types'] = implode(',',$array['allowed_types']);
                     }
                     if (!isset($array['upload_text'])) $array['upload_text'] = '';
-                    if (!isset($array['button_text'])) $array['button_text'] = __('Upload','ultimatemember');
+                    if (!isset($array['button_text'])) $array['button_text'] = __('Upload','ultimate-member');
                     if (!isset($array['extension_error'])) $array['extension_error'] =  "Sorry this is not a valid file.";
                     if (!isset($array['max_size_error'])) $array['max_size_error'] = "This file is too large!";
                     if (!isset($array['min_size_error'])) $array['min_size_error'] = "This file is too small!";
@@ -1326,7 +1331,7 @@ if ( ! class_exists( 'Fields' ) ) {
                             $output .= '<div class="um-field' . $classes . '"' . $conditional . ' data-key="'.$key.'">';
 
                             if ( isset( $data['label'] ) ) {
-                                $output .= $this->field_label( __('Current Password','ultimatemember'), $key, $data);
+                                $output .= $this->field_label( __('Current Password','ultimate-member'), $key, $data);
                             }
 
                             $output .= '<div class="um-field-area">';
@@ -1355,7 +1360,7 @@ if ( ! class_exists( 'Fields' ) ) {
 
                         if ( $this->set_mode == 'account' && um_is_core_page('account') || $this->set_mode == 'password' && um_is_core_page('password-reset') ) {
 
-                            $output .= $this->field_label( __('New Password','ultimatemember'), $key, $data);
+                            $output .= $this->field_label( __('New Password','ultimate-member'), $key, $data);
 
                         } else if ( isset( $data['label'] ) ) {
 
@@ -1387,7 +1392,7 @@ if ( ! class_exists( 'Fields' ) ) {
                             $output .= '<div class="um-field' . $classes . '"' . $conditional . ' data-key="'.$key.'">';
 
                             if ( isset( $data['label'] ) ) {
-                                $output .= $this->field_label( sprintf(__('Confirm %s','ultimatemember'), $data['label'] ), $key, $data);
+                                $output .= $this->field_label( sprintf(__('Confirm %s','ultimate-member'), $data['label'] ), $key, $data);
                             }
 
                             $output .= '<div class="um-field-area">';
@@ -1609,7 +1614,7 @@ if ( ! class_exists( 'Fields' ) ) {
                         $output .= $this->field_label($label, $key, $data);
                     }
 
-                    $modal_label = ( isset( $data['label'] ) ) ? $data['label'] : __('Upload Photo','ultimatemember');
+                    $modal_label = ( isset( $data['label'] ) ) ? $data['label'] : __('Upload Photo','ultimate-member');
 
                     $output .= '<div class="um-field-area" style="text-align: center">';
 
@@ -1628,7 +1633,7 @@ if ( ! class_exists( 'Fields' ) ) {
 
                         $output .= '<div class="um-single-image-preview show '. $crop_class .'" data-crop="'.$crop_data.'" data-key="'.$key.'">
                                     <a href="#" class="cancel"><i class="um-icon-close"></i></a>' . $img . '
-                                </div><a href="#" data-modal="um_upload_single" data-modal-size="'.$modal_size.'" data-modal-copy="1" class="um-button um-btn-auto-width">'. __('Change photo','ultimatemember') . '</a>';
+                                </div><a href="#" data-modal="um_upload_single" data-modal-size="'.$modal_size.'" data-modal-copy="1" class="um-button um-btn-auto-width">'. __('Change photo','ultimate-member') . '</a>';
 
                     } else {
 
@@ -1663,8 +1668,8 @@ if ( ! class_exists( 'Fields' ) ) {
 
                     $output .= '<div class="um-modal-footer">
                                         <div class="um-modal-right">
-                                            <a href="#" class="um-modal-btn um-finish-upload image disabled" data-key="'.$key.'" data-change="'.__('Change photo','ultimatemember').'" data-processing="'.__('Processing...','ultimatemember').'"> ' . __('Apply','ultimatemember') . '</a>
-                                            <a href="#" class="um-modal-btn alt" data-action="um_remove_modal"> ' . __('Cancel','ultimatemember') . '</a>
+                                            <a href="#" class="um-modal-btn um-finish-upload image disabled" data-key="'.$key.'" data-change="'.__('Change photo','ultimate-member').'" data-processing="'.__('Processing...','ultimate-member').'"> ' . __('Apply','ultimate-member') . '</a>
+                                            <a href="#" class="um-modal-btn alt" data-action="um_remove_modal"> ' . __('Cancel','ultimate-member') . '</a>
                                         </div>
                                         <div class="um-clear"></div>
                                     </div>';
@@ -1693,7 +1698,7 @@ if ( ! class_exists( 'Fields' ) ) {
                         $output .= $this->field_label($label, $key, $data);
                     }
 
-                    $modal_label = ( isset( $data['label'] ) ) ? $data['label'] : __('Upload Photo','ultimatemember');
+                    $modal_label = ( isset( $data['label'] ) ) ? $data['label'] : __('Upload Photo','ultimate-member');
 
                     $output .= '<div class="um-field-area" style="text-align: center">';
 
@@ -1709,7 +1714,7 @@ if ( ! class_exists( 'Fields' ) ) {
                                                     <span class="filename">' . $this->field_value( $key, $default, $data ) . '</span>
                                                 </a>
                                             </div>
-                                </div><a href="#" data-modal="um_upload_single" data-modal-size="'.$modal_size.'" data-modal-copy="1" class="um-button um-btn-auto-width">'. __('Change file','ultimatemember') . '</a>';
+                                </div><a href="#" data-modal="um_upload_single" data-modal-size="'.$modal_size.'" data-modal-copy="1" class="um-button um-btn-auto-width">'. __('Change file','ultimate-member') . '</a>';
 
                     } else {
 
@@ -1751,8 +1756,8 @@ if ( ! class_exists( 'Fields' ) ) {
 
                     $output .= '<div class="um-modal-footer">
                                         <div class="um-modal-right">
-                                            <a href="#" class="um-modal-btn um-finish-upload file disabled" data-key="'.$key.'" data-change="'.__('Change file').'" data-processing="'.__('Processing...','ultimatemember').'"> ' . __('Save','ultimatemember') . '</a>
-                                            <a href="#" class="um-modal-btn alt" data-action="um_remove_modal"> ' . __('Cancel','ultimatemember') . '</a>
+                                            <a href="#" class="um-modal-btn um-finish-upload file disabled" data-key="'.$key.'" data-change="'.__('Change file').'" data-processing="'.__('Processing...','ultimate-member').'"> ' . __('Save','ultimate-member') . '</a>
+                                            <a href="#" class="um-modal-btn alt" data-action="um_remove_modal"> ' . __('Cancel','ultimate-member') . '</a>
                                         </div>
                                         <div class="um-clear"></div>
                                     </div>';
@@ -1983,32 +1988,31 @@ if ( ! class_exists( 'Fields' ) ) {
 
                     $arr_selected = array();
                     // add options
-                    foreach( $options as $k => $v ) {
+                    if ( ! empty( $options ) && is_array( $options ) ) {
+                        foreach( $options as $k => $v ) {
 
-                        $v = rtrim( $v );
+                            $v = rtrim( $v );
 
-                        $um_field_checkbox_item_title = $v;
-                        $opt_value = $v;
-
-                        if ( $use_keyword  ) {
                             $um_field_checkbox_item_title = $v;
-                            $opt_value = $k;
+                            $opt_value = $v;
+
+                            if ( $use_keyword  ) {
+                                $um_field_checkbox_item_title = $v;
+                                $opt_value = $k;
+                            }
+
+                            $opt_value = apply_filters('um_field_non_utf8_value',$opt_value );
+
+                            $output .= '<option value="'.$opt_value.'" ';
+                            if ( $this->is_selected( $key, $opt_value, $data ) ) {
+
+                                $output .= 'selected';
+                                $arr_selected[ $opt_value ] = $opt_value;
+                            }
+
+                            $output .= '>'.__( $um_field_checkbox_item_title ,'ultimate-member').'</option>';
+
                         }
-
-
-                        $opt_value = apply_filters('um_field_non_utf8_value',$opt_value );
-
-                        $output .= '<option value="'.$opt_value.'" ';
-                        if ( $this->is_selected( $key, $opt_value, $data ) ) {
-
-                            $output .= 'selected';
-                            $arr_selected[ $opt_value ] = $opt_value;
-                        }
-
-                        $output .= '>'.__( $um_field_checkbox_item_title ,UM_TEXTDOMAIN).'</option>';
-
-
-
                     }
 
                     $output .= '</select>';
@@ -2667,9 +2671,9 @@ if ( ! class_exists( 'Fields' ) ) {
                 }
 
                 if ( um_is_myprofile() ) {
-                    $output .= '<p class="um-profile-note">' . $emo .'<span>' . sprintf(__('Your profile is looking a little empty. Why not <a href="%s">add</a> some information!','ultimatemember'), um_edit_profile_url() ) . '</span></p>';
+                    $output .= '<p class="um-profile-note">' . $emo .'<span>' . sprintf(__('Your profile is looking a little empty. Why not <a href="%s">add</a> some information!','ultimate-member'), um_edit_profile_url() ) . '</span></p>';
                 } else {
-                    $output .= '<p class="um-profile-note">'. $emo . '<span>' . __('This user has not added any information to their profile yet.','ultimatemember') . '</span></p>';
+                    $output .= '<p class="um-profile-note">'. $emo . '<span>' . __('This user has not added any information to their profile yet.','ultimate-member') . '</span></p>';
                 }
             }
 
@@ -2912,7 +2916,7 @@ if ( ! class_exists( 'Fields' ) ) {
 
 
         function do_ajax_action() {
-            if ( !is_user_logged_in() || !current_user_can('manage_options') ) die( __('Please login as administrator','ultimatemember') );
+            if ( !is_user_logged_in() || !current_user_can('manage_options') ) die( __('Please login as administrator','ultimate-member') );
 
             extract($_POST);
 

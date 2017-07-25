@@ -27,7 +27,7 @@ if ( ! class_exists( 'Admin_Columns' ) ) {
         function post_row_actions( $actions, $post ) {
             //check for your post type
             if ( $post->post_type == "um_form" ) {
-                $actions['um_duplicate'] = '<a href="' . $this->duplicate_uri( $post->ID ) . '">' . __('Duplicate','ultimatemember') . '</a>';
+                $actions['um_duplicate'] = '<a href="' . $this->duplicate_uri( $post->ID ) . '">' . __('Duplicate','ultimate-member') . '</a>';
             }
             return $actions;
         }
@@ -64,10 +64,10 @@ if ( ! class_exists( 'Admin_Columns' ) ) {
 
             $new_columns['cb'] = '<input type="checkbox" />';
 
-            $new_columns['title'] = __( 'Title', 'ultimatemember' );
-            $new_columns['id'] = __( 'ID', 'ultimatemember' );
-            $new_columns['shortcode'] = __( 'Shortcode', 'ultimatemember' );
-            $new_columns['date'] = __( 'Date', 'ultimatemember' );
+            $new_columns['title'] = __( 'Title', 'ultimate-member' );
+            $new_columns['id'] = __( 'ID', 'ultimate-member' );
+            $new_columns['shortcode'] = __( 'Shortcode', 'ultimate-member' );
+            $new_columns['date'] = __( 'Date', 'ultimate-member' );
 
             return $new_columns;
 

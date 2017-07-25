@@ -200,7 +200,7 @@ if ( ! class_exists( 'Shortcodes' ) ) {
             ob_start();
 
             $defaults = array(
-                'lock_text' => __('This content has been restricted to logged in users only. Please <a href="{login_referrer}">login</a> to view this content.', 'ultimatemember'),
+                'lock_text' => __('This content has been restricted to logged in users only. Please <a href="{login_referrer}">login</a> to view this content.', 'ultimate-member'),
                 'show_lock' => 'yes',
             );
 
@@ -405,7 +405,7 @@ if ( ! class_exists( 'Shortcodes' ) ) {
         function get_templates($excluded = null) {
 
             if ($excluded) {
-                $array[$excluded] = __('Default Template', 'ultimatemember');
+                $array[$excluded] = __('Default Template', 'ultimate-member');
             }
 
             $paths[] = glob(um_path . 'templates/' . '*.php');

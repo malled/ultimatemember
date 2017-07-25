@@ -75,7 +75,7 @@ if ( ! class_exists( 'Form' ) ) {
 
                 }else{
                     $arr_options['status'] = 'error';
-                    $arr_options['message'] = __( 'This is not possible for security reasons.','ultimatemember');
+                    $arr_options['message'] = __( 'This is not possible for security reasons.','ultimate-member');
                 }
 
             }
@@ -181,8 +181,8 @@ if ( ! class_exists( 'Form' ) ) {
                                 $role = current( $_POST['role'] );
                             }
 
-                            if ( isset( $custom_field_roles ) && is_array(  $custom_field_roles ) && ! in_array( $role , $custom_field_roles ) ) {
-                                wp_die( __( 'This is not possible for security reasons.','ultimatemember') );
+                            if ( isset( $custom_field_roles ) && is_array(  $custom_field_roles ) && ! empty( $role ) && ! in_array( $role , $custom_field_roles ) ) {
+                                wp_die( __( 'This is not possible for security reasons.','ultimate-member') );
                             }
 
                             $this->post_form['role'] = $role;
@@ -198,7 +198,7 @@ if ( ! class_exists( 'Form' ) ) {
                     }
 
                     if ( isset( $_POST[ UM()->honeypot ] ) && $_POST[ UM()->honeypot ] != '' ){
-                        wp_die( 'Hello, spam bot!', 'ultimatemember' );
+                        wp_die( 'Hello, spam bot!', 'ultimate-member' );
                     }
 
                     if ( ! in_array( $this->form_data['mode'], array( 'login' ) ) ) {
@@ -207,10 +207,10 @@ if ( ! class_exists( 'Form' ) ) {
                         $live_timestamp  = current_time( 'timestamp' );
 
                         if ( $form_timestamp == '' && um_get_option('enable_timebot') == 1 )
-                            wp_die( __('Hello, spam bot!','ultimatemember') );
+                            wp_die( __('Hello, spam bot!','ultimate-member') );
 
                         if ( !current_user_can('manage_options') && $live_timestamp - $form_timestamp < 6 && um_get_option('enable_timebot') == 1  )
-                            wp_die( __('Whoa, slow down! You\'re seeing this message because you tried to submit a form too fast and we think you might be a spam bot. If you are a real human being please wait a few seconds before submitting the form. Thanks!','ultimatemember') );
+                            wp_die( __('Whoa, slow down! You\'re seeing this message because you tried to submit a form too fast and we think you might be a spam bot. If you are a real human being please wait a few seconds before submitting the form. Thanks!','ultimate-member') );
 
                     }
 

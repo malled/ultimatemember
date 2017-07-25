@@ -1,7 +1,7 @@
 <div class="um-admin-metabox">
 
 	<?php
-	foreach ( UM()->roles()->get_roles( __( 'Default', 'ultimatemember' ) ) as $key => $value ) {
+	foreach ( UM()->roles()->get_roles( __( 'Default', 'ultimate-member' ) ) as $key => $value ) {
 		if ( ! empty( UM()->query()->get_meta_value( '_um_register_role', $key ) ) )
 			$register_role = UM()->query()->get_meta_value( '_um_register_role', $key );
 	}
@@ -13,26 +13,26 @@
 			array(
 				'id'		    => '_um_register_use_globals',
 				'type'		    => 'select',
-				'label'    		=> __( 'Apply custom settings to this form', 'ultimatemember' ),
-				'tooltip' 	=> __( 'Switch to yes if you want to customize this form settings, styling &amp; appearance', 'ultimatemember' ),
+				'label'    		=> __( 'Apply custom settings to this form', 'ultimate-member' ),
+				'tooltip' 	=> __( 'Switch to yes if you want to customize this form settings, styling &amp; appearance', 'ultimate-member' ),
 				'value' 		=> UM()->query()->get_meta_value( '_um_register_use_globals', null, 0 ),
 				'options'		=> array(
-					0	=> __( 'No', 'ultimatemember' ),
-					1	=> __( 'Yes', 'ultimatemember' ),
+					0	=> __( 'No', 'ultimate-member' ),
+					1	=> __( 'Yes', 'ultimate-member' ),
 				),
 			),
 			array(
 				'id'		    => '_um_register_role',
 				'type'		    => 'select',
-				'label'    		=> __( 'Assign role to form', 'ultimatemember' ),
+				'label'    		=> __( 'Assign role to form', 'ultimate-member' ),
 				'value' 		=> ! empty( $register_role ) ? $register_role : 0,
-				'options'		=> UM()->roles()->get_roles( __( 'Default', 'ultimatemember' ) ),
+				'options'		=> UM()->roles()->get_roles( __( 'Default', 'ultimate-member' ) ),
 				'conditional'	=> array( '_um_register_use_globals', '=', 1 )
 			),
 			array(
 				'id'		    => '_um_register_template',
 				'type'		    => 'select',
-				'label'    		=> __( 'Template', 'ultimatemember' ),
+				'label'    		=> __( 'Template', 'ultimate-member' ),
 				'value' 		=> UM()->query()->get_meta_value( '_um_register_template', null, um_get_option( 'register_template' ) ),
 				'options'		=> UM()->shortcodes()->get_templates( 'register' ),
 				'conditional'	=> array( '_um_register_use_globals', '=', 1 )
@@ -40,44 +40,44 @@
 			array(
 				'id'		    => '_um_register_max_width',
 				'type'		    => 'text',
-				'label'    		=> __( 'Max. Width (px)', 'ultimatemember' ),
-				'tooltip'    	=> __( 'The maximum width of shortcode in pixels e.g. 600px', 'ultimatemember' ),
+				'label'    		=> __( 'Max. Width (px)', 'ultimate-member' ),
+				'tooltip'    	=> __( 'The maximum width of shortcode in pixels e.g. 600px', 'ultimate-member' ),
 				'value' 		=> UM()->query()->get_meta_value('_um_register_max_width', null, um_get_option( 'register_max_width' ) ),
 				'conditional'	=> array( '_um_register_use_globals', '=', 1 )
 			),
 			array(
 				'id'		    => '_um_register_icons',
 				'type'		    => 'select',
-				'label'    		=> __( 'Field Icons', 'ultimatemember' ),
-				'tooltip'    	=> __( 'Whether to show field icons and where to show them relative to the field', 'ultimatemember' ),
+				'label'    		=> __( 'Field Icons', 'ultimate-member' ),
+				'tooltip'    	=> __( 'Whether to show field icons and where to show them relative to the field', 'ultimate-member' ),
 				'value' 		=> UM()->query()->get_meta_value( '_um_register_icons', null, um_get_option( 'register_icons' ) ) ,
 				'options'		=> array(
-					'field' => __( 'Show inside text field', 'ultimatemember' ),
-					'label' => __( 'Show with label', 'ultimatemember' ),
-					'off' 	=> __( 'Turn off', 'ultimatemember' )
+					'field' => __( 'Show inside text field', 'ultimate-member' ),
+					'label' => __( 'Show with label', 'ultimate-member' ),
+					'off' 	=> __( 'Turn off', 'ultimate-member' )
 				),
 				'conditional'	=> array( '_um_register_use_globals', '=', 1 )
 			),
 			array(
 				'id'		    => '_um_register_primary_btn_word',
 				'type'		    => 'text',
-				'label'    		=> __( 'Primary Button Text', 'ultimatemember' ),
-				'tooltip'    	=> __( 'Customize the button text', 'ultimatemember' ),
+				'label'    		=> __( 'Primary Button Text', 'ultimate-member' ),
+				'tooltip'    	=> __( 'Customize the button text', 'ultimate-member' ),
 				'value' 		=> UM()->query()->get_meta_value( '_um_register_primary_btn_word', null, um_get_option( 'register_primary_btn_word' ) ),
 				'conditional'	=> array( '_um_register_use_globals', '=', 1 )
 			),
 			array(
 				'id'		    => '_um_register_secondary_btn',
 				'type'		    => 'checkbox',
-				'label'    		=> __( 'Show Secondary Button', 'ultimatemember' ),
+				'label'    		=> __( 'Show Secondary Button', 'ultimate-member' ),
 				'value' 		=> UM()->query()->get_meta_value( '_um_register_secondary_btn', null, 1 ),
 				'conditional'	=> array( '_um_register_use_globals', '=', 1 )
 			),
 			array(
 				'id'		    => '_um_register_secondary_btn_word',
 				'type'		    => 'text',
-				'label'    		=> __( 'Primary Button Text', 'ultimatemember' ),
-				'tooltip'    	=> __( 'Customize the button text', 'ultimatemember' ),
+				'label'    		=> __( 'Primary Button Text', 'ultimate-member' ),
+				'tooltip'    	=> __( 'Customize the button text', 'ultimate-member' ),
 				'value' 		=> UM()->query()->get_meta_value( '_um_register_secondary_btn_word', null, um_get_option( 'register_secondary_btn_word' ) ),
 				'conditional'	=> array( '_um_register_secondary_btn', '=', 1 )
 			)

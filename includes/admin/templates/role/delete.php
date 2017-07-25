@@ -10,20 +10,20 @@
                 'id'		    => '_um_after_delete',
                 'type'		    => 'select',
                 'name'		    => '_um_after_delete',
-                'label'    		=> __( 'Action to be taken after account is deleted', 'ultimatemember' ),
-                'tooltip' 	=> __( 'Select what happens when a user with this role deletes their own account', 'ultimatemember' ),
+                'label'    		=> __( 'Action to be taken after account is deleted', 'ultimate-member' ),
+                'tooltip' 	=> __( 'Select what happens when a user with this role deletes their own account', 'ultimate-member' ),
                 'value' 		=> ! empty( $role['_um_after_delete'] ) ? $role['_um_after_delete'] : array(),
                 'options'		=> array(
-                    'redirect_home' => __( 'Go to Homepage', 'ultimatemember' ),
-                    'redirect_url'	=> __( 'Go to Custom URL', 'ultimatemember' ),
+                    'redirect_home' => __( 'Go to Homepage', 'ultimate-member' ),
+                    'redirect_url'	=> __( 'Go to Custom URL', 'ultimate-member' ),
                 )
             ),
             array(
                 'id'		=> '_um_delete_redirect_url',
                 'type'		=> 'text',
                 'name'		=> '_um_delete_redirect_url',
-                'label'    		=> __( 'Set Custom Redirect URL', 'ultimatemember' ),
-                'tooltip' 	=> __( 'Set a url to redirect this user role to after they delete account', 'ultimatemember' ),
+                'label'    		=> __( 'Set Custom Redirect URL', 'ultimate-member' ),
+                'tooltip' 	=> __( 'Set a url to redirect this user role to after they delete account', 'ultimate-member' ),
                 'value' 		=> ! empty( $role['_um_delete_redirect_url'] ) ? $role['_um_delete_redirect_url'] : '',
                 'conditional'	=> array( '_um_after_delete', '=', 'redirect_url' )
             )

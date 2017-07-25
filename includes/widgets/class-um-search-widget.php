@@ -14,10 +14,10 @@ class UM_Search_Widget extends \WP_Widget {
 		'um_search_widget',
 
 		// Widget name will appear in UI
-		__('Ultimate Member - Search', 'ultimatemember'),
+		__('Ultimate Member - Search', 'ultimate-member'),
 
 		// Widget description
-		array( 'description' => __( 'Shows users they follow in a widget.', 'ultimatemember' ), )
+		array( 'description' => __( 'Shows users they follow in a widget.', 'ultimate-member' ), )
 		);
 
 	}
@@ -43,7 +43,7 @@ class UM_Search_Widget extends \WP_Widget {
 		if ( isset( $instance[ 'title' ] ) ) {
 			$title = $instance[ 'title' ];
 		} else {
-			$title = __( 'Search Users', 'ultimatemember' );
+			$title = __( 'Search Users', 'ultimate-member' );
 		}
 
 		if ( isset( $instance[ 'max' ] ) ) {

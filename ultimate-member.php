@@ -6,7 +6,7 @@ Description: The easiest way to create powerful online communities and beautiful
 Version: 2.0.0-alpha1
 Author: Ultimate Member
 Author URI: http://ultimatemember.com/
-Text Domain: ultimatemember
+Text Domain: ultimate-member
 Domain Path: /languages
 */
 
@@ -15,7 +15,7 @@ defined( 'ABSPATH' ) || exit;
 require_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 $plugin_data = get_plugin_data( __FILE__ );
 
-define( 'UM_TEXTDOMAIN', 'ultimatemember' );
+define( 'UM_TEXTDOMAIN', 'ultimate-member' );
 define( 'um_url', plugin_dir_url( __FILE__ ) );
 define( 'um_path', plugin_dir_path( __FILE__ ) );
 define( 'um_plugin', plugin_basename( __FILE__ ) );

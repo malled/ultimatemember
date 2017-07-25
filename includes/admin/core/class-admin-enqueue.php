@@ -133,8 +133,8 @@ if ( ! class_exists( 'Admin_Enqueue' ) ) {
 
             $localize_data = array(
                 'texts' => array(
-                    'remove' => __( 'Remove', 'ultimatemember' ),
-                    'select' => __( 'Select', 'ultimatemember' )
+                    'remove' => __( 'Remove', 'ultimate-member' ),
+                    'select' => __( 'Select', 'ultimate-member' )
                 )
             );
 
@@ -170,8 +170,8 @@ if ( ! class_exists( 'Admin_Enqueue' ) ) {
 
             $localize_data = array(
                 'texts' => array(
-                    'remove' => __( 'Remove', 'ultimatemember' ),
-                    'select' => __( 'Select', 'ultimatemember' )
+                    'remove' => __( 'Remove', 'ultimate-member' ),
+                    'select' => __( 'Select', 'ultimate-member' )
                 )
             );
 

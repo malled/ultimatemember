@@ -102,8 +102,8 @@ if ( ! class_exists( 'Admin_Builder' ) ) {
 
                     <!-- Master Row Actions -->
                     <div class="um-admin-drag-row-icons">
-                        <a href="#" class="um-admin-drag-rowsub-add um-admin-tipsy-n" title="<?php _e('Add Row','ultimatemember'); ?>" data-row_action="add_subrow"><i class="um-icon-plus"></i></a>
-                        <a href="#" class="um-admin-drag-row-edit um-admin-tipsy-n" title="<?php _e('Edit Row','ultimatemember'); ?>" data-modal="UM_edit_row" data-modal-size="normal" data-dynamic-content="um_admin_edit_field_popup" data-arg1="row" data-arg2="<?php echo $this->form_id; ?>" data-arg3="_um_row_1"><i class="um-faicon-pencil"></i></a>
+                        <a href="#" class="um-admin-drag-rowsub-add um-admin-tipsy-n" title="<?php _e('Add Row','ultimate-member'); ?>" data-row_action="add_subrow"><i class="um-icon-plus"></i></a>
+                        <a href="#" class="um-admin-drag-row-edit um-admin-tipsy-n" title="<?php _e('Edit Row','ultimate-member'); ?>" data-modal="UM_edit_row" data-modal-size="normal" data-dynamic-content="um_admin_edit_field_popup" data-arg1="row" data-arg2="<?php echo $this->form_id; ?>" data-arg3="_um_row_1"><i class="um-faicon-pencil"></i></a>
                         <span class="um-admin-drag-row-start"><i class="um-icon-arrow-move"></i></span>
                     </div><div class="um-admin-clear"></div>
 
@@ -172,11 +172,11 @@ if ( ! class_exists( 'Admin_Builder' ) ) {
 
                         <!-- Master Row Actions -->
                         <div class="um-admin-drag-row-icons">
-                            <a href="#" class="um-admin-drag-rowsub-add um-admin-tipsy-n" title="<?php _e('Add Row','ultimatemember'); ?>" data-row_action="add_subrow"><i class="um-icon-plus"></i></a>
-                            <a href="#" class="um-admin-drag-row-edit um-admin-tipsy-n" title="<?php _e('Edit Row','ultimatemember'); ?>" data-modal="UM_edit_row" data-modal-size="normal" data-dynamic-content="um_admin_edit_field_popup" data-arg1="row" data-arg2="<?php echo $this->form_id; ?>" data-arg3="<?php echo $row_id; ?>"><i class="um-faicon-pencil"></i></a>
+                            <a href="#" class="um-admin-drag-rowsub-add um-admin-tipsy-n" title="<?php _e('Add Row','ultimate-member'); ?>" data-row_action="add_subrow"><i class="um-icon-plus"></i></a>
+                            <a href="#" class="um-admin-drag-row-edit um-admin-tipsy-n" title="<?php _e('Edit Row','ultimate-member'); ?>" data-modal="UM_edit_row" data-modal-size="normal" data-dynamic-content="um_admin_edit_field_popup" data-arg1="row" data-arg2="<?php echo $this->form_id; ?>" data-arg3="<?php echo $row_id; ?>"><i class="um-faicon-pencil"></i></a>
                             <span class="um-admin-drag-row-start"><i class="um-icon-arrow-move"></i></span>
                             <?php if ( $row_id != '_um_row_1' ) {?>
-                                <a href="#" class="um-admin-tipsy-n" title="<?php _e('Delete Row','ultimatemember'); ?>" data-remove_element="um-admin-drag-row"><i class="um-faicon-trash-o"></i></a>
+                                <a href="#" class="um-admin-tipsy-n" title="<?php _e('Delete Row','ultimate-member'); ?>" data-remove_element="um-admin-drag-row"><i class="um-faicon-trash-o"></i></a>
                             <?php } ?>
                         </div><div class="um-admin-clear"></div>
 
@@ -307,7 +307,7 @@ if ( ! class_exists( 'Admin_Builder' ) ) {
 
         function update_field() {
             if ( ! is_user_logged_in() || ! current_user_can( 'manage_options' ) )
-                die( __('Please login as administrator','ultimatemember') );
+                die( __('Please login as administrator','ultimate-member') );
 
             $output['error'] = null;
 
@@ -374,7 +374,7 @@ if ( ! class_exists( 'Admin_Builder' ) ) {
         function dynamic_modal_content() {
             $metabox = UM()->metabox();
 
-            if ( !is_user_logged_in() || !current_user_can('manage_options') ) die( __('Please login as administrator','ultimatemember') );
+            if ( !is_user_logged_in() || !current_user_can('manage_options') ) die( __('Please login as administrator','ultimate-member') );
 
             extract($_POST);
 
@@ -399,7 +399,7 @@ if ( ! class_exists( 'Admin_Builder' ) ) {
                     ?>
 
                     <div class="um-admin-metabox">
-                        <p class="_icon_search"><input type="text" name="_icon_search" id="_icon_search" value="" placeholder="<?php _e('Search Icons...','ultimatemember'); ?>" /></p>
+                        <p class="_icon_search"><input type="text" name="_icon_search" id="_icon_search" value="" placeholder="<?php _e('Search Icons...','ultimate-member'); ?>" /></p>
                     </div>
 
                     <div class="um-admin-icons">
@@ -418,10 +418,11 @@ if ( ! class_exists( 'Admin_Builder' ) ) {
 
                     ob_start();
                     $form_fields = UM()->query()->get_attr( 'custom_fields', $arg2 );
-                    $form_fields = array_keys( $form_fields );
+                    $form_fields = array_values( array_filter( array_keys( $form_fields ) ) );
+                    //$form_fields = array_keys( $form_fields );
                     ?>
 
-                    <h4><?php _e('Setup New Field','ultimatemember'); ?></h4>
+                    <h4><?php _e('Setup New Field','ultimate-member'); ?></h4>
                     <div class="um-admin-btns">
 
                         <?php
@@ -437,7 +438,7 @@ if ( ! class_exists( 'Admin_Builder' ) ) {
 
                     </div>
 
-                    <h4><?php _e('Predefined Fields','ultimatemember'); ?></h4>
+                    <h4><?php _e('Predefined Fields','ultimate-member'); ?></h4>
                     <div class="um-admin-btns">
 
                         <?php
@@ -448,11 +449,11 @@ if ( ! class_exists( 'Admin_Builder' ) ) {
 
                                     <a href="#" class="button" <?php disabled( in_array( $field_key, $form_fields, true ) ) ?> data-silent_action="um_admin_add_field_from_predefined" data-arg1="<?php echo $field_key; ?>" data-arg2="<?php echo $arg2; ?>"><?php echo um_trim_string( stripslashes( $array['title'] ), 20 ); ?></a>
 
-                                <?php } } } else { echo '<p>' . __('None','ultimatemember') . '</p>'; } ?>
+                                <?php } } } else { echo '<p>' . __('None','ultimate-member') . '</p>'; } ?>
 
                     </div>
 
-                    <h4><?php _e('Custom Fields','ultimatemember'); ?></h4>
+                    <h4><?php _e('Custom Fields','ultimate-member'); ?></h4>
                     <div class="um-admin-btns">
 
                         <?php
@@ -461,9 +462,9 @@ if ( ! class_exists( 'Admin_Builder' ) ) {
 
                                 ?>
 
-                                <a href="#" class="button with-icon" <?php disabled( in_array( $field_key, $form_fields, true ) ) ?> data-silent_action="um_admin_add_field_from_list" data-arg1="<?php echo $field_key; ?>" data-arg2="<?php echo $arg2; ?>"><?php echo um_trim_string( stripslashes( $array['title'] ), 20 ); ?><span class="remove"></span></a>
+                                <a href="#" class="button with-icon" <?php disabled( in_array( $field_key, $form_fields, true ) ) ?> data-silent_action="um_admin_add_field_from_list" data-arg1="<?php echo $field_key; ?>" data-arg2="<?php echo $arg2; ?>"><?php echo um_trim_string( stripslashes( $array['title'] ), 20 ); ?> <small>(<?php echo ucfirst( $array['type']); ?>)</small><span class="remove"></span></a>
 
-                            <?php } } else { echo '<p>' . __('You did not create any custom fields', 'ultimatemember') . '</p>'; } ?>
+                            <?php } } else { echo '<p>' . __('You did not create any custom fields', 'ultimate-member') . '</p>'; } ?>
 
                     </div>
 
@@ -497,7 +498,7 @@ if ( ! class_exists( 'Admin_Builder' ) ) {
 
                     if ( !isset( $col1 ) ) {
 
-                        echo '<p>'. __('This field type is not setup correcty.', 'ultimatemember') . '</p>';
+                        echo '<p>'. __('This field type is not setup correcty.', 'ultimate-member') . '</p>';
 
                     } else {
 
@@ -565,7 +566,7 @@ if ( ! class_exists( 'Admin_Builder' ) ) {
 
                     if ( !isset( $col1 ) ) {
 
-                        echo '<p>'. __('This field type is not setup correcty.', 'ultimatemember') . '</p>';
+                        echo '<p>'. __('This field type is not setup correcty.', 'ultimate-member') . '</p>';
 
                     } else {
 
@@ -657,7 +658,7 @@ if ( ! class_exists( 'Admin_Builder' ) ) {
             $arr_options = array();
 
             if( ! current_user_can('manage_options') ){
-                wp_die( __( 'This is not possible for security reasons.','ultimatemember') );
+                wp_die( __( 'This is not possible for security reasons.','ultimate-member') );
             }
 
             $um_callback_func = $_POST['um_option_callback'];

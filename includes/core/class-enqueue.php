@@ -126,7 +126,7 @@ if ( ! class_exists( 'Enqueue' ) ) {
                 wp_enqueue_script('um_datetime_locale');
             }
 
-            if(is_object($post) && has_shortcode($post->post_content,'ultimatemember')) {
+            if(is_object($post) && has_shortcode($post->post_content,'ultimate-member')) {
                 wp_dequeue_script('jquery-form');
             }
 

@@ -245,6 +245,8 @@ if ( ! class_exists( 'Files' ) ) {
             } else if ($info['mime'] == 'image/png'){
 
                 $image = imagecreatefrompng( $source );
+                imagealphablending( $image, false );
+                imagesavealpha( $image, true );
 
             }
 
@@ -417,7 +419,7 @@ if ( ! class_exists( 'Files' ) ) {
             if ( $data == null ) {
                 $data = apply_filters("um_custom_image_handle_{$field}", '' );
                 if ( !$data  ) {
-                    $error = __('This media type is not recognized.','ultimatemember');
+                    $error = __('This media type is not recognized.','ultimate-member');
                 }
             }
 
@@ -425,15 +427,15 @@ if ( ! class_exists( 'Files' ) ) {
             $data = apply_filters("um_image_handle_{$field}__option", $data );
 
             if ( $fileinfo['invalid_image'] == true ) {
-                $error = sprintf(__('Your image is invalid or too large!','ultimatemember') );
+                $error = sprintf(__('Your image is invalid or too large!','ultimate-member') );
             } elseif ( isset( $data['allowed_types'] ) && !$this->in_array( $fileinfo['extension'], $data['allowed_types'] ) ) {
                 $error = ( isset( $data['extension_error'] ) && !empty( $data['extension_error'] ) ) ? $data['extension_error'] : 'not allowed';
             } elseif ( isset($data['min_size']) && ( $fileinfo['size'] < $data['min_size'] ) ) {
                 $error = $data['min_size_error'];
             } elseif ( isset($data['min_width']) && ( $fileinfo['width'] < $data['min_width'] ) ) {
-                $error = sprintf(__('Your photo is too small. It must be at least %spx wide.','ultimatemember'), $data['min_width']);
+                $error = sprintf(__('Your photo is too small. It must be at least %spx wide.','ultimate-member'), $data['min_width']);
             } elseif ( isset($data['min_height']) && ( $fileinfo['height'] < $data['min_height'] ) ) {
-                $error = sprintf(__('Your photo is too small. It must be at least %spx wide.','ultimatemember'), $data['min_height']);
+                $error = sprintf(__('Your photo is too small. It must be at least %spx wide.','ultimate-member'), $data['min_height']);
             }
 
             return $error;
@@ -484,7 +486,7 @@ if ( ! class_exists( 'Files' ) ) {
                 unlink( $is_temp );
                 rmdir( dirname( $is_temp ) );
             } else {
-                wp_die( __('Ultimate Member: Not a valid temp file','ultimatemember') );
+                wp_die( __('Ultimate Member: Not a valid temp file','ultimate-member') );
             }
         }
 
@@ -574,7 +576,7 @@ if ( ! class_exists( 'Files' ) ) {
         function new_user_upload( $user_id, $source, $key ) {
 
             if( ! is_numeric( $user_id ) ){
-                wp_die( __("Invalid user ID: ".json_encode( $user_id )." ",'ultimatemember') );
+                wp_die( __("Invalid user ID: ".json_encode( $user_id )." ",'ultimate-member') );
             }
 
             $user_id = trim( $user_id );
@@ -583,13 +585,13 @@ if ( ! class_exists( 'Files' ) ) {
             $this->new_user( $user_id );
 
             if ( is_user_logged_in() && ( get_current_user_id() != $user_id ) && ! UM()->roles()->um_user_can( 'can_edit_everyone' ) ) {
-                wp_die( __( 'Unauthorized to do this attempt.', 'ultimatemember' ) );
+                wp_die( __( 'Unauthorized to do this attempt.', 'ultimate-member' ) );
             }
 
             $allow_frontend_image_uploads = apply_filters('um_allow_frontend_image_uploads', false, $user_id, $key );
 
             if ( $allow_frontend_image_uploads == false && !is_user_logged_in() && ( $key == 'profile_photo' || $key == 'cover_photo' ) ) {
-                wp_die( __('Unauthorized to do this attempt.','ultimatemember') );
+                wp_die( __('Unauthorized to do this attempt.','ultimate-member') );
             }
 
             $ext = '.' . pathinfo($source, PATHINFO_EXTENSION);

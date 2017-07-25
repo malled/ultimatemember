@@ -149,9 +149,11 @@ if ( ! class_exists( 'Rewrite' ) ) {
                             $user_id = $the_user->ID;
                         }
 
-                        if( !$user_id ){
+                        if ( ! $user_id )
+                            $user_id = UM()->user()->user_exists_by_email_as_username( um_queried_user() );
+
+                        if ( ! $user_id )
                             $user_id = UM()->user()->user_exists_by_email_as_username( $slug );
-                        }
 
                     }
 

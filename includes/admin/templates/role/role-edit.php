@@ -31,7 +31,7 @@ if ( ! empty( $_POST['role'] ) ) {
 
     if ( empty( $data['name'] ) ) {
 
-        $error .= __( 'Title is empty!', 'ultimatemember' ) . '<br />';
+        $error .= __( 'Title is empty!', 'ultimate-member' ) . '<br />';
 
     } else {
 
@@ -48,7 +48,7 @@ if ( ! empty( $_POST['role'] ) ) {
     $all_roles = array_keys( get_editable_roles() );
     if ( 'add' == $_GET['tab'] ) {
         if ( in_array( 'um_' . $id, $all_roles ) )
-            $error .= __( 'Role already exists!', 'ultimatemember' ) . '<br />';
+            $error .= __( 'Role already exists!', 'ultimate-member' ) . '<br />';
     }
 
     if ( '' == $error ) {
@@ -80,19 +80,19 @@ $screen_id = $current_screen->id; ?>
 
 <div class="wrap">
     <h2>
-        <?php echo ( 'add' == $_GET['tab'] ) ? __( 'Add New Role', 'ultimatemember' ) : __( 'Edit Role', 'ultimatemember' ) ?>
+        <?php echo ( 'add' == $_GET['tab'] ) ? __( 'Add New Role', 'ultimate-member' ) : __( 'Edit Role', 'ultimate-member' ) ?>
         <?php if ( 'edit' == $_GET['tab'] ) { ?>
-            <a class="add-new-h2" href="<?php echo add_query_arg( array( 'page' => 'um_roles', 'tab' => 'add' ), admin_url( 'admin.php' ) ) ?>"><?php _e( 'Add New', 'ultimatemember' ) ?></a>
+            <a class="add-new-h2" href="<?php echo add_query_arg( array( 'page' => 'um_roles', 'tab' => 'add' ), admin_url( 'admin.php' ) ) ?>"><?php _e( 'Add New', 'ultimate-member' ) ?></a>
         <?php } ?>
     </h2>
 
     <?php if ( ! empty( $_GET['msg'] ) ) {
         switch( $_GET['msg'] ) {
             case 'a':
-                echo '<div id="message" class="updated fade"><p>' . __( 'User Role <strong>Added</strong> Successfully.', 'ultimatemember' ) . '</p></div>';
+                echo '<div id="message" class="updated fade"><p>' . __( 'User Role <strong>Added</strong> Successfully.', 'ultimate-member' ) . '</p></div>';
                 break;
             case 'u':
-                echo '<div id="message" class="updated fade"><p>' . __( 'User Role <strong>Updated</strong> Successfully.', 'ultimatemember' ) . '</p></div>';
+                echo '<div id="message" class="updated fade"><p>' . __( 'User Role <strong>Updated</strong> Successfully.', 'ultimate-member' ) . '</p></div>';
                 break;
         }
     }
@@ -117,8 +117,8 @@ $screen_id = $current_screen->id; ?>
                     <div id="titlediv">
                         <div id="titlewrap">
                             <?php if ( 'add' == $_GET['tab'] ) { ?>
-                                <label for="title" class="screen-reader-text"><?php _e( 'Title', 'ultimatemember' ) ?></label>
-                                <span>UM&nbsp;</span><input type="text" name="role[name]" placeholder="<?php _e( 'Enter Title Here', 'ultimatemember' ) ?>" id="title" value="<?php echo isset( $data['name'] ) ? $data['name'] : '' ?>" />
+                                <label for="title" class="screen-reader-text"><?php _e( 'Title', 'ultimate-member' ) ?></label>
+                                <span>UM&nbsp;</span><input type="text" name="role[name]" placeholder="<?php _e( 'Enter Title Here', 'ultimate-member' ) ?>" id="title" value="<?php echo isset( $data['name'] ) ? $data['name'] : '' ?>" />
                             <?php } else { ?>
                                 <input type="hidden" name="role[name]" value="<?php echo isset( $data['name'] ) ? $data['name'] : '' ?>" />
                                 <span style="float: left;width:100%;"><?php if ( ! empty( $data['_um_is_custom'] ) ) { ?>UM&nbsp;<?php } ?><?php echo isset( $data['name'] ) ? $data['name'] : '' ?></span>

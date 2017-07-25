@@ -12,11 +12,11 @@
 		
 		if ( isset( $_REQUEST['uid'] ) ) {
 			if ( is_super_admin( $_REQUEST['uid'] ) )
-				wp_die( __( 'Super administrators can not be modified.','ultimatemember' ) );
+				wp_die( __( 'Super administrators can not be modified.','ultimate-member' ) );
 		}
 
 		if ( isset( $_REQUEST['um_action'] ) && $_REQUEST['um_action'] != "edit" && ! current_user_can( 'edit_users' ) ){
-						wp_die( __( 'You do not have enough permissions to do that.','ultimatemember') );
+						wp_die( __( 'You do not have enough permissions to do that.','ultimate-member') );
 		}
 		
 		if ( isset($_REQUEST['uid'])){
@@ -76,7 +76,7 @@
 				break;
 				
 			case 'um_delete':
-				if ( ! UM()->roles()->um_current_user_can( 'delete', $uid ) ) wp_die( __('You do not have permission to delete this user.','ultimatemember') );
+				if ( ! UM()->roles()->um_current_user_can( 'delete', $uid ) ) wp_die( __('You do not have permission to delete this user.','ultimate-member') );
 				um_fetch_user( $uid );
 				UM()->user()->delete();
 				exit( wp_redirect( UM()->permalinks()->get_current_url( true ) ) );

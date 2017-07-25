@@ -14,10 +14,10 @@
 			array(
 				'id'		    => '_um_profile_metafields',
 				'type'		    => 'multi_selects',
-				'label'    		=> __( 'Field(s) to show in user meta', 'ultimatemember' ),
+				'label'    		=> __( 'Field(s) to show in user meta', 'ultimate-member' ),
 				'value'		=> $_um_search_fields,
 				'options'   => $user_fields,
-				'add_text'		=> __( 'Add New Field', 'ultimatemember' ),
+				'add_text'		=> __( 'Add New Field', 'ultimate-member' ),
 				'show_default_number'	=> 1,
 			)
 		)

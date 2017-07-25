@@ -22,14 +22,14 @@
 		$fields[] = array(
 			'id' => '_um_wpml_user',
 			'type'		    => 'checkbox',
-			'label'    		=> __( 'This is a translation of UM profile page?', 'ultimatemember' ),
+			'label'    		=> __( 'This is a translation of UM profile page?', 'ultimate-member' ),
 			'value' 		=> ! empty( $data['_um_wpml_user'] ) ? $data['_um_wpml_user'] : 0
 		);
 
 		$fields[] = array(
 			'id' => '_um_wpml_account',
 			'type'		    => 'checkbox',
-			'label'    		=> __( 'This is a translation of UM account page?', 'ultimatemember' ),
+			'label'    		=> __( 'This is a translation of UM account page?', 'ultimate-member' ),
 			'value' 		=> ! empty( $data['_um_wpml_account'] ) ? $data['_um_wpml_account'] : 0
 		);
 
@@ -80,7 +80,7 @@
 		
 		$n = array(
 			'post_type' 	  	=> 'um_form',
-			'post_title'		=> sprintf( __( 'Duplicate of %s', 'ultimatemember' ), get_the_title( $post_id ) ),
+			'post_title'		=> sprintf( __( 'Duplicate of %s', 'ultimate-member' ), get_the_title( $post_id ) ),
 			'post_status'		=> 'publish',
 			'post_author'   	=> get_current_user_id(),
 		);
@@ -215,9 +215,9 @@
 	add_filter( "{$prefix}plugin_action_links_" . um_plugin, 'ultimatemember_plugin_links' );
 	function ultimatemember_plugin_links( $links ) {
 
-		$more_links[] = '<a href="http://docs.ultimatemember.com/">' . __('Docs','ultimatemember') . '</a>';
+		$more_links[] = '<a href="http://docs.ultimatemember.com/">' . __('Docs','ultimate-member') . '</a>';
 
-		$more_links[] = '<a href="'.admin_url().'admin.php?page=um_options">' . __('Settings','ultimatemember') . '</a>';
+		$more_links[] = '<a href="'.admin_url().'admin.php?page=um_options">' . __('Settings','ultimate-member') . '</a>';
 
 		$links = $more_links + $links;
 

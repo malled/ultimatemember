@@ -13,15 +13,15 @@
 
 
 		if ( isset( $args['username'] ) && $args['username'] == '' ) {
-			UM()->form()->add_error( 'username',  __('Please enter your username or email','ultimatemember') );
+			UM()->form()->add_error( 'username',  __('Please enter your username or email','ultimate-member') );
 		}
 
 		if ( isset( $args['user_login'] ) && $args['user_login'] == '' ) {
-			UM()->form()->add_error( 'user_login',  __('Please enter your username','ultimatemember') );
+			UM()->form()->add_error( 'user_login',  __('Please enter your username','ultimate-member') );
 		}
 
 		if ( isset( $args['user_email'] ) && $args['user_email'] == '' ) {
-			UM()->form()->add_error( 'user_email',  __('Please enter your email','ultimatemember') );
+			UM()->form()->add_error( 'user_email',  __('Please enter your email','ultimate-member') );
 		}
 
 		if ( isset( $args['username'] ) ) {
@@ -45,13 +45,13 @@
 
 		if ( !username_exists( $user_name ) ) {
 			if ( $is_email ) {
-				UM()->form()->add_error( $field,  __(' Sorry, we can\'t find an account with that email address','ultimatemember') );
+				UM()->form()->add_error( $field,  __(' Sorry, we can\'t find an account with that email address','ultimate-member') );
 			} else {
-				UM()->form()->add_error( $field,  __(' Sorry, we can\'t find an account with that username','ultimatemember') );
+				UM()->form()->add_error( $field,  __(' Sorry, we can\'t find an account with that username','ultimate-member') );
 			}
 		} else {
 			if ( $args['user_password'] == '' ) {
-				UM()->form()->add_error( 'user_password',  __('Please enter your password','ultimatemember') );
+				UM()->form()->add_error( 'user_password',  __('Please enter your password','ultimate-member') );
 			}
 		}
 
@@ -59,7 +59,7 @@
 		if ( $user && wp_check_password( $args['user_password'], $user->data->user_pass, $user->ID) ) {
 			UM()->login()->auth_id = username_exists( $user_name );
 		} else {
-			UM()->form()->add_error( 'user_password',  __('Password is incorrect. Please try again.','ultimatemember') );
+			UM()->form()->add_error( 'user_password',  __('Password is incorrect. Please try again.','ultimate-member') );
 		}
 
 		// add a way for other plugins like wp limit login
@@ -74,12 +74,12 @@
 
 		if ( is_wp_error( $user ) && ! in_array( $user->get_error_code(), $ignore_codes ) ) {
 			
-			UM()->form()->add_error( $user->get_error_code(),  __( $user->get_error_message() ,'ultimatemember') );
+			UM()->form()->add_error( $user->get_error_code(),  __( $user->get_error_message() ,'ultimate-member') );
 		}
 
 		if( is_wp_error( $authenticate_user ) && ! in_array( $authenticate_user->get_error_code(), $ignore_codes ) ){
 
-			UM()->form()->add_error( $authenticate_user->get_error_code(),  __( $authenticate_user->get_error_message() ,'ultimatemember') );
+			UM()->form()->add_error( $authenticate_user->get_error_code(),  __( $authenticate_user->get_error_message() ,'ultimate-member') );
 		
 		}
 
@@ -176,7 +176,7 @@
 		$rememberme = ( isset($args['rememberme']) ) ? 1 : 0;
 		
 		if ( ( um_get_option('deny_admin_frontend_login')   && ! isset( $_GET['provider'] ) ) && strrpos( um_user('wp_roles' ), 'administrator' ) !== FALSE ){
-			wp_die( __('This action has been prevented for security measures.','ultimatemember') );
+			wp_die( __('This action has been prevented for security measures.','ultimate-member') );
 		}
 
 		UM()->user()->auto_login( um_user('ID'), $rememberme );
@@ -252,18 +252,18 @@
 		<div class="um-col-alt">
 
 			<?php if ( isset( $args['show_rememberme'] ) && $args['show_rememberme'] ) {
-					echo UM()->fields()->checkbox('rememberme', __('Keep me signed in','ultimatemember') );
+					echo UM()->fields()->checkbox('rememberme', __('Keep me signed in','ultimate-member') );
 					echo '<div class="um-clear"></div>';
 			} ?>
 
 			<?php if ( isset($args['secondary_btn']) && $args['secondary_btn'] != 0 ) { ?>
 
-			<div class="um-left um-half"><input type="submit" value="<?php echo __( $primary_btn_word,'ultimatemember'); ?>" class="um-button" /></div>
-			<div class="um-right um-half"><a href="<?php echo $secondary_btn_url; ?>" class="um-button um-alt"><?php echo __( $secondary_btn_word,'ultimatemember'); ?></a></div>
+			<div class="um-left um-half"><input type="submit" value="<?php echo __( $primary_btn_word,'ultimate-member'); ?>" class="um-button" id="um-submit-btn" /></div>
+			<div class="um-right um-half"><a href="<?php echo $secondary_btn_url; ?>" class="um-button um-alt"><?php echo __( $secondary_btn_word,'ultimate-member'); ?></a></div>
 
 			<?php } else { ?>
 
-			<div class="um-center"><input type="submit" value="<?php echo __( $args['primary_btn_word'],'ultimatemember'); ?>" class="um-button" /></div>
+			<div class="um-center"><input type="submit" value="<?php echo __( $args['primary_btn_word'],'ultimate-member'); ?>" class="um-button" id="um-submit-btn" /></div>
 
 			<?php } ?>
 
@@ -284,7 +284,7 @@
 		?>
 
 		<div class="um-col-alt-b">
-			<a href="<?php echo um_get_core_page('password-reset'); ?>" class="um-link-alt"><?php _e('Forgot your password?','ultimatemember'); ?></a>
+			<a href="<?php echo um_get_core_page('password-reset'); ?>" class="um-link-alt"><?php _e('Forgot your password?','ultimate-member'); ?></a>
 		</div>
 
 		<?php

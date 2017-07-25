@@ -371,13 +371,13 @@ if ( ! class_exists( 'Admin_Forms' ) ) {
             $value = isset( $field_data['value'] ) ? $field_data['value'] : $default;
             $value_attr = ' value="' . $value . '" ';
 
-            $html = '<a href="#" class="button" data-modal="UM_fonticons" data-modal-size="normal" data-dynamic-content="um_admin_fonticon_selector" data-arg1="" data-arg2="" data-back="">' . __( 'Choose Icon', 'ultimatemember' ) . '</a>
+            $html = '<a href="#" class="button" data-modal="UM_fonticons" data-modal-size="normal" data-dynamic-content="um_admin_fonticon_selector" data-arg1="" data-arg2="" data-back="">' . __( 'Choose Icon', 'ultimate-member' ) . '</a>
                 <span class="um-admin-icon-value">';
 
             if ( ! empty( $value ) ) {
                 $html .= '<i class="' . $value . '"></i>';
             } else {
-                $html .= __( 'No Icon', 'ultimatemember' );
+                $html .= __( 'No Icon', 'ultimate-member' );
             }
 
             $html .= '</span><input type="hidden" ' . $name_attr . ' ' . $id_attr . ' ' . $value_attr . ' />';
@@ -695,7 +695,7 @@ if ( ! class_exists( 'Admin_Forms' ) ) {
 
                     $html .= "<li class=\"um-multi-selects-option-line\"><span class=\"um-field-wrapper\">
                         <select $id_attr $name_attr $class_attr $data_attr>$options</select></span>
-                        <span class=\"um-field-control\"><a href=\"javascript:void(0);\" class=\"um-select-delete\">" . __( 'Remove', 'ultimatemember' ) . "</a></span></li>";
+                        <span class=\"um-field-control\"><a href=\"javascript:void(0);\" class=\"um-select-delete\">" . __( 'Remove', 'ultimate-member' ) . "</a></span></li>";
                 }
             } elseif ( ! empty( $field_data['show_default_number'] ) && is_numeric( $field_data['show_default_number'] ) && $field_data['show_default_number'] > 0 ) {
                 $i = 0;
@@ -709,7 +709,7 @@ if ( ! class_exists( 'Admin_Forms' ) ) {
 
                     $html .= "<li class=\"um-multi-selects-option-line\"><span class=\"um-field-wrapper\">
                         <select $id_attr $name_attr $class_attr $data_attr>$options</select></span>
-                        <span class=\"um-field-control\"><a href=\"javascript:void(0);\" class=\"um-select-delete\">" . __( 'Remove', 'ultimatemember' ) . "</a></span></li>";
+                        <span class=\"um-field-control\"><a href=\"javascript:void(0);\" class=\"um-select-delete\">" . __( 'Remove', 'ultimate-member' ) . "</a></span></li>";
 
                     $i++;
                 }
@@ -808,7 +808,7 @@ if ( ! class_exists( 'Admin_Forms' ) ) {
 
                     $html .= "<li class=\"um-multi-text-option-line {$size}\"><span class=\"um-field-wrapper\">
                         <input type=\"text\" $id_attr $name_attr $class_attr $data_attr value=\"$value\" /></span>
-                        <span class=\"um-field-control\"><a href=\"javascript:void(0);\" class=\"um-text-delete\">" . __( 'Remove', 'ultimatemember' ) . "</a></span></li>";
+                        <span class=\"um-field-control\"><a href=\"javascript:void(0);\" class=\"um-text-delete\">" . __( 'Remove', 'ultimate-member' ) . "</a></span></li>";
                 }
             } elseif ( ! empty( $field_data['show_default_number'] ) && is_numeric( $field_data['show_default_number'] ) && $field_data['show_default_number'] > 0 ) {
                 $i = 0;
@@ -817,7 +817,7 @@ if ( ! class_exists( 'Admin_Forms' ) ) {
 
                     $html .= "<li class=\"um-multi-text-option-line {$size}\"><span class=\"um-field-wrapper\">
                          <input type=\"text\" $id_attr $name_attr $class_attr $data_attr value=\"\" /></span>
-                        <span class=\"um-field-control\"><a href=\"javascript:void(0);\" class=\"um-text-delete\">" . __( 'Remove', 'ultimatemember' ) . "</a></span></li>";
+                        <span class=\"um-field-control\"><a href=\"javascript:void(0);\" class=\"um-text-delete\">" . __( 'Remove', 'ultimate-member' ) . "</a></span></li>";
 
                     $i++;
                 }
@@ -857,7 +857,7 @@ if ( ! class_exists( 'Admin_Forms' ) ) {
             $default = isset( $field_data['default'] ) ? $field_data['default'] : '';
             $value = ! empty( $field_data['value'] ) ? $field_data['value'] : $default;
 
-            $upload_frame_title = ! empty( $field_data['upload_frame_title'] ) ? $field_data['upload_frame_title'] : __( 'Select media', 'ultimatemember' );
+            $upload_frame_title = ! empty( $field_data['upload_frame_title'] ) ? $field_data['upload_frame_title'] : __( 'Select media', 'ultimate-member' );
 
             $image_id = ! empty( $value['id'] ) ? $value['id'] : '';
             $image_width = ! empty( $value['width'] ) ? $value['width'] : '';
@@ -880,8 +880,8 @@ if ( ! class_exists( 'Admin_Forms' ) ) {
                 $html .= '<input type="text" class="um-media-upload-url" readonly value="' . $image_url . '" /><div style="clear:both;"></div>';
             }
 
-            $html .= '<input type="button" class="um-set-image button button-primary" value="' . __( 'Select', 'ultimatemember' ) . '" data-upload_frame="' . $upload_frame_title . '" />
-                    <input type="button" class="um-clear-image button" value="' . __( 'Clear', 'ultimatemember' ) . '" /></div>';
+            $html .= '<input type="button" class="um-set-image button button-primary" value="' . __( 'Select', 'ultimate-member' ) . '" data-upload_frame="' . $upload_frame_title . '" />
+                    <input type="button" class="um-clear-image button" value="' . __( 'Clear', 'ultimate-member' ) . '" /></div>';
 
             return $html;
         }

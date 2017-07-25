@@ -49,12 +49,12 @@ class UM_Emails_List_Table extends WP_List_Table {
 
     function __construct( $args = array() ){
         $args = wp_parse_args( $args, array(
-            'singular'  => __( 'item', 'ultimatemember' ),
-            'plural'    => __( 'items', 'ultimatemember' ),
+            'singular'  => __( 'item', 'ultimate-member' ),
+            'plural'    => __( 'items', 'ultimate-member' ),
             'ajax'      => false
         ) );
 
-        $this->no_items_message = $args['plural'] . ' ' . __( 'not found.', 'ultimatemember' );
+        $this->no_items_message = $args['plural'] . ' ' . __( 'not found.', 'ultimate-member' );
 
         parent::__construct( $args );
 
@@ -145,7 +145,7 @@ class UM_Emails_List_Table extends WP_List_Table {
         if ( $item['recipient'] == 'admin' )
             return um_get_option( 'admin_email' );
         else
-            return __( 'Member', 'ultimatemember' );
+            return __( 'Member', 'ultimate-member' );
     }
 
 
@@ -161,8 +161,8 @@ class UM_Emails_List_Table extends WP_List_Table {
 
 
 $ListTable = new UM_Emails_List_Table( array(
-    'singular'  => __( 'Email Notification', 'ultimatemember' ),
-    'plural'    => __( 'Email Notifications', 'ultimatemember' ),
+    'singular'  => __( 'Email Notification', 'ultimate-member' ),
+    'plural'    => __( 'Email Notifications', 'ultimate-member' ),
     'ajax'      => false
 ));
 
@@ -170,8 +170,8 @@ $per_page   = 20;
 $paged      = $ListTable->get_pagenum();
 
 $ListTable->set_columns( array(
-    'email'         => __( 'Email', 'ultimatemember' ),
-    'recipients'    => __( 'Recipient(s)', 'ultimatemember' ),
+    'email'         => __( 'Email', 'ultimate-member' ),
+    'recipients'    => __( 'Recipient(s)', 'ultimate-member' ),
     'configure'     => '',
 ) );
 
