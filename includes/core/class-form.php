@@ -288,13 +288,13 @@ if ( ! class_exists( 'Form' ) ) {
             $mode = $this->form_type( $post_id );
             $use_globals = get_post_meta( $post_id, "_um_{$mode}_use_globals", true);
 
-            $global_role = um_get_option('default_role'); // Form Global settings
+            $global_role = get_option('default_role'); // Form Global settings
 
-            if( $use_globals == 0 ){ // Non-Global settings
+            if ( $use_globals == 0 ) { // Non-Global settings
                 $role = get_post_meta( $post_id, "_um_{$mode}_role", true );
             }
 
-            if( empty( $role ) ){ // custom role is default, return default role's slug
+            if ( empty( $role ) ) { // custom role is default, return default role's slug
                 $role = $global_role;
             }
 

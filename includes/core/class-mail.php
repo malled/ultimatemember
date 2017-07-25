@@ -91,9 +91,9 @@ if ( ! class_exists( 'Mail' ) ) {
             }
 
 
+            add_filter( 'wp_mail_content_type', array(&$this, 'set_content_type') );
             // HTML e-mail or text
             if ( um_get_option('email_html') && $this->email_template( $template, $args ) ) {
-                add_filter( 'wp_mail_content_type', array(&$this, 'set_content_type') );
                 $this->message = file_get_contents( $this->email_template( $template, $args ) );
             } else {
                 $this->message = um_get_option( $template );
@@ -115,13 +115,15 @@ if ( ! class_exists( 'Mail' ) ) {
          ***	@maybe sending HTML emails
          ***/
         function set_content_type( $content_type ) {
-            if ( $this->force_plain_text == 'forced' )
+            return 'text/html';
+
+            /*if ( $this->force_plain_text == 'forced' )
                 return 'text/plain';
 
-            if ( um_get_option('email_html') )
+            if ( um_get_option( 'email_html' ) )
                 return 'text/html';
 
-            return 'text/plain';
+            return 'text/plain';*/
         }
 
 

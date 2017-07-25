@@ -500,7 +500,7 @@
 						if ( !$v ) $v = __('(empty)','ultimatemember');
 						$output .= "<p><label>$k</label><span>$v</span></p>";
 					} else {
-						$output .= "$k: $v" . "\r\n";
+						$output .= "$k: $v" . "<br />";
 					}
 
 				}

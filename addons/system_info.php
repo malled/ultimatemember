@@ -182,7 +182,7 @@ Password Reset:				<?php echo get_permalink( um_get_option('core_password-reset'
 
 -- UM Users Configuration ---
 
-Default New User Role: 		<?php  echo um_get_option('default_role') . "\n"; ?>
+Default New User Role: 		<?php  echo get_option('default_role') . "\n"; ?>
 Profile Permalink Base:		<?php  echo um_get_option('permalink_base') . "\n"; ?>
 User Display Name:			<?php  echo um_get_option('display_name') . "\n"; ?>
 Force Name to Uppercase:		<?php echo $this->value( um_get_option('force_display_name_capitlized'), 'yesno', true ); ?>
