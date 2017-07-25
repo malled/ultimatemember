@@ -162,8 +162,15 @@ if ( ! class_exists( 'Roles_Capabilities' ) ) {
         function get_role_name( $slug ) {
             $roledata = $this->role_data( $slug );
 
-            if ( empty( $roledata['name'] ) )
-                return false;
+            if ( empty( $roledata['name'] ) ) {
+                global $wp_roles;
+
+                if ( empty( $wp_roles->roles[$slug] ) )
+                    return false;
+                else
+                    return $wp_roles->roles[$slug]['name'];
+            }
+
 
             return $roledata['name'];
         }

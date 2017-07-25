@@ -1105,3 +1105,24 @@ foreach ( $all_taxonomies as $key => $taxonomy ) {
         update_term_meta( $term_id, 'um_content_restriction', $restrict_options );
     }
 }
+
+
+
+//for metadata for all UM forms
+$forms = get_posts( array(
+    'post_type'     => 'um_form',
+    'numberposts'   => -1,
+    'fields'        => 'ids'
+) );
+
+foreach ( $forms as $form_id ) {
+    $form_type = get_post_meta( $form_id, '_um_mode', true );
+
+    if ( ! empty( $form_type ) ) {
+        $use_globals = get_post_meta( $form_id, "_um_{$form_type}_use_globals", true );
+        $use_custom_settings = empty( $use_globals ) ? true : false;
+
+        update_post_meta( $form_id, "_um_{$form_type}_use_custom_settings", $use_custom_settings );
+        delete_post_meta( $form_id, "_um_{$form_type}_use_globals" );
+    }
+}
